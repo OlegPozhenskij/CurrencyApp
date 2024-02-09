@@ -31,7 +31,8 @@ public class CurrencyPair {
     @Setter
     private Currency quotedCurrency;
 
-    public CurrencyPair(Currency baseCurrency, Currency currency, int precision) {
+    public CurrencyPair(long id, Currency baseCurrency, Currency currency, int precision) {
+        this.id = id;
         this.baseCurrency = baseCurrency;
         this.quotedCurrency = currency;
         this.precision = precision;
@@ -66,5 +67,6 @@ public class CurrencyPair {
                 .skip(Math.max(0, exchangeRateHistory.size() - range))
                 .collect(Collectors.toList());
     }
+
 
 }
