@@ -7,10 +7,10 @@ import ru.teamscore.java23.services.StatisticsService;
 
 import java.util.List;
 
-public class CurrencyPareManager {
+public class CurrencyPairManager {
     private final List<CurrencyPair> currencyPairRepository;
 
-    public CurrencyPareManager(List<CurrencyPair> currencyPairRepository) {
+    public CurrencyPairManager(List<CurrencyPair> currencyPairRepository) {
         this.currencyPairRepository = currencyPairRepository;
     }
 
