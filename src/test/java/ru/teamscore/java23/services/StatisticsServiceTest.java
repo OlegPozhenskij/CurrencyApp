@@ -33,8 +33,8 @@ class StatisticsServiceTest {
         CurrencyPair currencyPair = new CurrencyPair(1L,
                 List.of(rate1, rate2),
                 1,
-                new Currency("USD", "States"),
-                new Currency("RUB", "Russia"));
+                Currency.load(1L,"USD", "States"),
+                Currency.load(1L,"RUB", "Russia"));
 
         String startDate = "2024-01-01T03:00:00";
         String endDate = "2024-01-01T10:00:00";
@@ -95,8 +95,8 @@ class StatisticsServiceTest {
         CurrencyPair currencyPair = new CurrencyPair(1L,
                 List.of(rate1, rate2, rate3, rate4, rate5, rate6, rate7, rate8, rate9, rate10),
                 1,
-                new Currency("USD", "States"),
-                new Currency("RUB", "Russia"));
+                Currency.load(1L,"USD", "States"),
+                Currency.load(1L,"RUB", "Russia"));
 
 
         Period period = Period.HOUR;

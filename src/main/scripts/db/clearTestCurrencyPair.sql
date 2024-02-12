@@ -1,0 +1,1 @@
+TRUNCATE TABLE "currencies"."currency_pair" restart IDENTITY CASCADE;

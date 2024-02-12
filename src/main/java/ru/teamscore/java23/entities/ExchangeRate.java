@@ -1,22 +1,29 @@
 package ru.teamscore.java23.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Data
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "exchange_rate", schema = "rates")
 public class ExchangeRate {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "local_date_time")
     private LocalDateTime localDateTime;
 
+    @Column(name = "rate_val")
     private BigDecimal rateVal;
 
-    private CurrencyPair currencypair;
+    @ManyToOne
+    @JoinColumn(name = "currency_pair_id", referencedColumnName = "id")
+    private CurrencyPair currencyPair;
 }

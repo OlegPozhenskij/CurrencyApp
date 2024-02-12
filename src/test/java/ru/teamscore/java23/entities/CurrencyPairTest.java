@@ -20,8 +20,8 @@ class CurrencyPairTest {
                 1L,
                 new ArrayList<>(),
                 2,
-                new Currency("USD", "US Dollar"),
-                new Currency("EUR", "Euro")
+                Currency.load(1L,"USD", "US Dollar"),
+                Currency.load(1L,"EUR", "Euro")
         );
         // Добавим несколько ExchangeRate для тестов
         currencyPair.addExchangeRate(new ExchangeRate(1L, LocalDateTime.of(2024, 1, 1, 0, 0), new BigDecimal("1.1"), currencyPair));

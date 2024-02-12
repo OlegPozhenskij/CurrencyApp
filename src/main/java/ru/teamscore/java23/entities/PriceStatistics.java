@@ -24,7 +24,7 @@ public class PriceStatistics {
     @Getter
     private char direction; // как вычислять (относительно предыдущего?)
 
-    public static PriceStatistics calcStats(List<ExchangeRate> rates, PriceStatistics statistic, LocalDateTime dateTime) {
+    public static PriceStatistics calcStats(List<ExchangeRate> rates, @NonNull PriceStatistics statistic, LocalDateTime dateTime) {
         return new PriceStatistics(
                 dateTime,
                 findOpen(rates),
@@ -35,18 +35,15 @@ public class PriceStatistics {
         );
     }
 
-    private static char chooseDirection(PriceStatistics s, List<ExchangeRate> rates) {
-        if (s != null) {
-            var res = findMax(rates).compareTo(s.close);
-            if (res > 0) {
-                return '+';
-            } else if(res < 0) {
-                return '-';
-            } else {
-                return '=';
-            }
+    private static char chooseDirection(@NonNull PriceStatistics s, List<ExchangeRate> rates) {
+        var res = findMax(rates).compareTo(s.close);
+        if (res > 0) {
+            return '+';
+        } else if(res < 0) {
+            return '-';
+        } else {
+            return '=';
         }
-        return '+';
     }
 
     private static BigDecimal findMin(List<ExchangeRate> rates) {

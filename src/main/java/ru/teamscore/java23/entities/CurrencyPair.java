@@ -1,34 +1,45 @@
 package ru.teamscore.java23.entities;
 
+import jakarta.persistence.*;
 import lombok.*;
+import ru.teamscore.java23.util.CurrencyConverter;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "currency_pair", schema = "сurrencies")
 public class CurrencyPair {
 
     @Getter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Getter
     @Setter
+    @OneToMany(mappedBy = "currencyPair", cascade = CascadeType.ALL)
     private List<ExchangeRate> exchangeRateHistory;
 
     @Getter
     @Setter
+    @Column(name = "precision")
     private int precision;
 
     @Getter
     @Setter
+    @Column(name = "base_currency_short_title")
+    @Convert(converter = CurrencyConverter.class)
     private Currency baseCurrency;
 
     @Getter
     @Setter
+    @Column(name = "quoted_currency_short_title")
+    @Convert(converter = CurrencyConverter.class)
     private Currency quotedCurrency;
 
     public CurrencyPair(long id, Currency baseCurrency, Currency currency, int precision) {
@@ -38,11 +49,11 @@ public class CurrencyPair {
         this.precision = precision;
     }
 
-    public void addExchangeRate(ExchangeRate rate) {
+    public void addExchangeRate(@NonNull ExchangeRate rate) {
         this.exchangeRateHistory.add(rate);
     }
 
-    public boolean deleteExchangeRate(ExchangeRate rate) {
+    public boolean deleteExchangeRate(@NonNull ExchangeRate rate) {
         return this.exchangeRateHistory.remove(rate);
     }
 

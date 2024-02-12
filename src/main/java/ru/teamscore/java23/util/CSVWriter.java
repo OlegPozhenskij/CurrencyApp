@@ -1,4 +1,6 @@
-package ru.teamscore.java23.entities;
+package ru.teamscore.java23.util;
+
+import ru.teamscore.java23.entities.PriceStatistics;
 
 import java.util.List;
 
