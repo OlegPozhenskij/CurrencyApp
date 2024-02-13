@@ -9,34 +9,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "currency_pair", schema = "сurrencies")
+@Table(name = "currency_pair", schema = "currencies")
 public class CurrencyPair {
 
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter
     @Setter
     @OneToMany(mappedBy = "currencyPair", cascade = CascadeType.ALL)
     private List<ExchangeRate> exchangeRateHistory;
 
-    @Getter
     @Setter
     @Column(name = "precision")
     private int precision;
 
-    @Getter
     @Setter
     @Column(name = "base_currency_short_title")
     @Convert(converter = CurrencyConverter.class)
     private Currency baseCurrency;
 
-    @Getter
     @Setter
     @Column(name = "quoted_currency_short_title")
     @Convert(converter = CurrencyConverter.class)

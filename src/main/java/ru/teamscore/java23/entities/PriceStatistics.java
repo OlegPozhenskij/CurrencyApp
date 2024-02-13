@@ -8,20 +8,15 @@ import java.util.Comparator;
 import java.util.List;
 
 
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class PriceStatistics {
-    @Getter
     private LocalDateTime timestamp; // как вычислять это (начало или конец)
-    @Getter
     private BigDecimal open;
-    @Getter
     private BigDecimal close;
-    @Getter
     private BigDecimal max;
-    @Getter
     private BigDecimal min;
-    @Getter
     private char direction; // как вычислять (относительно предыдущего?)
 
     public static PriceStatistics calcStats(List<ExchangeRate> rates, @NonNull PriceStatistics statistic, LocalDateTime dateTime) {

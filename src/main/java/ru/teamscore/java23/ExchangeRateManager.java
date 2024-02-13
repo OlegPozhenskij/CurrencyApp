@@ -11,6 +11,7 @@ public class ExchangeRateManager {
 
     private final EntityManager entityManager;
 
+    //CRUD
     public void saveCurrency(@NonNull ExchangeRate exchangeRate) {
         var transaction = entityManager.getTransaction();
         try {
@@ -25,19 +26,42 @@ public class ExchangeRateManager {
         }
     }
 
-    public void deleteCurrencyPairById(@NonNull ExchangeRate exchangeRate) {
+    public void updateExchangeRate(ExchangeRate exchangeRate) {
         var transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.remove(entityManager.contains(exchangeRate)
-                    ? exchangeRate
-                    : entityManager.merge(exchangeRate));
+            entityManager.merge(exchangeRate);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw e; // DEL ex
+            throw e; // Обработка ошибок при обновлении
         }
+    }
+
+    public void deleteExchangeRateById(long id) {
+        var exchangeRate = entityManager.find(ExchangeRate.class, id);
+        if (exchangeRate != null) {
+            deleteExchangeRate(exchangeRate);
+        }
+    }
+
+    private void deleteExchangeRate(ExchangeRate exchangeRate) {
+        var transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            entityManager.remove(exchangeRate);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            throw e; // Обработка ошибок при удалении
+        }
+    }
+
+    public ExchangeRate getExchangeRateById(long id) {
+        return entityManager.find(ExchangeRate.class, id);
     }
 }

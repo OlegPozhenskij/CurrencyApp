@@ -11,7 +11,7 @@ import java.util.Objects;
 @AllArgsConstructor(staticName = "load")
 @NoArgsConstructor
 @Entity
-@Table(name = "сurrency", schema = "сurrencies")
+@Table(name = "currency", schema = "currencies")
 @NamedQuery(name = "currenciesCount", query = "select count(*) from Currency")
 @NamedQuery(name = "currencyByShortTitle", query = "from Currency c where c.shortTitle = :shortTitle")
 public class Currency {

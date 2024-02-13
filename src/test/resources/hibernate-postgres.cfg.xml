@@ -1,9 +1,9 @@
 <hibernate-configuration xmlns="http://www.hibernate.org/xsd/orm/cfg">
     <session-factory>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost/currencies_test</property>
-        <property name="hibernate.connection.username">currencies_user</property>
-        <property name="hibernate.connection.password">currencies</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5433/currencies_test</property>
+        <property name="hibernate.connection.username">postgres</property>
+        <property name="hibernate.connection.password">1234</property>
         <!-- Print executed SQL to stdout -->
         <property name="show_sql">true</property>
         <!-- Create/update database structure on start -->

@@ -1,5 +1,7 @@
-package ru.teamscore.java23.services;
+package ru.teamscore.java23.statistics;
 
+import jakarta.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
 import ru.teamscore.java23.entities.CurrencyPair;
 import ru.teamscore.java23.entities.PriceStatistics;
 import ru.teamscore.java23.enums.Period;
@@ -11,7 +13,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class StatisticsService {
+
+    private final EntityManager manager;
 
     public static List<PriceStatistics> getStats(CurrencyPair currencyPair, String startDate, String endDate, Period period) {
         //определение стартовой даты и конечной дат 20.09.00:00 - 20.10.00:00

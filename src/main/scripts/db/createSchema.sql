@@ -1,9 +1,15 @@
 CREATE SCHEMA if NOT EXISTS "currencies";
 CREATE SCHEMA if NOT EXISTS "rates";
 
+DROP TABLE IF EXISTS "currencies"."currency" CASCADE;
+DROP TABLE IF EXISTS "currencies"."currency_pair" CASCADE;
+DROP TABLE IF EXISTS "rates"."exchange_rate" CASCADE;
+
+
 CREATE TABLE "currencies"."currency" (
-    "short_title" VARCHAR(5) PRIMARY KEY,
-    "full_title" VARCHAR(20) NOT NULL
+    id BIGINT PRIMARY KEY,
+    short_title VARCHAR(255) NOT NULL UNIQUE,
+    full_title VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE "currencies"."currency_pair" (
@@ -15,7 +21,7 @@ CREATE TABLE "currencies"."currency_pair" (
         REFERENCES "currencies"."currency"("short_title")
         ON DELETE CASCADE,
     FOREIGN KEY ("quoted_currency_short_title")
-        REFERENCES "currencies"."currency"("full_title")
+        REFERENCES "currencies"."currency"("short_title")
         ON DELETE CASCADE
 );
 
