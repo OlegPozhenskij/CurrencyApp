@@ -54,8 +54,8 @@ class CurrencyManagerTest {
     @Test
     public void testSaveCurrency() {
         Currency currency = new Currency();
-        currency.setShortTitle("USD");
-        currency.setFullTitle("United States Dollar");
+        currency.setShortTitle("ASD");
+        currency.setFullTitle("ASolo NA");
 
         currencyManager.saveCurrency(currency);
 
@@ -66,11 +66,7 @@ class CurrencyManagerTest {
 
     @Test
     public void testDeleteCurrency() {
-        Currency currency = new Currency();
-        currency.setShortTitle("USD");
-        currency.setFullTitle("United States Dollar");
-
-        entityManager.persist(currency);
+        Currency currency = Currency.load(1, "USD", "United States Dollar");
 
         currencyManager.deleteCurrencyPair(currency);
 
@@ -102,7 +98,7 @@ class CurrencyManagerTest {
     @Test
     void testCountCurrencies() {
         long count = currencyManager.countCurrencies();
-        assertEquals(3, count);
+        assertEquals(5, count);
     }
 
     @Test

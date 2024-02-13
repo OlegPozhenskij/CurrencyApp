@@ -21,7 +21,7 @@ public class CurrencyPair {
     private Long id;
 
     @Setter
-    @OneToMany(mappedBy = "currencyPair", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "currencyPair")
     private List<ExchangeRate> exchangeRateHistory;
 
     @Setter

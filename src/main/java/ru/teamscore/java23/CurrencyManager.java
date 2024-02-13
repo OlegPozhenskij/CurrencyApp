@@ -14,7 +14,7 @@ public class CurrencyManager {
     private final EntityManager entityManager;
 
     //CRUD
-    public void saveCurrency(@NonNull Currency currency) {
+    public void saveCurrency(Currency currency) {
         var transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -24,7 +24,7 @@ public class CurrencyManager {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw e; // ADD ex
+            throw e;
         }
     }
 

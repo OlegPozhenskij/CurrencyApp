@@ -6,6 +6,7 @@ import lombok.*;
 import java.util.Objects;
 
 
+
 @Getter
 @ToString
 @AllArgsConstructor(staticName = "load")
@@ -17,7 +18,8 @@ import java.util.Objects;
 public class Currency {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "seq", sequenceName = "curr_id_seq", allocationSize = 0)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     private long id;
 
     @Setter
