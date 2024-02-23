@@ -2,7 +2,7 @@ package ru.teamscore.java23.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ru.teamscore.java23.util.CurrencyConverter;
+import ru.teamscore.java23.services.CurrencyConverter;
 
 import java.time.LocalDateTime;
 import java.util.List;

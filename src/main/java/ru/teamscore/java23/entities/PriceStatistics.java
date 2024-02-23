@@ -1,6 +1,7 @@
 package ru.teamscore.java23.entities;
 
 import lombok.*;
+import ru.teamscore.java23.enums.Direction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,32 +13,32 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PriceStatistics {
-    private LocalDateTime timestamp; // как вычислять это (начало или конец)
+    private LocalDateTime timestamp;
     private BigDecimal open;
     private BigDecimal close;
     private BigDecimal max;
     private BigDecimal min;
-    private char direction; // как вычислять (относительно предыдущего?)
+    private Direction direction; // как вычислять (относительно предыдущего?)
 
-    public static PriceStatistics calcStats(List<ExchangeRate> rates, @NonNull PriceStatistics statistic, LocalDateTime dateTime) {
+    public static PriceStatistics calcStats(List<ExchangeRate> rates, @NonNull PriceStatistics prevStatistic, LocalDateTime dateTime) {
         return new PriceStatistics(
                 dateTime,
                 findOpen(rates),
                 findClose(rates),
                 findMax(rates),
                 findMin(rates),
-                chooseDirection(statistic, rates)
+                chooseDirection(prevStatistic, rates)
         );
     }
 
-    private static char chooseDirection(@NonNull PriceStatistics s, List<ExchangeRate> rates) {
-        var res = findMax(rates).compareTo(s.close);
+    private static Direction chooseDirection(@NonNull PriceStatistics prevStatistic, List<ExchangeRate> rates) {
+        var res = findMax(rates).compareTo(prevStatistic.close);
         if (res > 0) {
-            return '+';
+            return Direction.UP;
         } else if(res < 0) {
-            return '-';
+            return Direction.DOWN;
         } else {
-            return '=';
+            return Direction.NONE;
         }
     }
 

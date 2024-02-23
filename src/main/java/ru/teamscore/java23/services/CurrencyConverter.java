@@ -1,4 +1,4 @@
-package ru.teamscore.java23.util;
+package ru.teamscore.java23.services;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.EntityManager;
