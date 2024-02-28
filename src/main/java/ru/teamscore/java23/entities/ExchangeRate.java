@@ -14,7 +14,8 @@ import java.time.LocalDateTime;
 public class ExchangeRate {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "seq", sequenceName = "exchange_rate_id_seq", allocationSize = 0)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     private Long id;
 
     @Column(name = "local_date_time")

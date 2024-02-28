@@ -3,10 +3,11 @@ package ru.teamscore.java23;
 import jakarta.persistence.EntityManager;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import ru.teamscore.java23.entities.Currency;
 import ru.teamscore.java23.entities.CurrencyPair;
-import ru.teamscore.java23.entities.ExchangeRate;
 import ru.teamscore.java23.entities.PriceStatistics;
 import ru.teamscore.java23.enums.Period;
+import ru.teamscore.java23.exceptions.CurrencyNotFoundException;
 import ru.teamscore.java23.statistics.StatisticsService;
 
 import java.time.LocalDateTime;
@@ -17,13 +18,14 @@ import java.util.Optional;
 public class CurrencyPairManager {
 
     private final EntityManager entityManager;
+    private final CurrencyManager currencyManager;
 
 //    CRUD
     public void saveCurrencyPair(@NonNull CurrencyPair currencyPair) {
         var transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.persist(currencyPair);
+            entityManager.merge(currencyPair);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
@@ -68,17 +70,23 @@ public class CurrencyPairManager {
         }
     }
 
-    public List searchCurrencyPairsByCurrencyName(String currencyName) {
-        return entityManager
-                .createNamedQuery("currencyByShortTitle")
-                .setParameter("short_title", currencyName)
-                .getResultList();
+    public CurrencyPair searchCurrencyPairsByCurrencyName(String baseCurrency, String quotedCurrency) {
+        var bc = currencyManager.getCurrencyByShortTitle(baseCurrency);
+        var qc = currencyManager.getCurrencyByShortTitle(quotedCurrency);
+        if (bc != null && qc != null) {
+            return  entityManager.createNamedQuery("currencyPairByShortTitles", CurrencyPair.class)
+                    .setParameter("baseCurrency", bc)
+                    .setParameter("quotedCurrency", qc)
+                    .getSingleResult();
+        }
+        throw new CurrencyNotFoundException("Проблема поиска CurrencyPair, по shortName", baseCurrency, quotedCurrency);
     }
 
+    //Вот тут использую Optional, нужно ли это делать везде.
     public Optional<CurrencyPair> getCurrencyPairByNames(String currMain, String currAdd) {
-        return entityManager.createQuery("SELECT cp FROM CurrencyPair cp WHERE cp.baseCurrency.shortTitle = :currMain AND cp.quotedCurrency.shortTitle = :currAdd", CurrencyPair.class)
-                .setParameter("currMain", currMain)
-                .setParameter("currAdd", currAdd)
+        return entityManager.createQuery("SELECT cp FROM CurrencyPair cp WHERE cp.baseCurrency = :currMain AND cp.quotedCurrency = :currAdd", CurrencyPair.class)
+                .setParameter("currMain", currencyManager.getCurrencyByShortTitle(currMain))
+                .setParameter("currAdd", currencyManager.getCurrencyByShortTitle(currAdd))
                 .getResultList()
                 .stream()
                 .findFirst();
@@ -95,17 +103,17 @@ public class CurrencyPairManager {
                 .getResultList();
     }
 
-
-
     public List<PriceStatistics> getCurrencyStatistics(String currency1, String currency2, int num, String period) {
         return StatisticsService.getStats(
+                entityManager,
                 getCurrencyPairByNames(currency1, currency2).get(),
                 num,
                 Period.valueOf(period));
     }
 
-    public List<PriceStatistics> getCurrencyStatistics(String currency1, String currency2, String startDate, String endDate, String period) {
+    public List<PriceStatistics> getCurrencyStatistics(String currency1, String currency2, LocalDateTime startDate, LocalDateTime endDate, String period) {
         return StatisticsService.getStats(
+                entityManager,
                 getCurrencyPairByNames(currency1, currency2).get(),
                 startDate,
                 endDate,

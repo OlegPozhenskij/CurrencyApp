@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import ru.teamscore.java23.entities.Currency;
 import ru.teamscore.java23.entities.ExchangeRate;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 public class ExchangeRateManager {
 
@@ -16,14 +18,18 @@ public class ExchangeRateManager {
         var transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.persist(exchangeRate);
+            entityManager.merge(exchangeRate);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw e; // ADD ex
+            throw e;
         }
+    }
+
+    public List getAllExchangeRates() {
+        return entityManager.createQuery("SELECT e FROM ExchangeRate e", ExchangeRate.class).getResultList();
     }
 
     public void updateExchangeRate(ExchangeRate exchangeRate) {
@@ -36,7 +42,7 @@ public class ExchangeRateManager {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw e; // Обработка ошибок при обновлении
+            throw e;
         }
     }
 
@@ -57,7 +63,7 @@ public class ExchangeRateManager {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw e; // Обработка ошибок при удалении
+            throw e;
         }
     }
 

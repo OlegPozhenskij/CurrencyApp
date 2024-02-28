@@ -23,66 +23,31 @@ public class StatisticsService {
     public static List<PriceStatistics> getStats(EntityManager entityManager, CurrencyPair currencyPair, LocalDateTime startDate, LocalDateTime endDate, Period period) {
         List<PriceStatistics> stats = new ArrayList<>();
 
-        LocalDateTime speedPeriodOfTime = startDate;
-        LocalDateTime slowPeriodOfTime = startDate;
+        var currentPeriodStart = clockSetup(startDate, period.getChronoUnit());;
 
-        while (!speedPeriodOfTime.isAfter(endDate)) {
-            speedPeriodOfTime = speedPeriodOfTime.plus(1, period.getChronoUnit());
+        while (!currentPeriodStart.isAfter(endDate)) {
+            var currentPeriodEnd = currentPeriodStart.plus(1, period.getChronoUnit());
 
             Query<ExchangeRate> query = (Query<ExchangeRate>) entityManager.createQuery(
                     "SELECT er FROM ExchangeRate er WHERE er.currencyPair = :currencyPair AND er.localDateTime >= :startTime AND er.localDateTime < :endTime",
                     ExchangeRate.class);
             query.setParameter("currencyPair", currencyPair);
-            query.setParameter("startTime", slowPeriodOfTime);
-            query.setParameter("endTime", speedPeriodOfTime);
+            query.setParameter("startTime", currentPeriodStart);
+            query.setParameter("endTime", currentPeriodEnd);
             List<ExchangeRate> exchangeRates = query.getResultList();
 
-            slowPeriodOfTime = slowPeriodOfTime.plus(1, period.getChronoUnit());
+            currentPeriodStart = currentPeriodEnd;
 
             if (!exchangeRates.isEmpty()) {
                 stats.add(PriceStatistics.calcStats(exchangeRates,
                         stats.isEmpty() ? null : stats.get(stats.size() - 1),
-                        speedPeriodOfTime
+                        currentPeriodEnd
                 ));
             }
         }
 
         return stats;
     }
-//    public static List<PriceStatistics> getStats(CurrencyPair currencyPair, String startDate, String endDate, Period period) {
-//        //определение стартовой даты и конечной дат 20.09.00:00 - 20.10.00:00
-//        var startTimeLimit = LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
-//        var endTimeLimit =  LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
-//
-//        //определиться с периодом статистики 1hour
-//        var speedPeiodOfTime = startTimeLimit;
-//        var slowPeiodOfTime = startTimeLimit;
-//
-//        //создадим List<PriceStatistics>, куда будем складывать по объекту статистики.
-//        var stats  = new ArrayList<PriceStatistics>();
-//
-//        do {
-//            //на основе стартовой даты вычислаем ластовую дату и сохраняем в стартовую (Периода 20.09.00:00 + 1hour = 20.09.01:00)
-//            speedPeiodOfTime = speedPeiodOfTime.plus(1, period.getChronoUnit());
-//
-//            //составляем list<exRate> на основе этого промежутка
-//            var exRateList = currencyPair.getExchangeRates(slowPeiodOfTime, speedPeiodOfTime);
-//
-//            slowPeiodOfTime = slowPeiodOfTime.plus(1, period.getChronoUnit());
-//
-//            //отправляем в calcStats(лист, предыдущую статистику(либо null), вычесленую ластовую дату);
-//            //Сохраняем в лист List<PriceStatistics>
-//            if (!exRateList.isEmpty()) {
-//                stats.add(PriceStatistics.calcStats(exRateList,
-//                        stats.isEmpty() ? null : stats.get(stats.size() - 1),
-//                        speedPeiodOfTime
-//                ));
-//            }
-//        }
-//        while (speedPeiodOfTime.isBefore(endTimeLimit) || speedPeiodOfTime.isEqual(endTimeLimit));
-//
-//        return stats.stream().distinct().toList();
-//    }
 
     public static List<PriceStatistics> getStats(EntityManager entityManager, CurrencyPair currencyPair, int numOfPoints, Period period) {
         List<PriceStatistics> stats = new ArrayList<>();
@@ -97,76 +62,30 @@ public class StatisticsService {
 
         if (rates.isEmpty()) { return stats; }
 
-        LocalDateTime fastDate = clockSetup(rates.get(0).getLocalDateTime(), period.getChronoUnit());
-        LocalDateTime slowDate = fastDate;
+        var currentPeriodStart = clockSetup(rates.get(0).getLocalDateTime(), period.getChronoUnit());
 
         do {
-            fastDate = fastDate.minus(1, period.getChronoUnit());
-            LocalDateTime finalFastDate = fastDate;
-            LocalDateTime finalSlowDate = slowDate;
+            var currentPeriodEnd = currentPeriodStart.minus(1, period.getChronoUnit());
 
+            LocalDateTime finalCurrentPeriodStart = currentPeriodStart;
             List<ExchangeRate> exRateList = rates.stream()
-                    .filter(exchangeRate -> exchangeRate.getLocalDateTime().isAfter(finalFastDate))
-                    .filter(exchangeRate -> exchangeRate.getLocalDateTime().isBefore(finalSlowDate) || exchangeRate.getLocalDateTime().isEqual(finalSlowDate))
+                    .filter(exchangeRate -> exchangeRate.getLocalDateTime().isAfter(currentPeriodEnd))
+                    .filter(exchangeRate -> exchangeRate.getLocalDateTime().isBefore(finalCurrentPeriodStart) || exchangeRate.getLocalDateTime().isEqual(finalCurrentPeriodStart))
                     .toList();
 
             if (!exRateList.isEmpty()) {
                 stats.add(PriceStatistics.calcStats(exRateList,
                         stats.isEmpty() ? null : stats.get(stats.size() - 1),
-                        slowDate
+                        currentPeriodStart
                 ));
                 rates.removeAll(exRateList);
             }
-            slowDate = slowDate.minus(1, period.getChronoUnit());
+            currentPeriodStart = currentPeriodEnd;
         }
         while (!rates.isEmpty());
 
-        return stats.stream().distinct().toList();
+        return stats.stream().toList();
     }
-
-//    public static List<PriceStatistics> getStats(CurrencyPair currencyPair, int numOfPoints, Period period) {
-//        //Выбрать кол-во записей exchangeRate 100 (1 запись в минуту) List<exchangeRate>
-//        var rates = currencyPair.getExchangeRates(numOfPoints);
-//
-//        //создадим List<PriceStatistics>, куда будем складывать по объекту статистики.
-//        var stats  = new ArrayList<PriceStatistics>();
-//
-//        //определение стартовой даты, как дата данного момента
-//        var fastDate = clockSetup(LocalDateTime.now(), period.getChronoUnit());
-//        var slowDate = fastDate;
-//
-//        do {
-//            //на основе стартовой даты вычислаем более ранную дату Периода и сохраняем в стартовую (Данный момент(20.09.19:30) - 15 мин = 20.09.19:15)
-//            fastDate = fastDate.minus(1, period.getChronoUnit());
-//            LocalDateTime finalFastDate = fastDate;
-//            LocalDateTime finalSlowDate = slowDate;
-//
-//            //составляем list<exRate> на основе этого промежутка и находим что в этом промежутке 15 записей
-//            var exRateList = rates
-//                    .stream()
-//                    .filter(exchangeRate -> (
-//                            exchangeRate.getLocalDateTime().isAfter(finalFastDate)
-//                    ))
-//                    .filter(exchangeRate -> (
-//                            exchangeRate.getLocalDateTime().isBefore(finalSlowDate) ||
-//                                    exchangeRate.getLocalDateTime().isEqual(finalSlowDate)
-//                    ))
-//                    .toList();
-//
-//            if (!exRateList.isEmpty()) {
-//                stats.add(PriceStatistics.calcStats(exRateList,
-//                        stats.isEmpty() ? null : stats.get(stats.size() - 1),
-//                        slowDate
-//                ));
-//                rates.removeAll(exRateList);
-//            }
-//            slowDate = slowDate.minus(1, period.getChronoUnit());
-//        }
-//        while (!rates.isEmpty());
-//
-//        //дропнули дубликаты
-//        return stats.stream().distinct().toList();
-//    }
 
     private static LocalDateTime clockSetup(LocalDateTime dateTime, ChronoUnit chronoUnit) {
         LocalDate truncatedDate;

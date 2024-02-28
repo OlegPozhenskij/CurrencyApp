@@ -14,10 +14,12 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Entity
 @Table(name = "currency_pair", schema = "currencies")
+@NamedQuery(name = "currencyPairByShortTitles", query = "from CurrencyPair c where c.baseCurrency = :baseCurrency and c.quotedCurrency = :quotedCurrency")
 public class CurrencyPair {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "seq", sequenceName = "currency_pair_id_seq", allocationSize = 0)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     private Long id;
 
     @Setter
@@ -32,11 +34,13 @@ public class CurrencyPair {
     @Column(name = "base_currency_short_title")
     @Convert(converter = CurrencyConverter.class)
     private Currency baseCurrency;
+//    private String baseCurrency;
 
     @Setter
     @Column(name = "quoted_currency_short_title")
     @Convert(converter = CurrencyConverter.class)
     private Currency quotedCurrency;
+//    private String quotedCurrency;
 
     public CurrencyPair(long id, Currency baseCurrency, Currency currency, int precision) {
         this.id = id;
@@ -59,7 +63,7 @@ public class CurrencyPair {
 
     public List<ExchangeRate> getExchangeRates(LocalDateTime start, LocalDateTime end) {
         return this.exchangeRateHistory.stream()
-                .filter(date -> date.getLocalDateTime().isAfter(start) ||   //Можн ещё над этим подумать
+                .filter(date -> date.getLocalDateTime().isAfter(start) ||
                         date.getLocalDateTime().isEqual(start))
                 .filter(date -> date.getLocalDateTime().isBefore(end))
                 .collect(Collectors.toList());
