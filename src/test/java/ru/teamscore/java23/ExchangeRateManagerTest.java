@@ -3,17 +3,14 @@ package ru.teamscore.java23;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.grammars.hql.HqlParser;
 import org.junit.jupiter.api.*;
 import ru.teamscore.java23.entities.Currency;
 import ru.teamscore.java23.entities.CurrencyPair;
 import ru.teamscore.java23.entities.ExchangeRate;
-import ru.teamscore.java23.services.CurrencyConverter;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -66,21 +63,21 @@ class ExchangeRateManagerTest {
 
     @Test
     void searchExchangeRateById() {
-        var exchangeRate = rateManager.getExchangeRateById(2);
+        var exchangeRate = rateManager.getExchangeRateById(1);
         assertNotNull(exchangeRate);
-        assertEquals(BigDecimal.valueOf(0.7523), exchangeRate.getRateVal());
+        assertEquals(BigDecimal.valueOf(0.8524), exchangeRate.getRateVal());
     }
 
     @Test
     void saveExchangeRate() {
-        var exchangeRate = new ExchangeRate(8L,
+        var exchangeRate = new ExchangeRate(
                 LocalDateTime.now(),
                 BigDecimal.valueOf(23.5),
                 currencyPairManager.searchCurrencyPairsByCurrencyName("USD","EUR"));
 
         rateManager.saveCurrency(exchangeRate);
 
-        assertEquals(5, rateManager.getAllExchangeRates().size());
+        assertEquals(3, rateManager.getAllExchangeRates().size());
     }
 
     @Test
@@ -89,6 +86,6 @@ class ExchangeRateManagerTest {
 
         rateManager.deleteExchangeRateById(3);
 
-        assertEquals(3, rateManager.getAllExchangeRates().size());
+        assertEquals(2, rateManager.getAllExchangeRates().size());
     }
 }

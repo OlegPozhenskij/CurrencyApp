@@ -1,5 +1,3 @@
-INSERT INTO "currencies"."currency_pair" (id, precision, base_currency_short_title, quoted_currency_short_title) VALUES
-   (1, 4, 'USD', 'EUR'),
-   (2, 1, 'USD', 'GBP'),
-   (3, 2, 'EUR', 'JPY'),
-   (4, 3, 'EUR', 'CAD');
+INSERT INTO currencies.currency_pair (precision, base_currency_id, quoted_currency_id) VALUES
+(4, 1, 2), -- USD to EUR
+(4, 2, 1); -- EUR to USD

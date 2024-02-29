@@ -17,24 +17,22 @@ class CurrencyPairTest {
     @BeforeEach
     void setUp() {
         currencyPair = new CurrencyPair(
-                1L,
-                new ArrayList<>(),
-                2,
-                Currency.load(1L,"USD", "US Dollar"),
-                Currency.load(1L,"EUR", "Euro")
+                new Currency("USD", "US Dollar"),
+                new Currency("USD", "US Dollar"),
+                2
         );
         // Добавим несколько ExchangeRate для тестов
-        currencyPair.addExchangeRate(new ExchangeRate(1L, LocalDateTime.of(2024, 1, 1, 2, 12), new BigDecimal("1.1"), currencyPair));
-        currencyPair.addExchangeRate(new ExchangeRate(2L, LocalDateTime.of(2024, 1, 2, 23, 6), new BigDecimal("1.2"), currencyPair));
-        currencyPair.addExchangeRate(new ExchangeRate(3L, LocalDateTime.of(2024, 1, 3, 7, 38), new BigDecimal("1.3"), currencyPair));
-        currencyPair.addExchangeRate(new ExchangeRate(4L, LocalDateTime.of(2024, 1, 4, 11, 21), new BigDecimal("1.4"), currencyPair));
-        currencyPair.addExchangeRate(new ExchangeRate(5L, LocalDateTime.of(2024, 1, 5, 18, 1), new BigDecimal("1.5"), currencyPair));
+        currencyPair.addExchangeRate(new ExchangeRate(LocalDateTime.of(2024, 1, 1, 2, 12), new BigDecimal("1.1"), currencyPair));
+        currencyPair.addExchangeRate(new ExchangeRate(LocalDateTime.of(2024, 1, 2, 23, 6), new BigDecimal("1.2"), currencyPair));
+        currencyPair.addExchangeRate(new ExchangeRate(LocalDateTime.of(2024, 1, 3, 7, 38), new BigDecimal("1.3"), currencyPair));
+        currencyPair.addExchangeRate(new ExchangeRate(LocalDateTime.of(2024, 1, 4, 11, 21), new BigDecimal("1.4"), currencyPair));
+        currencyPair.addExchangeRate(new ExchangeRate(LocalDateTime.of(2024, 1, 5, 18, 1), new BigDecimal("1.5"), currencyPair));
     }
 
     @Test
     void addExchangeRate() {
         int initialSize = currencyPair.getExchangeRatesCount();
-        currencyPair.addExchangeRate(new ExchangeRate(null, LocalDateTime.now(), new BigDecimal("1.6"), currencyPair));
+        currencyPair.addExchangeRate(new ExchangeRate(LocalDateTime.now(), new BigDecimal("1.6"), currencyPair));
         assertEquals(initialSize + 1, currencyPair.getExchangeRatesCount());
     }
 

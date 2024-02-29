@@ -52,7 +52,6 @@ public class StatisticsService {
     public static List<PriceStatistics> getStats(EntityManager entityManager, CurrencyPair currencyPair, int numOfPoints, Period period) {
         List<PriceStatistics> stats = new ArrayList<>();
 
-        // Fetch a specified number of recent exchange rates from the database
         Query<ExchangeRate> query = (Query<ExchangeRate>) entityManager.createQuery(
                 "SELECT er FROM ExchangeRate er WHERE er.currencyPair = :currencyPair ORDER BY er.localDateTime DESC",
                 ExchangeRate.class);

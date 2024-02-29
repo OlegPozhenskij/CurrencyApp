@@ -3,13 +3,13 @@ package ru.teamscore.java23.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Objects;
-
+import java.util.Set;
 
 
 @Getter
 @ToString
-@AllArgsConstructor(staticName = "load")
 @NoArgsConstructor
 @Entity
 @Table(name = "currency", schema = "currencies")
@@ -18,8 +18,8 @@ import java.util.Objects;
 public class Currency {
 
     @Id
-    @SequenceGenerator(name = "seq", sequenceName = "currency_id_seq", allocationSize = 0)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
     @Setter
@@ -29,6 +29,17 @@ public class Currency {
     @Setter
     @Column(name = "full_title", nullable = false)
     private String fullTitle;
+
+    @OneToMany(mappedBy = "baseCurrency", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CurrencyPair> baseCurrencyPairs = new HashSet<>();
+
+    @OneToMany(mappedBy = "quotedCurrency", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CurrencyPair> quotedCurrencyPairs = new HashSet<>();
+
+    public Currency(String shortTitle, String fullTitle) {
+        this.shortTitle = shortTitle;
+        this.fullTitle = fullTitle;
+    }
 
     @Override
     public boolean equals(Object o) {

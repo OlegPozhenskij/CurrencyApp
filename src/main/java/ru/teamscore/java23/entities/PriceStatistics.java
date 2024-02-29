@@ -18,7 +18,7 @@ public class PriceStatistics {
     private BigDecimal close;
     private BigDecimal max;
     private BigDecimal min;
-    private Direction direction; // как вычислять (относительно предыдущего?)
+    private Direction direction;
 
     public static PriceStatistics calcStats(List<ExchangeRate> rates, @NonNull PriceStatistics prevStatistic, LocalDateTime dateTime) {
         return new PriceStatistics(

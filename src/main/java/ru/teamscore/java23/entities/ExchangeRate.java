@@ -7,24 +7,29 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "exchange_rate", schema = "rates")
 public class ExchangeRate {
 
     @Id
-    @SequenceGenerator(name = "seq", sequenceName = "exchange_rate_id_seq", allocationSize = 0)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "local_date_time")
     private LocalDateTime localDateTime;
 
-    @Column(name = "rate_val")
+    @Column(name = "rate_val", nullable = false)
     private BigDecimal rateVal;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "currency_pair_id", referencedColumnName = "id")
     private CurrencyPair currencyPair;
+
+    public ExchangeRate(LocalDateTime localDateTime, BigDecimal rateVal, CurrencyPair currencyPair) {
+        this.localDateTime = localDateTime;
+        this.rateVal = rateVal;
+        this.currencyPair = currencyPair;
+    }
 }

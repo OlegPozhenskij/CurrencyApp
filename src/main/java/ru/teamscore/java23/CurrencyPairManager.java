@@ -25,7 +25,15 @@ public class CurrencyPairManager {
         var transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.merge(currencyPair);
+
+            if(!entityManager.contains(currencyPair.getBaseCurrency())
+                    || !entityManager.contains(currencyPair.getQuotedCurrency())) {
+
+                entityManager.merge(currencyPair.getBaseCurrency());
+                entityManager.merge(currencyPair.getQuotedCurrency());
+            }
+
+            entityManager.persist(currencyPair);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
@@ -82,7 +90,6 @@ public class CurrencyPairManager {
         throw new CurrencyNotFoundException("Проблема поиска CurrencyPair, по shortName", baseCurrency, quotedCurrency);
     }
 
-    //Вот тут использую Optional, нужно ли это делать везде.
     public Optional<CurrencyPair> getCurrencyPairByNames(String currMain, String currAdd) {
         return entityManager.createQuery("SELECT cp FROM CurrencyPair cp WHERE cp.baseCurrency = :currMain AND cp.quotedCurrency = :currAdd", CurrencyPair.class)
                 .setParameter("currMain", currencyManager.getCurrencyByShortTitle(currMain))

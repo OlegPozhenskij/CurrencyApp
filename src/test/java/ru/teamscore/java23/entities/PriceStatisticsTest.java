@@ -15,11 +15,11 @@ class PriceStatisticsTest {
     @Test
     void calcStats() {
         List<ExchangeRate> rates = new ArrayList<>();
-        rates.add(new ExchangeRate(1L, LocalDateTime.of(2024, 1, 1, 0, 0), BigDecimal.valueOf(1.1), null));
-        rates.add(new ExchangeRate(2L, LocalDateTime.of(2024, 1, 2, 0, 0), BigDecimal.valueOf(1.2), null));
-        rates.add(new ExchangeRate(3L, LocalDateTime.of(2024, 1, 3, 0, 0), BigDecimal.valueOf(1.3), null));
-        rates.add(new ExchangeRate(4L, LocalDateTime.of(2024, 1, 4, 0, 0), BigDecimal.valueOf(1.4), null));
-        rates.add(new ExchangeRate(5L, LocalDateTime.of(2024, 1, 5, 0, 0), BigDecimal.valueOf(1.5), null));
+        rates.add(new ExchangeRate(LocalDateTime.of(2024, 1, 1, 0, 0), BigDecimal.valueOf(1.1), null));
+        rates.add(new ExchangeRate(LocalDateTime.of(2024, 1, 2, 0, 0), BigDecimal.valueOf(1.2), null));
+        rates.add(new ExchangeRate(LocalDateTime.of(2024, 1, 3, 0, 0), BigDecimal.valueOf(1.3), null));
+        rates.add(new ExchangeRate(LocalDateTime.of(2024, 1, 4, 0, 0), BigDecimal.valueOf(1.4), null));
+        rates.add(new ExchangeRate(LocalDateTime.of(2024, 1, 5, 0, 0), BigDecimal.valueOf(1.5), null));
 
         PriceStatistics prevStats = new PriceStatistics(
                 LocalDateTime.of(2024, 1, 1, 0, 0),

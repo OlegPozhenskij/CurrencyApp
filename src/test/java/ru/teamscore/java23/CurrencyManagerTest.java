@@ -7,6 +7,8 @@ import ru.teamscore.java23.entities.Currency;
 
 
 import org.hibernate.cfg.Configuration;
+import ru.teamscore.java23.entities.CurrencyPair;
+import ru.teamscore.java23.entities.ExchangeRate;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,6 +26,8 @@ class CurrencyManagerTest {
         entityManagerFactory = new Configuration()
                 .configure("hibernate-postgres.cfg.xml")
                 .addAnnotatedClass(Currency.class)
+                .addAnnotatedClass(CurrencyPair.class)
+                .addAnnotatedClass(ExchangeRate.class)
                 .buildSessionFactory();
 
         SqlScripts.runFromFile(entityManagerFactory, "createSchema.sql");
@@ -66,12 +70,10 @@ class CurrencyManagerTest {
 
     @Test
     public void testDeleteCurrency() {
-        Currency currency = Currency.load(1, "USD", "United States Dollar");
+        currencyManager.deleteCurrencyPair(entityManager.find(Currency.class, 1));
 
-        currencyManager.deleteCurrencyPair(currency);
-
-        Currency deletedCurrency = entityManager.find(Currency.class, currency.getId());
-        assertNull(deletedCurrency);
+        assertNull(entityManager.find(Currency.class, 1));
+        assertNotNull(entityManager.find(Currency.class, 2));
     }
 
     @Test
@@ -98,13 +100,13 @@ class CurrencyManagerTest {
     @Test
     void testCountCurrencies() {
         long count = currencyManager.countCurrencies();
-        assertEquals(5, count);
+        assertEquals(3, count);
     }
 
     @Test
     void testGetCurrenciesByNameSubstring() {
         List<Currency> currencies = currencyManager.getCurrenciesByNameSubstring("Dollar");
-        assertNotNull(currencies);
         assertFalse(currencies.isEmpty());
+        assertEquals("USD", currencies.get(0).getShortTitle());
     }
 }

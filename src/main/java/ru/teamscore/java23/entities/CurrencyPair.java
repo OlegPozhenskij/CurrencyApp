@@ -2,15 +2,14 @@ package ru.teamscore.java23.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ru.teamscore.java23.services.CurrencyConverter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "currency_pair", schema = "currencies")
@@ -18,8 +17,8 @@ import java.util.stream.Collectors;
 public class CurrencyPair {
 
     @Id
-    @SequenceGenerator(name = "seq", sequenceName = "currency_pair_id_seq", allocationSize = 0)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Setter
@@ -30,20 +29,16 @@ public class CurrencyPair {
     @Column(name = "precision")
     private int precision;
 
-    @Setter
-    @Column(name = "base_currency_short_title")
-    @Convert(converter = CurrencyConverter.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "base_currency_id", referencedColumnName = "id")
     private Currency baseCurrency;
-//    private String baseCurrency;
 
-    @Setter
-    @Column(name = "quoted_currency_short_title")
-    @Convert(converter = CurrencyConverter.class)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "quoted_currency_id", referencedColumnName = "id")
     private Currency quotedCurrency;
-//    private String quotedCurrency;
 
-    public CurrencyPair(long id, Currency baseCurrency, Currency currency, int precision) {
-        this.id = id;
+    public CurrencyPair(Currency baseCurrency, Currency currency, int precision) {
+        this.exchangeRateHistory = new ArrayList<>();
         this.baseCurrency = baseCurrency;
         this.quotedCurrency = currency;
         this.precision = precision;
