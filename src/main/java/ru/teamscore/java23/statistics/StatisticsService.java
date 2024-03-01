@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import ru.teamscore.java23.entities.CurrencyPair;
 import ru.teamscore.java23.entities.ExchangeRate;
 import ru.teamscore.java23.entities.PriceStatistics;
+import ru.teamscore.java23.enums.DateSide;
 import ru.teamscore.java23.enums.Period;
 import org.hibernate.query.Query;
 
@@ -23,7 +24,7 @@ public class StatisticsService {
     public static List<PriceStatistics> getStats(EntityManager entityManager, CurrencyPair currencyPair, LocalDateTime startDate, LocalDateTime endDate, Period period) {
         List<PriceStatistics> stats = new ArrayList<>();
 
-        var currentPeriodStart = clockSetup(startDate, period.getChronoUnit());;
+        var currentPeriodStart = clockSetup(startDate, period.getChronoUnit(), DateSide.LEFT);
 
         while (!currentPeriodStart.isAfter(endDate)) {
             var currentPeriodEnd = currentPeriodStart.plus(1, period.getChronoUnit());
@@ -61,7 +62,7 @@ public class StatisticsService {
 
         if (rates.isEmpty()) { return stats; }
 
-        var currentPeriodStart = clockSetup(rates.get(0).getLocalDateTime(), period.getChronoUnit());
+        var currentPeriodStart = clockSetup(rates.get(0).getLocalDateTime(), period.getChronoUnit(), DateSide.RIGHT);
 
         do {
             var currentPeriodEnd = currentPeriodStart.minus(1, period.getChronoUnit());
@@ -86,15 +87,19 @@ public class StatisticsService {
         return stats.stream().toList();
     }
 
-    private static LocalDateTime clockSetup(LocalDateTime dateTime, ChronoUnit chronoUnit) {
+    private static LocalDateTime clockSetup(LocalDateTime dateTime, ChronoUnit chronoUnit, DateSide side) {
         LocalDate truncatedDate;
         if (chronoUnit == ChronoUnit.MONTHS || chronoUnit == ChronoUnit.YEARS) {
             truncatedDate = dateTime.toLocalDate().plus(1, chronoUnit)
                     .withDayOfMonth(1);
         } else {
-            return dateTime.truncatedTo(chronoUnit);
+            return (side.equals(DateSide.RIGHT))
+                    ? dateTime.plus(1, chronoUnit).truncatedTo(chronoUnit)
+                    : dateTime.truncatedTo(chronoUnit);
         }
-        return truncatedDate.atStartOfDay();
+        return (side.equals(DateSide.RIGHT))
+                ? truncatedDate.plus(1, chronoUnit).atStartOfDay()
+                : truncatedDate.atStartOfDay();
     }
 
 }

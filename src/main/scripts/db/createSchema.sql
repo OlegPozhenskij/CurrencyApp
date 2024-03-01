@@ -21,12 +21,12 @@ CREATE TABLE currencies.currency_pair (
     FOREIGN KEY (quoted_currency_id) REFERENCES currencies.currency(id) ON DELETE CASCADE
 );
 
-CREATE TABLE "rates"."exchange_rate" (
-	 "id" BIGSERIAL PRIMARY KEY,
-     "local_date_time" TIMESTAMP,
-     "rate_val" DECIMAL(19,4) not null,
-     "currency_pair_id" BIGINT,
-     FOREIGN KEY ("currency_pair_id") REFERENCES "currencies"."currency_pair"("id") on delete restrict
+CREATE TABLE rates.exchange_rate (
+	 id BIGSERIAL PRIMARY KEY,
+     local_date_time TIMESTAMP,
+     rate_val DECIMAL(19,4) NOT NULL,
+     currency_pair_id BIGINT,
+     FOREIGN KEY (currency_pair_id) REFERENCES currencies.currency_pair(id) ON DELETE RESTRICT
 );
 
 

@@ -75,17 +75,15 @@ class ExchangeRateManagerTest {
                 BigDecimal.valueOf(23.5),
                 currencyPairManager.searchCurrencyPairsByCurrencyName("USD","EUR"));
 
-        rateManager.saveCurrency(exchangeRate);
+        rateManager.saveRate(exchangeRate);
 
         assertEquals(3, rateManager.getAllExchangeRates().size());
     }
 
     @Test
     void deleteCurrencyPairById() {
-        CurrencyPair currencyPair = new CurrencyPair();
+        rateManager.deleteExchangeRateById(1);
 
-        rateManager.deleteExchangeRateById(3);
-
-        assertEquals(2, rateManager.getAllExchangeRates().size());
+        assertEquals(1, rateManager.getAllExchangeRates().size());
     }
 }

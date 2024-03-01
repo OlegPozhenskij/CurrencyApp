@@ -14,7 +14,7 @@ public class ExchangeRateManager {
     private final EntityManager entityManager;
 
     //CRUD
-    public void saveCurrency(@NonNull ExchangeRate exchangeRate) {
+    public void saveRate(@NonNull ExchangeRate exchangeRate) {
         var transaction = entityManager.getTransaction();
         try {
             transaction.begin();

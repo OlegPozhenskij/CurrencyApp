@@ -20,7 +20,7 @@ public class PriceStatistics {
     private BigDecimal min;
     private Direction direction;
 
-    public static PriceStatistics calcStats(List<ExchangeRate> rates, @NonNull PriceStatistics prevStatistic, LocalDateTime dateTime) {
+    public static PriceStatistics calcStats(List<ExchangeRate> rates, PriceStatistics prevStatistic, LocalDateTime dateTime) {
         return new PriceStatistics(
                 dateTime,
                 findOpen(rates),
@@ -31,7 +31,11 @@ public class PriceStatistics {
         );
     }
 
-    private static Direction chooseDirection(@NonNull PriceStatistics prevStatistic, List<ExchangeRate> rates) {
+    private static Direction chooseDirection(PriceStatistics prevStatistic, List<ExchangeRate> rates) {
+        if (prevStatistic == null) {
+            return Direction.UP;
+        }
+
         var res = findMax(rates).compareTo(prevStatistic.close);
         if (res > 0) {
             return Direction.UP;

@@ -81,12 +81,6 @@ class CurrencyPairManagerTest {
 
     @Test
     void deleteCurrencyPairById() {
-        CurrencyPair currencyPair = new CurrencyPair(
-                new Currency("USD", "US Dollar"),
-                new Currency("JPY", "Japan"),
-                2
-        );
-
         currencyPairManager.deleteCurrencyPairById(2);
 
         assertEquals(1 ,currencyPairManager.getAllCurrencyPairs().size());
