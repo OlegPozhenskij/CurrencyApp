@@ -7,6 +7,9 @@ import org.junit.jupiter.api.*;
 import ru.teamscore.java23.entities.Currency;
 import ru.teamscore.java23.entities.CurrencyPair;
 import ru.teamscore.java23.entities.ExchangeRate;
+import ru.teamscore.java23.services.CurrencyManager;
+import ru.teamscore.java23.services.CurrencyPairManager;
+import ru.teamscore.java23.services.ExchangeRateManager;
 
 import java.io.IOException;
 import java.math.BigDecimal;

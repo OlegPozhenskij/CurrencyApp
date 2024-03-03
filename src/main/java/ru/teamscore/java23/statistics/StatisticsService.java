@@ -41,7 +41,6 @@ public class StatisticsService {
 
             if (!exchangeRates.isEmpty()) {
                 stats.add(PriceStatistics.calcStats(exchangeRates,
-                        stats.isEmpty() ? null : stats.get(stats.size() - 1),
                         currentPeriodEnd
                 ));
             }
@@ -75,7 +74,6 @@ public class StatisticsService {
 
             if (!exRateList.isEmpty()) {
                 stats.add(PriceStatistics.calcStats(exRateList,
-                        stats.isEmpty() ? null : stats.get(stats.size() - 1),
                         currentPeriodStart
                 ));
                 rates.removeAll(exRateList);

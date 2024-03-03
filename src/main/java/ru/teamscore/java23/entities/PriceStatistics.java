@@ -20,26 +20,26 @@ public class PriceStatistics {
     private BigDecimal min;
     private Direction direction;
 
-    public static PriceStatistics calcStats(List<ExchangeRate> rates, PriceStatistics prevStatistic, LocalDateTime dateTime) {
+    public static PriceStatistics calcStats(List<ExchangeRate> rates, LocalDateTime dateTime) {
+        var open = findOpen(rates);
+        var close = findClose(rates);
+
         return new PriceStatistics(
                 dateTime,
-                findOpen(rates),
-                findClose(rates),
+                open,
+                close,
                 findMax(rates),
                 findMin(rates),
-                chooseDirection(prevStatistic, rates)
+                chooseDirection(open, close)
         );
     }
 
-    private static Direction chooseDirection(PriceStatistics prevStatistic, List<ExchangeRate> rates) {
-        if (prevStatistic == null) {
-            return Direction.UP;
-        }
+    private static Direction chooseDirection(BigDecimal open, BigDecimal close) {
+        if (open == null || close == null) return Direction.NONE;
 
-        var res = findMax(rates).compareTo(prevStatistic.close);
-        if (res > 0) {
+        if (open.doubleValue() < close.doubleValue()) {
             return Direction.UP;
-        } else if(res < 0) {
+        } else if (open.doubleValue() > close.doubleValue()) {
             return Direction.DOWN;
         } else {
             return Direction.NONE;

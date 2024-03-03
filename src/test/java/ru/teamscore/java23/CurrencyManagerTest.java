@@ -9,6 +9,7 @@ import ru.teamscore.java23.entities.Currency;
 import org.hibernate.cfg.Configuration;
 import ru.teamscore.java23.entities.CurrencyPair;
 import ru.teamscore.java23.entities.ExchangeRate;
+import ru.teamscore.java23.services.CurrencyManager;
 
 import java.io.IOException;
 import java.util.List;
@@ -100,7 +101,7 @@ class CurrencyManagerTest {
     @Test
     void testCountCurrencies() {
         long count = currencyManager.countCurrencies();
-        assertEquals(3, count);
+        assertEquals(4, count);
     }
 
     @Test

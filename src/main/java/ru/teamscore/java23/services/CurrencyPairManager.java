@@ -1,9 +1,8 @@
-package ru.teamscore.java23;
+package ru.teamscore.java23.services;
 
 import jakarta.persistence.EntityManager;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import ru.teamscore.java23.entities.Currency;
 import ru.teamscore.java23.entities.CurrencyPair;
 import ru.teamscore.java23.entities.PriceStatistics;
 import ru.teamscore.java23.enums.Period;

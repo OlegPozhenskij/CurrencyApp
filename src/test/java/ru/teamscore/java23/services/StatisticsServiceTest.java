@@ -4,9 +4,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.*;
-import ru.teamscore.java23.CurrencyManager;
-import ru.teamscore.java23.CurrencyPairManager;
-import ru.teamscore.java23.ExchangeRateManager;
 import ru.teamscore.java23.SqlScripts;
 import ru.teamscore.java23.entities.Currency;
 import ru.teamscore.java23.entities.CurrencyPair;
@@ -100,7 +97,7 @@ class StatisticsServiceTest {
         System.out.println(stats);
         assertFalse(stats.isEmpty());
         assertEquals(2, stats.size());
-        assertEquals(Direction.UP, stats.get(1).getDirection());
+        assertEquals(Direction.NONE, stats.get(1).getDirection());
         assertEquals(rate2.getRateVal(), stats.get(1).getMax());
 
     }

@@ -21,16 +21,7 @@ class PriceStatisticsTest {
         rates.add(new ExchangeRate(LocalDateTime.of(2024, 1, 4, 0, 0), BigDecimal.valueOf(1.4), null));
         rates.add(new ExchangeRate(LocalDateTime.of(2024, 1, 5, 0, 0), BigDecimal.valueOf(1.5), null));
 
-        PriceStatistics prevStats = new PriceStatistics(
-                LocalDateTime.of(2024, 1, 1, 0, 0),
-                BigDecimal.valueOf(1.1),
-                BigDecimal.valueOf(1.1),
-                BigDecimal.valueOf(1.1),
-                BigDecimal.valueOf(1.1),
-                Direction.NONE
-        );
-
-        PriceStatistics stats = PriceStatistics.calcStats(rates, prevStats, LocalDateTime.of(2024, 1, 5, 0, 0));
+        PriceStatistics stats = PriceStatistics.calcStats(rates, LocalDateTime.of(2024, 1, 5, 0, 0));
 
         assertEquals(BigDecimal.valueOf(1.1), stats.getOpen());
         assertEquals(BigDecimal.valueOf(1.5), stats.getClose());
