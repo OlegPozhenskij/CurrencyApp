@@ -1,6 +1,7 @@
 package ru.teamscore.java23.entities;
 
 import lombok.*;
+import ru.teamscore.java23.enums.Direction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -8,45 +9,41 @@ import java.util.Comparator;
 import java.util.List;
 
 
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class PriceStatistics {
-    @Getter
-    private LocalDateTime timestamp; // как вычислять это (начало или конец)
-    @Getter
+    private LocalDateTime timestamp;
     private BigDecimal open;
-    @Getter
     private BigDecimal close;
-    @Getter
     private BigDecimal max;
-    @Getter
     private BigDecimal min;
-    @Getter
-    private char direction; // как вычислять (относительно предыдущего?)
+    private Direction direction;
 
-    public static PriceStatistics calcStats(List<ExchangeRate> rates, PriceStatistics statistic, LocalDateTime dateTime) {
+    public static PriceStatistics calcStats(List<ExchangeRate> rates, LocalDateTime dateTime) {
+        var open = findOpen(rates);
+        var close = findClose(rates);
+
         return new PriceStatistics(
                 dateTime,
-                findOpen(rates),
-                findClose(rates),
+                open,
+                close,
                 findMax(rates),
                 findMin(rates),
-                chooseDirection(statistic, rates)
+                chooseDirection(open, close)
         );
     }
 
-    private static char chooseDirection(PriceStatistics s, List<ExchangeRate> rates) {
-        if (s != null) {
-            var res = findMax(rates).compareTo(s.close);
-            if (res > 0) {
-                return '+';
-            } else if(res < 0) {
-                return '-';
-            } else {
-                return '=';
-            }
+    private static Direction chooseDirection(BigDecimal open, BigDecimal close) {
+        if (open == null || close == null) return Direction.NONE;
+
+        if (open.doubleValue() < close.doubleValue()) {
+            return Direction.UP;
+        } else if (open.doubleValue() > close.doubleValue()) {
+            return Direction.DOWN;
+        } else {
+            return Direction.NONE;
         }
-        return '+';
     }
 
     private static BigDecimal findMin(List<ExchangeRate> rates) {

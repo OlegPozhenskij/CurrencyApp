@@ -2,25 +2,27 @@ package ru.teamscore.java23;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.*;
 import ru.teamscore.java23.entities.Currency;
 import ru.teamscore.java23.entities.CurrencyPair;
 import ru.teamscore.java23.entities.ExchangeRate;
-
-import org.hibernate.cfg.Configuration;
 import ru.teamscore.java23.services.CurrencyManager;
 import ru.teamscore.java23.services.CurrencyPairManager;
+import ru.teamscore.java23.services.ExchangeRateManager;
 
 import java.io.IOException;
-import java.util.Optional;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CurrencyPairManagerTest {
+class ExchangeRateManagerTest {
     private static EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
     private CurrencyPairManager currencyPairManager;
     private CurrencyManager currencyManager;
+    private ExchangeRateManager rateManager;
 
     @BeforeAll
     public static void setup() throws IOException {
@@ -38,9 +40,11 @@ class CurrencyPairManagerTest {
     public void openSession() throws IOException {
         SqlScripts.runFromFile(entityManagerFactory, "insertTestCurrencies.sql");
         SqlScripts.runFromFile(entityManagerFactory, "insertTestCurrencyPair.sql");
+        SqlScripts.runFromFile(entityManagerFactory, "insertExchangeRate.sql");
         entityManager = entityManagerFactory.createEntityManager();
         currencyManager = new CurrencyManager(entityManager);
         currencyPairManager = new CurrencyPairManager(entityManager, currencyManager);
+        rateManager = new ExchangeRateManager(entityManager);
     }
 
     @AfterEach
@@ -50,6 +54,7 @@ class CurrencyPairManagerTest {
         }
         SqlScripts.runFromFile(entityManagerFactory, "clearTestCurrencyPair.sql");
         SqlScripts.runFromFile(entityManagerFactory, "clearTestCurrencies.sql");
+        SqlScripts.runFromFile(entityManagerFactory, "clearTestExchangeRate.sql");
     }
 
     @AfterAll
@@ -60,41 +65,28 @@ class CurrencyPairManagerTest {
     }
 
     @Test
-    void searchCurrencyPairsByCurrencyName() {
-        var currencyPair = currencyPairManager.searchCurrencyPairsByCurrencyName("USD","EUR");
-        assertNotNull(currencyPair);
-        assertEquals("USD", currencyPair.getBaseCurrency().getShortTitle());
-        assertEquals("EUR", currencyPair.getQuotedCurrency().getShortTitle());
+    void searchExchangeRateById() {
+        var exchangeRate = rateManager.getExchangeRateById(1);
+        assertNotNull(exchangeRate);
+        assertEquals(BigDecimal.valueOf(0.8524), exchangeRate.getRateVal());
     }
 
     @Test
-    void saveCurrencyPair() {
-        CurrencyPair currencyPair = new CurrencyPair(
-                new Currency("HOS", "Japanese Yen"),
-                new Currency("BIC", "British Pound Sterling"),
-                2
-        );
+    void saveExchangeRate() {
+        var exchangeRate = new ExchangeRate(
+                LocalDateTime.now(),
+                BigDecimal.valueOf(23.5),
+                currencyPairManager.searchCurrencyPairsByCurrencyName("USD","EUR"));
 
-        currencyPairManager.saveCurrencyPair(currencyPair);
+        rateManager.saveRate(exchangeRate);
 
-        assertSame(currencyPair.getBaseCurrency(), currencyPairManager.getCurrencyPairByNames("HOS", "BIC").get().getBaseCurrency());
-        assertSame(currencyPair.getQuotedCurrency(), currencyPairManager.getCurrencyPairByNames("HOS", "BIC").get().getQuotedCurrency());
+        assertEquals(3, rateManager.getAllExchangeRates().size());
     }
 
     @Test
     void deleteCurrencyPairById() {
-        currencyPairManager.deleteCurrencyPairById(2);
+        rateManager.deleteExchangeRateById(1);
 
-        assertEquals(1 ,currencyPairManager.getAllCurrencyPairs().size());
+        assertEquals(1, rateManager.getAllExchangeRates().size());
     }
-
-    @Test
-    void getCurrencyPairByNames() {
-        Optional<CurrencyPair> result = currencyPairManager.getCurrencyPairByNames("USD", "EUR");
-
-        assertNotNull(result);
-        assertEquals("USD", result.get().getBaseCurrency().getShortTitle());
-        assertEquals("EUR", result.get().getQuotedCurrency().getShortTitle());
-    }
-
 }

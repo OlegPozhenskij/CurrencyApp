@@ -17,24 +17,22 @@ class CurrencyPairTest {
     @BeforeEach
     void setUp() {
         currencyPair = new CurrencyPair(
-                1L,
-                new ArrayList<>(),
-                2,
                 new Currency("USD", "US Dollar"),
-                new Currency("EUR", "Euro")
+                new Currency("USD", "US Dollar"),
+                2
         );
         // Добавим несколько ExchangeRate для тестов
-        currencyPair.addExchangeRate(new ExchangeRate(1L, LocalDateTime.of(2024, 1, 1, 0, 0), new BigDecimal("1.1"), currencyPair));
-        currencyPair.addExchangeRate(new ExchangeRate(2L, LocalDateTime.of(2024, 1, 2, 0, 0), new BigDecimal("1.2"), currencyPair));
-        currencyPair.addExchangeRate(new ExchangeRate(3L, LocalDateTime.of(2024, 1, 3, 0, 0), new BigDecimal("1.3"), currencyPair));
-        currencyPair.addExchangeRate(new ExchangeRate(4L, LocalDateTime.of(2024, 1, 4, 0, 0), new BigDecimal("1.4"), currencyPair));
-        currencyPair.addExchangeRate(new ExchangeRate(5L, LocalDateTime.of(2024, 1, 5, 0, 0), new BigDecimal("1.5"), currencyPair));
+        currencyPair.addExchangeRate(new ExchangeRate(LocalDateTime.of(2024, 1, 1, 2, 12), new BigDecimal("1.1"), currencyPair));
+        currencyPair.addExchangeRate(new ExchangeRate(LocalDateTime.of(2024, 1, 2, 23, 6), new BigDecimal("1.2"), currencyPair));
+        currencyPair.addExchangeRate(new ExchangeRate(LocalDateTime.of(2024, 1, 3, 7, 38), new BigDecimal("1.3"), currencyPair));
+        currencyPair.addExchangeRate(new ExchangeRate(LocalDateTime.of(2024, 1, 4, 11, 21), new BigDecimal("1.4"), currencyPair));
+        currencyPair.addExchangeRate(new ExchangeRate(LocalDateTime.of(2024, 1, 5, 18, 1), new BigDecimal("1.5"), currencyPair));
     }
 
     @Test
     void addExchangeRate() {
         int initialSize = currencyPair.getExchangeRatesCount();
-        currencyPair.addExchangeRate(new ExchangeRate(null, LocalDateTime.now(), new BigDecimal("1.6"), currencyPair));
+        currencyPair.addExchangeRate(new ExchangeRate(LocalDateTime.now(), new BigDecimal("1.6"), currencyPair));
         assertEquals(initialSize + 1, currencyPair.getExchangeRatesCount());
     }
 
@@ -51,12 +49,12 @@ class CurrencyPairTest {
         LocalDateTime start = LocalDateTime.of(2024, 1, 2, 0, 0);
         LocalDateTime end = LocalDateTime.of(2024, 1, 4, 0, 0);
         List<ExchangeRate> exchangeRates = currencyPair.getExchangeRates(start, end);
-        assertEquals(3, exchangeRates.size());
+        assertEquals(2, exchangeRates.size());
     }
 
     @Test
-    void getRecentExchangeRates() {
-        List<ExchangeRate> recentRates = currencyPair.getExchangeRates(5);
+    void getLastExchangeRatesInRange() {
+        List<ExchangeRate> recentRates = currencyPair.getLastExchangeRatesInRange(5);
         assertEquals(5, recentRates.size());
     }
 
