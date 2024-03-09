@@ -1,0 +1,241 @@
+/* Общие стили для html и body */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  font-size: 16px; /* Устанавливаем базовый размер шрифта */
+}
+
+/* Контейнер для основного содержимого */
+.body {
+  display: grid;
+  min-height: 100vh;
+}
+
+/* Шапка */
+header {
+  max-height: 80px;
+  text-align: center; /* Выравниваем текст по центру */
+  background-color: #343a40; /* Цвет фона */
+  color: #fff; /* Цвет текста */
+  padding: 1rem 0; /* Внутренние отступы */
+}
+
+/* Основной контент */
+main {
+  background-color: #ffffff;
+}
+
+/* Контейнер для выпадающего меню */
+.rates {
+  text-align: center; /* Выравниваем дочерние элементы по центру */
+}
+
+/* Стили для выпадающего меню */
+.dropdown {
+  display: inline-block;
+  margin-right: 1.5rem; /* Увеличиваем промежуток между элементами */
+}
+
+/* Стили для контейнера с графиком */
+#chart {
+  margin: 0 auto; /* Центрируем по горизонтали */
+  min-width: 75%;
+  min-height: 500px;
+  padding: 0 1.5rem; /* Увеличиваем внутренние отступы */
+}
+
+/* Стили для таблицы */
+table {
+  border-collapse: collapse;
+  width: 80%;
+  margin: 20px auto;
+}
+
+th,
+td {
+  border: 1px solid black;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tbody tr.gray {
+  background-color: rgb(206, 206, 206);
+}
+
+/* Стили для кнопок пагинации */
+.buts {
+  margin-bottom: 20px;
+}
+
+.up-arrow {
+  color: green;
+  font-size: 30px;
+}
+
+.down-arrow {
+  color: red;
+  font-size: 30px;
+}
+
+/* Стили для выпадающего списка выбора валют */
+.select-currency {
+  min-width: 130px;
+  padding: 10px 20px;
+  margin: 10px auto;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+/* Медиа-запрос для устройств с шириной экрана до 960px */
+@media (max-width: 960px) {
+  html,
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
+  .container * {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .dropdown {
+    display: block;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  #chart {
+    min-width: unset;
+    width: 100%;
+    padding: 0;
+  }
+
+  /* Устанавливаем максимальную ширину таблицы и делаем её полностью адаптивной */
+  table {
+    max-width: 100vh;
+    width: auto;
+  }
+
+  /* Уменьшаем размер шрифта для содержимого таблицы на мобильных устройствах */
+  th,
+  td {
+    font-size: 0.8rem;
+  }
+
+  .buts {
+    margin-bottom: 10px;
+  }
+
+  .btn-group .btn {
+    font-size: 0.8rem;
+    margin: 2px;
+    margin-bottom: 20px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .select-currency {
+    min-width: 130px;
+    padding: 10px 20px;
+    margin: 10px auto;
+  }
+}
+
+/* Медиа-запрос для устройств с шириной экрана до 767px */
+@media (max-width: 767px) {
+  html,
+  body {
+    font-size: 14px;
+  }
+
+  header {
+    text-align: center;
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  .container {
+    max-width: 100%;
+  }
+
+  .container * {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .dropdown {
+    display: block;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  #chart {
+    min-width: unset;
+    width: 100%;
+    padding: 0;
+  }
+
+  /* Устанавливаем максимальную ширину таблицы и делаем её полностью адаптивной */
+  table {
+    max-width: 100vh;
+    width: auto;
+  }
+
+  /* Уменьшаем размер шрифта для содержимого таблицы на мобильных устройствах */
+  th,
+  td {
+    font-size: 0.8rem;
+  }
+
+  .buts {
+    margin-bottom: 10px;
+  }
+
+  .btn-group {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .btn-group .btn {
+    font-size: 0.8rem;
+    margin: 2px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 10px;
+  }
+
+  .select-currency {
+    min-width: 130px;
+    padding: 10px 20px;
+    margin: 10px auto;
+  }
+}
+
+/* Стили для числовых ячеек в таблице */
+.td-number {
+  text-align: end;
+}
