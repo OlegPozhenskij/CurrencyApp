@@ -37,7 +37,7 @@
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
       <div class="container-lg">
-        <div class="navbar-brand">Создание валюты</div>
+        <div class="navbar-brand">Создание пары</div>
         <button
           class="navbar-toggler"
           type="button"
@@ -52,12 +52,12 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Валюты</a>
+              <a class="nav-link" aria-current="page" href="../currency/index.html"
+                >Валюты</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../currency_pair/index.html"
-                >Валютные пары</a
-              >
+              <a class="nav-link active" aria-current="page" href="#">Валютные пары</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../exchange_rate/index.html">Обменный курс</a>
@@ -73,7 +73,7 @@
           <div class="row my-3 mt-5">
             <div class="col">
               <label for="shortNameInput" class="form-label"
-                >Сокращенное название валюты</label
+                >Сокращенное название первой валюты</label
               >
               <input
                 type="text"
@@ -83,14 +83,14 @@
               />
             </div>
             <div class="col">
-              <label for="fullNameInput" class="form-label"
-                >Полное название валюты</label
+              <label for="shortNameInput" class="form-label "
+                >Сокращенное название второй валюты</label
               >
               <input
                 type="text"
                 class="form-control"
-                id="fullNameInput"
-                placeholder="United States Dollar"
+                id="shortNameInput"
+                placeholder="EUR"
               />
             </div>
           </div>

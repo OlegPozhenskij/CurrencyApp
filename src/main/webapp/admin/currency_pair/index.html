@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Курсы валют - Админпанель - Валюты</title>
+    <title>Курсы валют - Админпанель - Валютные пары</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -37,7 +37,7 @@
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
       <div class="container-lg">
-        <div class="navbar-brand">Валюта</div>
+        <div class="navbar-brand">Пары</div>
         <button
           class="navbar-toggler"
           type="button"
@@ -52,10 +52,15 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Валюты</a>
+              <a
+                class="nav-link"
+                aria-current="page"
+                href="../currency/index.html"
+                >Валюты</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../currency_pair/index.html"
+              <a class="nav-link active" aria-current="page" href="#"
                 >Валютные пары</a
               >
             </li>
@@ -71,7 +76,7 @@
       <div class="container-lg">
         <div class="m-4">
           <a class="btn btn-primary" href="edit.html">
-            <i class="bi bi-plus-square-fill"></i> Новая валюта
+            <i class="bi bi-plus-square-fill"></i> Новая валютная пара
           </a>
         </div>
         <div class="row my-2">
@@ -83,7 +88,7 @@
               type="text"
               class="form-control"
               id="searchItem"
-              placeholder="Введите часть сокращённого названия валюты"
+              placeholder="Введите часть названия валютной пары"
             />
           </div>
           <div class="col-sm-3">
@@ -101,15 +106,18 @@
               <div
                 class="card-header align-content-center d-flex justify-content-between"
               >
-                <div class="bi-upc">Currency ID: 1</div>
+                <div class="bi-upc">CurrencyPair ID: 1</div>
                 <div title="Status: available">
                   <i class="bi bi-cash text-success"></i>
                 </div>
               </div>
               <div class="card-body d-flex gap-2">
-                <span class="flex-grow-1">Currency: EUR</span>
+                <span class="flex-grow-1">CurrencyPair: EUR/USD</span>
                 <!-- Добавленный контейнер с отступом сверху -->
                 <div class="currency-fullname-first">Euro</div>
+                -
+                <div class="currency-fullname-second">United States Dollar</div>
+                <!-- Replace with full currency name -->
               </div>
               <div class="card-footer d-flex justify-content-end gap-1">
                 <a class="nav-item text-primary" href="edit.html?barcode=1">
@@ -123,15 +131,18 @@
               <div
                 class="card-header align-content-center d-flex justify-content-between"
               >
-                <div class="bi-upc">Currency ID: 2</div>
+                <div class="bi-upc">CurrencyPair ID: 2</div>
                 <div title="Status: available">
                   <i class="bi bi-cash text-success"></i>
                 </div>
               </div>
               <div class="card-body d-flex gap-2">
-                <span class="flex-grow-1">Currency: GBP</span>
+                <span class="flex-grow-1">CurrencyPair: GBP/EUR</span>
                 <!-- Добавленные контейнеры с отступом сверху -->
                 <div class="currency-fullname-first">British Pound</div>
+                -
+                <div class="currency-fullname-second">Euro</div>
+                <!-- Replace with full currency name -->
               </div>
               <div class="card-footer d-flex justify-content-end gap-1">
                 <a class="nav-item text-primary" href="edit.html?barcode=2">
@@ -145,15 +156,68 @@
               <div
                 class="card-header align-content-center d-flex justify-content-between"
               >
-                <div class="bi-upc">Currency ID: 3</div>
+                <div class="bi-upc">CurrencyPair ID: 3</div>
                 <div title="Status: available">
                   <i class="bi bi-cash text-success"></i>
                 </div>
               </div>
               <div class="card-body d-flex gap-2">
-                <span class="flex-grow-1">Currency: USD</span>
+                <span class="flex-grow-1">CurrencyPair: JPY/EUR</span>
+                <!-- Добавленные контейнеры с отступом сверху -->
+                <div class="currency-fullname-first">Japanese Yen</div>
+                -
+                <div class="currency-fullname-second">Euro</div>
+                <!-- Replace with full currency name -->
+              </div>
+              <div class="card-footer d-flex justify-content-end gap-1">
+                <a class="nav-item text-primary" href="edit.html?barcode=2">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card product-card">
+              <div
+                class="card-header align-content-center d-flex justify-content-between"
+              >
+                <div class="bi-upc">CurrencyPair ID: 4</div>
+                <div title="Status: available">
+                  <i class="bi bi-cash text-success"></i>
+                </div>
+              </div>
+              <div class="card-body d-flex gap-2">
+                <span class="flex-grow-1">CurrencyPair: EUR/USD</span>
+                <!-- Добавленные контейнеры с отступом сверху -->
+                <div class="currency-fullname-first">Euro</div>
+                -
+                <div class="currency-fullname-second">United States Dollar</div>
+                <!-- Replace with full currency name -->
+              </div>
+              <div class="card-footer d-flex justify-content-end gap-1">
+                <a class="nav-item text-primary" href="edit.html?barcode=2">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card product-card">
+              <div
+                class="card-header align-content-center d-flex justify-content-between"
+              >
+                <div class="bi-upc">CurrencyPair ID: 5</div>
+                <div title="Status: available">
+                  <i class="bi bi-cash text-success"></i>
+                </div>
+              </div>
+              <div class="card-body d-flex gap-2">
+                <span class="flex-grow-1">Currency: USD/JPY</span>
                 <!-- Добавленные контейнеры с отступом сверху -->
                 <div class="currency-fullname-first">United States Dollar</div>
+                -
+                <div class="currency-fullname-second">Japanese Yen</div>
+                <!-- Replace with full currency name -->
               </div>
               <div class="card-footer d-flex justify-content-end gap-1">
                 <a class="nav-item text-primary" href="edit.html?barcode=2">
