@@ -1,5 +1,6 @@
 package ru.teamscore.java23.controllers;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,6 +57,7 @@ public class StatisticController {
         LocalDateTime dateEnd = LocalDateTime.parse(end, formatter);
 
         List<Map<String, Object>> resultList = new ArrayList<>();
+
 
         List<PriceStatistics> statistics = currencyPairManager.getCurrencyStatistics(currencyFirst, currencyLast, dateStart, dateEnd, period);
 

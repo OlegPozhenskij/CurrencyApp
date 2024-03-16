@@ -11,6 +11,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.context.annotation.RequestScope;
 
 @Configuration
 @EnableTransactionManagement
@@ -36,7 +37,7 @@ public class JpaConfig {
     }
 
     @Bean
-    @PersistenceContext
+    @RequestScope // Установка области видимости запроса
     public EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
         return entityManagerFactory.createEntityManager();
     }
