@@ -21,12 +21,6 @@ import java.util.List;
 @Component
 public class StatisticsService {
 
-//    private final EntityManager manager;
-//
-//    public StatisticsService(@Qualifier("entityManagerFactory") EntityManager manager) {
-//        this.manager = manager;
-//    }
-
     public static List<PriceStatistics> getStats(EntityManager entityManager, CurrencyPair currencyPair, LocalDateTime startDate, LocalDateTime endDate, Period period) {
         List<PriceStatistics> stats = new ArrayList<>();
 

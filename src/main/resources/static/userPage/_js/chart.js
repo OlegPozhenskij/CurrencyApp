@@ -42,5 +42,21 @@ var options = {
   },
 };
 
+function updateChart() {
+// Обновляем данные на графике
+    chart.updateSeries([
+        {
+            name: "EUR/USD",
+            data: mockItems.map((item) => [
+                item.timestamp,
+                item.open,
+                item.max,
+                item.min,
+                item.close,
+            ]),
+        },
+    ]);
+}
+
 var chart = new ApexCharts(document.querySelector("#chart"), options);
 chart.render();
