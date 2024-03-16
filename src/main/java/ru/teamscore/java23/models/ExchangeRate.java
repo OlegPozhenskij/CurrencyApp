@@ -1,4 +1,4 @@
-package ru.teamscore.java23.entities;
+package ru.teamscore.java23.models;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -3,9 +3,10 @@ package ru.teamscore.java23;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.*;
-import ru.teamscore.java23.entities.Currency;
-import ru.teamscore.java23.entities.CurrencyPair;
-import ru.teamscore.java23.entities.ExchangeRate;
+import ru.teamscore.java23.enums.Period;
+import ru.teamscore.java23.models.Currency;
+import ru.teamscore.java23.models.CurrencyPair;
+import ru.teamscore.java23.models.ExchangeRate;
 
 import org.hibernate.cfg.Configuration;
 import ru.teamscore.java23.services.CurrencyManager;
@@ -65,6 +66,7 @@ class CurrencyPairManagerTest {
         assertNotNull(currencyPair);
         assertEquals("USD", currencyPair.getBaseCurrency().getShortTitle());
         assertEquals("EUR", currencyPair.getQuotedCurrency().getShortTitle());
+        System.out.println(Period.valueOf("HOUR"));
     }
 
     @Test

@@ -2,24 +2,30 @@ package ru.teamscore.java23.statistics;
 
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import ru.teamscore.java23.entities.CurrencyPair;
-import ru.teamscore.java23.entities.ExchangeRate;
-import ru.teamscore.java23.entities.PriceStatistics;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+import ru.teamscore.java23.models.CurrencyPair;
+import ru.teamscore.java23.models.ExchangeRate;
+import ru.teamscore.java23.models.PriceStatistics;
 import ru.teamscore.java23.enums.DateSide;
 import ru.teamscore.java23.enums.Period;
 import org.hibernate.query.Query;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-@RequiredArgsConstructor
+@Component
 public class StatisticsService {
 
-    private final EntityManager manager;
+//    private final EntityManager manager;
+//
+//    public StatisticsService(@Qualifier("entityManagerFactory") EntityManager manager) {
+//        this.manager = manager;
+//    }
 
     public static List<PriceStatistics> getStats(EntityManager entityManager, CurrencyPair currencyPair, LocalDateTime startDate, LocalDateTime endDate, Period period) {
         List<PriceStatistics> stats = new ArrayList<>();

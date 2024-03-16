@@ -1,4 +1,4 @@
-package ru.teamscore.java23.entities;
+package ru.teamscore.java23.models;
 
 import org.junit.jupiter.api.Test;
 import ru.teamscore.java23.enums.Direction;

@@ -3,14 +3,17 @@ package ru.teamscore.java23.services;
 import jakarta.persistence.EntityManager;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import ru.teamscore.java23.entities.Currency;
-import ru.teamscore.java23.entities.CurrencyPair;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.teamscore.java23.models.Currency;
 
 import java.util.List;
 
 @RequiredArgsConstructor
+@Component
 public class CurrencyManager {
 
+    @Autowired
     private final EntityManager entityManager;
 
     //CRUD

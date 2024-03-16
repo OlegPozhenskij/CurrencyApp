@@ -3,8 +3,10 @@ package ru.teamscore.java23.services;
 import jakarta.persistence.EntityManager;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import ru.teamscore.java23.entities.CurrencyPair;
-import ru.teamscore.java23.entities.PriceStatistics;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ru.teamscore.java23.models.CurrencyPair;
+import ru.teamscore.java23.models.PriceStatistics;
 import ru.teamscore.java23.enums.Period;
 import ru.teamscore.java23.exceptions.CurrencyNotFoundException;
 import ru.teamscore.java23.statistics.StatisticsService;
@@ -14,9 +16,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Component
 public class CurrencyPairManager {
 
+    @Autowired
     private final EntityManager entityManager;
+
+    @Autowired
     private final CurrencyManager currencyManager;
 
 //    CRUD
