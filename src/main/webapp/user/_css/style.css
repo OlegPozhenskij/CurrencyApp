@@ -37,6 +37,14 @@ main {
   margin-right: 1.5rem; /* Увеличиваем промежуток между элементами */
 }
 
+.page-number-span {
+  border: 1px solid #007bff; /* Add border to the span */
+  padding: 4px 8px; /* Add padding for better appearance */
+  margin-right: 40px; /* Add left margin to create space between the span and buttons */
+  display: flex; /* Use flexbox */
+  align-items: center; /* Center vertically */
+}
+
 /* Стили для контейнера с графиком */
 #chart {
   margin: 0 auto; /* Центрируем по горизонтали */
@@ -74,19 +82,35 @@ tbody tr.gray {
 
 .up-arrow {
   color: green;
-  font-size: 30px;
 }
 
 .down-arrow {
   color: red;
-  font-size: 30px;
+}
+
+.up-arrow,
+.down-arrow,
+.yellow-dash {
+  font-size: 30px; /* Set a fixed font size */
 }
 
 /* Стили для выпадающего списка выбора валют */
-.select-currency {
+.row {
+  display: flex;
+}
+
+td {
+  vertical-align: middle;
+}
+
+button,
+.period-select,
+.select-currency,
+.select-mode,
+.date-fields input {
   min-width: 130px;
   padding: 10px 20px;
-  margin: 10px auto;
+  margin: 10px;
 }
 
 .btn-group {
