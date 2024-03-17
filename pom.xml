@@ -21,34 +21,6 @@
     </properties>
 
     <dependencies>
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework/spring-orm &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework</groupId>-->
-<!--            <artifactId>spring-orm</artifactId>-->
-<!--            <version>6.1.2</version>-->
-<!--        </dependency>-->
-
-<!--        &lt;!&ndash; Hibernate JPA провайдер &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.hibernate</groupId>-->
-<!--            <artifactId>hibernate-core</artifactId>-->
-<!--            <version>5.6.0.Final</version> &lt;!&ndash; Используйте последнюю версию Hibernate &ndash;&gt;-->
-<!--        </dependency>-->
-
-<!--        &lt;!&ndash; JPA API &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>javax.persistence</groupId>-->
-<!--            <artifactId>javax.persistence-api</artifactId>-->
-<!--            <version>2.2</version> &lt;!&ndash; Используйте последнюю версию JPA API &ndash;&gt;-->
-<!--        </dependency>-->
-
-<!--        &lt;!&ndash; Hibernate JPA провайдер для Spring &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.data</groupId>-->
-<!--            <artifactId>spring-data-jpa</artifactId>-->
-<!--            <version>2.6.0</version> &lt;!&ndash; Используйте последнюю версию Spring Data JPA &ndash;&gt;-->
-<!--        </dependency>-->
-
 
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa -->
         <dependency>
@@ -73,7 +45,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
-            <optional>true</optional>
         </dependency>
 
         <dependency>

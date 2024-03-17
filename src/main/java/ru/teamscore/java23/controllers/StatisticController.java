@@ -56,10 +56,11 @@ public class StatisticController {
         LocalDateTime dateStart = LocalDateTime.parse(start, formatter);
         LocalDateTime dateEnd = LocalDateTime.parse(end, formatter);
 
+
         List<Map<String, Object>> resultList = new ArrayList<>();
 
-
         List<PriceStatistics> statistics = currencyPairManager.getCurrencyStatistics(currencyFirst, currencyLast, dateStart, dateEnd, period);
+
 
         // Преобразовываем данные в нужный формат
         for (PriceStatistics stat : statistics) {
