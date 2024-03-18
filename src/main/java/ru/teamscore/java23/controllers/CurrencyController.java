@@ -1,5 +1,6 @@
 package ru.teamscore.java23.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,29 +30,43 @@ public class CurrencyController {
     @Autowired
     private CurrencyManager currencyManager;
 
+    //+
     @GetMapping("admin/currency/index.html")
-    public String showCurrencyIndex(Model model) {
+    public String showCurrencyIndexPage(Model model) {
         List<Currency> currencies = currencyManager.getAllCurrencies();
         model.addAttribute("currencies", currencies);
         return CURRENCY_INDEX_VIEW;
     }
 
-//    TODO при невозможности удалить Currency из-за связи с CurrencyPair, сообщать на фрот
-//    TODO сделать отдельный метод
-    @DeleteMapping("admin/currency/delete")
-    public String deleteCurrencyById(@RequestParam("id") Long currencyId, Model model) {
-        currencyManager.deleteCurrency(currencyManager.getCurrencyById(currencyId));
-        return CURRENCY_INDEX_VIEW;
-    }
-
+    //+
     @GetMapping("admin/currency/edit.html")
-    public String showCurrencyEdit(@RequestParam("id") Long currencyId, Model model) {
-        Currency currency = currencyManager.getCurrencyById(currencyId);
-        model.addAttribute("currency", currency);
+    public String showCurrencyEditPage(@RequestParam(value = "id", required = false) Long currencyId, Model model) {
+        if (currencyId != null) {
+            Currency currency = currencyManager.getCurrencyById(currencyId);
+            if (currency != null) {
+                model.addAttribute("curr", currency);
+            }
+        } else {
+            model.addAttribute("curr", null);
+        }
         return CURRENCY_EDIT_VIEW;
     }
 
+    //+
+    @DeleteMapping("admin/currency/delete")
+    public String deleteCurrencyById(@RequestParam("id") Long currencyId, Model model) {
+        return CURRENCY_INDEX_VIEW;
+    }
 
+    @PostMapping("/admin/currency/save")
+    public String saveOrUpdateCurrency(@ModelAttribute("curr") Currency currency) {
+        if (currency.getId() != null) {
+            currencyManager.updateCurrency(currency);
+        } else {
+            currencyManager.saveCurrency(currency);
+        }
+        return "redirect:/admin/currency/index.html"; // Перенаправляем на страницу списка валют
+    }
 
     @GetMapping("/currency")
     @ResponseBody

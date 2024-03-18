@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" class="h-100">
+<html lang="ru" class="h-100" xmlns:th="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -69,36 +69,26 @@
 
     <main class="flex-shrink-0">
       <div class="container-lg">
-        <form action="index.html">
+        <form th:action="@{/admin/currency/save}" method="post">
+          <input type="hidden" th:if="${curr != null}" th:field="${curr.id}" />
+
           <div class="row my-3 mt-5">
             <div class="col">
-              <label for="shortNameInput" class="form-label"
-                >Сокращенное название валюты</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="shortNameInput"
-                placeholder="USD"
-              />
+              <label for="shortNameInput" class="form-label">Сокращенное название валюты</label>
+              <input type="text" class="form-control" id="shortNameInput"
+                     th:value="${curr != null ? curr.shortTitle : ''}"
+                     name="shortTitle" placeholder="USD"/>
             </div>
             <div class="col">
-              <label for="fullNameInput" class="form-label"
-                >Полное название валюты</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="fullNameInput"
-                placeholder="United States Dollar"
-              />
+              <label for="fullNameInput" class="form-label">Полное название валюты</label>
+              <input type="text" class="form-control" id="fullNameInput"
+                     th:value="${curr != null ? curr.fullTitle : ''}"
+                     name="fullTitle" placeholder="United States Dollar"/>
             </div>
           </div>
           <div class="row my-5">
             <div class="col">
-              <button class="btn btn-primary" type="submit">
-                Сохранить и закрыть
-              </button>
+              <button class="btn btn-primary" type="submit">Сохранить и закрыть</button>
             </div>
           </div>
         </form>

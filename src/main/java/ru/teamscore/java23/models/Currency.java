@@ -17,6 +17,7 @@ import java.util.Set;
 public class Currency {
 
     @Id
+    @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
