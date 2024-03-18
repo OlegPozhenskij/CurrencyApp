@@ -43,6 +43,8 @@ public class StatisticController {
         return "user";
     }
 
+    // TODO Доделать получение кол-ва записей
+
     @GetMapping("/stats")
     @ResponseBody
     public ResponseEntity<List<Map<String, Object>>> showStatisticsList(

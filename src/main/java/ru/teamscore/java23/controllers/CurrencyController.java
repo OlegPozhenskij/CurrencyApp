@@ -62,7 +62,7 @@ public class CurrencyController {
         } else {
             currencyManager.saveCurrency(currency);
         }
-        return CURRENCY_INDEX_VIEW; // Перенаправляем на страницу списка валют
+        return "redirect:/admin/currency/index.html";
     }
 
     @GetMapping("/currency")

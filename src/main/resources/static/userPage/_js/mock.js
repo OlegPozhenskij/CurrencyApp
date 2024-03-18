@@ -24,18 +24,18 @@ document.getElementById("submit-button").addEventListener("click", async functio
         console.error("Ошибка при выполнении запроса:", error);
     }
 });
-
-document.addEventListener("DOMContentLoaded", async function () {
-    try {
-        const response = await fetch(`/stats?&currencyFirst=USD&currencyLast=RUB&start=2018-02-16T23:42:55&end=2026-02-16T23:43:06&period=YEAR`);
-        const data = await response.json();
-        mockItems = data;
-
-        updateChart();
-        updateTable(); // Вызываем функцию обновления таблицы
-
-        console.log("Данные успешно получены:", mockItems);
-    } catch (error) {
-        console.error("Ошибка при выполнении запроса:", error);
-    }
-});
+//
+//document.addEventListener("DOMContentLoaded", async function () {
+//    try {
+//        const response = await fetch(`/stats?&currencyFirst=USD&currencyLast=RUB&start=2018-02-16T23:42:55&end=2026-02-16T23:43:06&period=YEAR`);
+//        const data = await response.json();
+//        mockItems = data;
+//
+//        updateChart();
+//        updateTable(); // Вызываем функцию обновления таблицы
+//
+//        console.log("Данные успешно получены:", mockItems);
+//    } catch (error) {
+//        console.error("Ошибка при выполнении запроса:", error);
+//    }
+//});

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" class="h-100">
+<html lang="ru" class="h-100" xmlns:th="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -74,15 +74,14 @@
 
     <main class="flex-shrink-0">
       <div class="container-lg">
-        <form action="index.html">
+        <form th:action="@{/admin/exchange_rate/save}" method="post">
           <div class="row align-items-end my-3">
             <div class="col">
               <label for="currencyPairSelect" class="form-label"
                 >Валютная пара</label
               >
-              <select class="form-select" id="currencyPairSelect">
-                <option value="eur">EUR</option>
-                <option value="jpy">JPY</option>
+              <select class="form-select" id="currencyPairSelect" name="currencyPairSelect">
+                <option th:each="pair : ${pairs}" th:value="${pair.id}" th:text="${pair.baseCurrency.shortTitle} + '/' + ${pair.quotedCurrency.shortTitle}"></option>
               </select>
             </div>
 
@@ -92,6 +91,7 @@
                 type="datetime-local"
                 class="form-control"
                 id="dateTimeInput"
+                name="dateTimeInput"
                 step="1"
               />
             </div>
@@ -104,6 +104,7 @@
                 type="number"
                 class="form-control"
                 id="exchangeRateInput"
+                name="exchangeRateInput"
                 placeholder="Введите значение с точкой"
                 step="any"
               />
@@ -116,11 +117,6 @@
             </div>
           </div>
         </form>
-        <div class="row">
-          <div class="col">
-            <button class="btn btn-primary">Сохранить и закрыть</button>
-          </div>
-        </div>
       </div>
     </main>
 

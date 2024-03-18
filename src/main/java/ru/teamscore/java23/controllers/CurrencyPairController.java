@@ -70,7 +70,7 @@ public class CurrencyPairController {
         } else {
             currencyPairManager.saveCurrencyPair(cp);
         }
-        return CURRENCY_PAIR_INDEX_VIEW; // Перенаправляем на страницу списка валют
+        return "redirect:/admin/currency_pair/index.html";
     }
 
 }
