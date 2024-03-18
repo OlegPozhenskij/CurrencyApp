@@ -9,7 +9,6 @@ import java.util.Set;
 
 
 @Getter
-@ToString
 @NoArgsConstructor
 @Entity
 @Table(name = "currency", schema = "currencies")
@@ -20,7 +19,7 @@ public class Currency {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Setter
     @Column(name = "short_title", nullable = false, unique = true)
@@ -39,17 +38,5 @@ public class Currency {
     public Currency(String shortTitle, String fullTitle) {
         this.shortTitle = shortTitle;
         this.fullTitle = fullTitle;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Currency currency)) return false;
-        return Objects.equals(id, currency.getId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
     }
 }

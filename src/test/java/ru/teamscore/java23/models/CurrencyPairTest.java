@@ -1,5 +1,6 @@
 package ru.teamscore.java23.models;
 
+import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +16,9 @@ class CurrencyPairTest {
 
     @BeforeEach
     void setUp() {
+//        Currency currency = new Currency("asd", "asdasdads");
+//        currency.getShortTitle()
+
         currencyPair = new CurrencyPair(
                 new Currency("USD", "US Dollar"),
                 new Currency("USD", "US Dollar"),

@@ -71,7 +71,7 @@ class CurrencyManagerTest {
 
     @Test
     public void testDeleteCurrency() {
-        currencyManager.deleteCurrencyPair(entityManager.find(Currency.class, 1));
+        currencyManager.deleteCurrency(entityManager.find(Currency.class, 1));
 
         assertNull(entityManager.find(Currency.class, 1));
         assertNotNull(entityManager.find(Currency.class, 2));

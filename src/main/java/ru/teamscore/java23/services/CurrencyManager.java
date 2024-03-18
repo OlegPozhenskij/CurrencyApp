@@ -45,7 +45,7 @@ public class CurrencyManager {
         }
     }
 
-    public void deleteCurrencyPair(@NonNull Currency currency) {
+    public void deleteCurrency(@NonNull Currency currency) {
         var transaction = entityManager.getTransaction();
         try {
             transaction.begin();
@@ -69,8 +69,7 @@ public class CurrencyManager {
     }
 
     public List<Currency> getAllCurrencies() {
-        return entityManager
-                .createNamedQuery("currenciesCount", Currency.class)
+        return entityManager.createQuery("SELECT c FROM Currency c ", Currency.class)
                 .getResultList();
     }
 

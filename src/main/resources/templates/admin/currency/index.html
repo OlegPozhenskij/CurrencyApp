@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" class="h-100">
+<html lang="ru" class="h-100" xmlns:th="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -60,7 +60,9 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../exchange_rate/index.html">Обменный курс</a>
+              <a class="nav-link" href="../exchange_rate/index.html"
+                >Обменный курс</a
+              >
             </li>
           </ul>
         </div>
@@ -96,88 +98,45 @@
           </div>
         </div>
         <div class="my-3 row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-          <div class="col">
+          <div class="col" th:each="currency : ${currencies}">
             <div class="card product-card">
               <div
                 class="card-header align-content-center d-flex justify-content-between"
               >
-                <div class="bi-upc">Currency ID: 1</div>
+                <div
+                  th:text="'Currency ID: ' + ${currency.id}"
+                  class="bi-upc"
+                ></div>
                 <div title="Status: available">
                   <i class="bi bi-cash text-success"></i>
                 </div>
               </div>
               <div class="card-body d-flex gap-2">
-                <span class="flex-grow-1">Currency: EUR</span>
-                <!-- Добавленный контейнер с отступом сверху -->
-                <div class="currency-fullname-first">Euro</div>
+                <span
+                  class="flex-grow-1"
+                  th:text="'Currency: ' + ${currency.shortTitle}"
+                ></span>
+                <div
+                  class="currency-fullname-first"
+                  th:text="${currency.fullTitle}"
+                ></div>
               </div>
-              <div class="card-footer d-flex justify-content-end gap-1">
-                <a class="nav-item text-primary" href="edit.html?barcode=1">
+              <div
+                class="card-footer d-flex justify-content-between align-items-center gap-1"
+              >
+                <a
+                  th:href="@{'edit.html?id=' + ${currency.id}}"
+                  class="nav-item text-primary"
+                >
                   <i class="bi bi-pencil-square"></i>
                 </a>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card product-card">
-              <div
-                class="card-header align-content-center d-flex justify-content-between"
-              >
-                <div class="bi-upc">Currency ID: 2</div>
-                <div title="Status: available">
-                  <i class="bi bi-cash text-success"></i>
-                </div>
-              </div>
-              <div class="card-body d-flex gap-2">
-                <span class="flex-grow-1">Currency: GBP</span>
-                <!-- Добавленные контейнеры с отступом сверху -->
-                <div class="currency-fullname-first">British Pound</div>
-              </div>
-              <div class="card-footer d-flex justify-content-end gap-1">
-                <a class="nav-item text-primary" href="edit.html?barcode=2">
-                  <i class="bi bi-pencil-square"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card product-card">
-              <div
-                class="card-header align-content-center d-flex justify-content-between"
-              >
-                <div class="bi-upc">Currency ID: 3</div>
-                <div title="Status: available">
-                  <i class="bi bi-cash text-success"></i>
-                </div>
-              </div>
-              <div class="card-body d-flex gap-2">
-                <span class="flex-grow-1">Currency: USD</span>
-                <!-- Добавленные контейнеры с отступом сверху -->
-                <div class="currency-fullname-first">United States Dollar</div>
-              </div>
-              <div class="card-footer d-flex justify-content-end gap-1">
-                <a class="nav-item text-primary" href="edit.html?barcode=2">
-                  <i class="bi bi-pencil-square"></i>
+                <a href="#" th:onclick="'deleteCurrency(' + ${currency.id} + ')'" class="nav-item text-danger delete-currency">
+                  <i class="bi bi-trash"></i>
                 </a>
               </div>
             </div>
           </div>
         </div>
-        <nav aria-label="products-navigation">
-          <ul class="pagination justify-content-end">
-            <li class="page-item">
-              <a class="page-link" href="#?page=0">&laquo;</a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="?page=0">1</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="?page=1">2</a></li>
-            <li class="page-item"><a class="page-link" href="?page=2">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="?page=5">&raquo;</a>
-            </li>
-          </ul>
-        </nav>
       </div>
     </main>
 
@@ -197,5 +156,6 @@
         </div>
       </div>
     </footer>
+    <script src="../../adminPage/_js/CRUDCurrency.js"></script>
   </body>
 </html>
