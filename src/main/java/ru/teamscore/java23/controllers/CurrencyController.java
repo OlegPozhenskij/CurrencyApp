@@ -17,15 +17,11 @@ import java.util.stream.Collectors;
 
 @Controller
 public class CurrencyController {
-
     private static final String CURRENCY_INDEX_VIEW = "admin/currency/index";
     private static final String CURRENCY_EDIT_VIEW = "admin/currency/edit";
 
     @Autowired
     private CurrencyPairManager currencyPairManager;
-
-    @Autowired
-    private ExchangeRateManager exchangeRateManager;
 
     @Autowired
     private CurrencyManager currencyManager;
@@ -54,7 +50,8 @@ public class CurrencyController {
 
     //+
     @DeleteMapping("admin/currency/delete")
-    public String deleteCurrencyById(@RequestParam("id") Long currencyId, Model model) {
+    public String deleteCurrencyById(@RequestParam("id") Long currencyId) {
+        currencyManager.deleteCurrency(currencyManager.getCurrencyById(currencyId));
         return CURRENCY_INDEX_VIEW;
     }
 
@@ -65,7 +62,7 @@ public class CurrencyController {
         } else {
             currencyManager.saveCurrency(currency);
         }
-        return "redirect:/admin/currency/index.html"; // Перенаправляем на страницу списка валют
+        return CURRENCY_INDEX_VIEW; // Перенаправляем на страницу списка валют
     }
 
     @GetMapping("/currency")

@@ -6,6 +6,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ru.teamscore.java23.models.Currency;
 import ru.teamscore.java23.models.CurrencyPair;
 import ru.teamscore.java23.models.PriceStatistics;
 import ru.teamscore.java23.enums.Period;
@@ -82,6 +83,10 @@ public class CurrencyPairManager {
             }
             throw e; // Обработка ошибок при удалении
         }
+    }
+
+    public CurrencyPair getCurrencyPairById(long id) {
+        return entityManager.find(CurrencyPair.class, id);
     }
 
     public CurrencyPair searchCurrencyPairsByCurrencyName(String baseCurrency, String quotedCurrency) {
