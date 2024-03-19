@@ -16,7 +16,6 @@ public class CurrencyManager {
     @Autowired
     private final EntityManager entityManager;
 
-    //CRUD
     public void saveCurrency(Currency currency) {
         var transaction = entityManager.getTransaction();
         try {
@@ -57,7 +56,7 @@ public class CurrencyManager {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw e; // DEL ex
+            throw e;
         }
     }
 

@@ -1,8 +1,5 @@
 package ru.teamscore.java23.exceptions;
 
-import lombok.Getter;
-import ru.teamscore.java23.enums.Period;
-
 public class CurrencyNotFoundException extends RuntimeException {
     public CurrencyNotFoundException(String message, String... curs) {
         super(message);

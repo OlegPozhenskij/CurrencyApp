@@ -1,6 +1,8 @@
 package ru.teamscore.java23.models;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import ru.teamscore.java23.enums.Direction;
 
 import java.math.BigDecimal;

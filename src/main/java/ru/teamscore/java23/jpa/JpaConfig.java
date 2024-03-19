@@ -1,17 +1,17 @@
 package ru.teamscore.java23.jpa;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.EntityManagerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import javax.sql.DataSource;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.context.annotation.RequestScope;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
@@ -31,7 +31,7 @@ public class JpaConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("ru.teamscore.java23.models"); // Пакет, содержащий ваши entity классы
+        em.setPackagesToScan("ru.teamscore.java23.models");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         return em;
     }

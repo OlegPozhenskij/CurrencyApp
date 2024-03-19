@@ -4,15 +4,25 @@ let mockItems = [{}];
 document.getElementById("submit-button").addEventListener("click", async function () {
     const currency = document.querySelector(".select-currency").value;
     const currencyParts = currency.split("/");
-
-    const startDate = document.querySelector(".start-date").value;
-    const endDate = document.querySelector(".end-date").value;
-    const period = document.querySelector(".period-select").value;
+    const mode = document.querySelector(".select-mode").value;
 
     try {
-        const response = await fetch(
-            `/stats?&currencyFirst=${currencyParts[0]}&currencyLast=${currencyParts[1]}&start=${startDate}&end=${endDate}&period=${period}`
-        );
+        let response;
+        if (mode === "range") {
+            const startDate = document.querySelector(".start-date").value;
+            const endDate = document.querySelector(".end-date").value;
+            const period = document.querySelector(".period-select").value;
+            response = await fetch(
+                `/stats?&currencyFirst=${currencyParts[0]}&currencyLast=${currencyParts[1]}&start=${startDate}&end=${endDate}&period=${period}`
+            );
+        } else if (mode === "count") {
+            const count = document.querySelector(".count-input").value;
+            const period = document.querySelector(".period-select").value;
+            response = await fetch(
+                `/stats?&currencyFirst=${currencyParts[0]}&currencyLast=${currencyParts[1]}&num=${count}&period=${period}`
+            );
+        }
+
         const data = await response.json();
         mockItems = data;
 
@@ -24,6 +34,7 @@ document.getElementById("submit-button").addEventListener("click", async functio
         console.error("Ошибка при выполнении запроса:", error);
     }
 });
+
 //
 //document.addEventListener("DOMContentLoaded", async function () {
 //    try {

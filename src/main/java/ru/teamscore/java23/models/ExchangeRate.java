@@ -1,7 +1,9 @@
 package ru.teamscore.java23.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

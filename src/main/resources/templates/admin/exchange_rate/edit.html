@@ -75,6 +75,7 @@
     <main class="flex-shrink-0">
       <div class="container-lg">
         <form th:action="@{/admin/exchange_rate/save}" method="post">
+          <input type="hidden" th:if="${rate != null}" th:field="${rate.id}" />
           <div class="row align-items-end my-3">
             <div class="col">
               <label for="currencyPairSelect" class="form-label"

@@ -1,7 +1,10 @@
 package ru.teamscore.java23.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

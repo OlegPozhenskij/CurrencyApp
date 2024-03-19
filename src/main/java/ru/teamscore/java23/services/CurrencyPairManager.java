@@ -1,16 +1,14 @@
 package ru.teamscore.java23.services;
 
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.teamscore.java23.models.Currency;
-import ru.teamscore.java23.models.CurrencyPair;
-import ru.teamscore.java23.models.PriceStatistics;
 import ru.teamscore.java23.enums.Period;
 import ru.teamscore.java23.exceptions.CurrencyNotFoundException;
+import ru.teamscore.java23.models.CurrencyPair;
+import ru.teamscore.java23.models.PriceStatistics;
 import ru.teamscore.java23.statistics.StatisticsService;
 
 import java.time.LocalDateTime;
@@ -27,7 +25,6 @@ public class CurrencyPairManager {
     @Autowired
     private final CurrencyManager currencyManager;
 
-//    CRUD
     public void saveCurrencyPair(@NonNull CurrencyPair currencyPair) {
         var transaction = entityManager.getTransaction();
         try {
@@ -60,7 +57,7 @@ public class CurrencyPairManager {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw e; // Обработка ошибок при обновлении
+            throw e;
         }
     }
 
@@ -81,7 +78,7 @@ public class CurrencyPairManager {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
-            throw e; // Обработка ошибок при удалении
+            throw e;
         }
     }
 

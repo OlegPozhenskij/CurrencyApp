@@ -1,5 +1,5 @@
-function deleteExchangeRate(id) {
-    fetch(`/admin/exchange_rate/delete?id=${id}`, {
+function deleteRecord(id) {
+    fetch(`delete?id=${id}`, {
                 method: 'DELETE'
             })
             .then(response => {

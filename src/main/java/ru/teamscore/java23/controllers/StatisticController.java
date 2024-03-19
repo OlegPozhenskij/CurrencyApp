@@ -1,23 +1,16 @@
 package ru.teamscore.java23.controllers;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import ru.teamscore.java23.models.Currency;
-import ru.teamscore.java23.models.CurrencyPair;
-import ru.teamscore.java23.models.ExchangeRate;
 import ru.teamscore.java23.models.PriceStatistics;
 import ru.teamscore.java23.services.CurrencyManager;
 import ru.teamscore.java23.services.CurrencyPairManager;
 import ru.teamscore.java23.services.ExchangeRateManager;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -43,30 +36,31 @@ public class StatisticController {
         return "user";
     }
 
-    // TODO Доделать получение кол-ва записей
-
     @GetMapping("/stats")
     @ResponseBody
     public ResponseEntity<List<Map<String, Object>>> showStatisticsList(
             @RequestParam String currencyFirst,
             @RequestParam String currencyLast,
-            @RequestParam String start,
-            @RequestParam String end,
-            @RequestParam String period) {
+            @RequestParam(required = false) String start,
+            @RequestParam(required = false) String end,
+            @RequestParam String period,
+            @RequestParam(required = false) Integer num) {
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-        LocalDateTime dateStart = LocalDateTime.parse(start, formatter);
-        LocalDateTime dateEnd = LocalDateTime.parse(end, formatter);
-
-//        setData();
 
         List<Map<String, Object>> resultList = new ArrayList<>();
+        List<PriceStatistics> statistics;
 
-        List<PriceStatistics> statistics = currencyPairManager.getCurrencyStatistics(currencyFirst, currencyLast, dateStart, dateEnd, period);
+        if (num != null) {
+            statistics = currencyPairManager.getCurrencyStatistics(currencyFirst, currencyLast, num, period);
 
+        } else {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            LocalDateTime dateStart = LocalDateTime.parse(start, formatter);
+            LocalDateTime dateEnd = LocalDateTime.parse(end, formatter);
 
+            statistics = currencyPairManager.getCurrencyStatistics(currencyFirst, currencyLast, dateStart, dateEnd, period);
+        }
 
-        // Преобразовываем данные в нужный формат
         for (PriceStatistics stat : statistics) {
             Map<String, Object> item = new HashMap<>();
             item.put("timestamp", stat.getTimestamp().toInstant(ZoneOffset.UTC).toEpochMilli());
@@ -81,27 +75,28 @@ public class StatisticController {
         return ResponseEntity.ok(resultList);
     }
 
+
     private void setData() {
 //        currencyManager.saveCurrency(new Currency("USD", "United States Dollar"));
 //        currencyManager.saveCurrency(new Currency("RUB", "Russian Ruble"));
 //        currencyManager.saveCurrency(new Currency("EUR", "Euro"));
-        currencyManager.saveCurrency(new Currency("GBP", "British Pound"));
-        currencyManager.saveCurrency(new Currency("JPY", "Japanese Yen"));
-        currencyManager.saveCurrency(new Currency("AUD", "Australian Dollar"));
-        currencyManager.saveCurrency(new Currency("CAD", "Canadian Dollar"));
-        currencyManager.saveCurrency(new Currency("CHF", "Swiss Franc"));
-        currencyManager.saveCurrency(new Currency("CNY", "Chinese Yuan"));
-        currencyManager.saveCurrency(new Currency("HKD", "Hong Kong Dollar"));
-        currencyManager.saveCurrency(new Currency("NZD", "New Zealand Dollar"));
-        currencyManager.saveCurrency(new Currency("SEK", "Swedish Krona"));
-        currencyManager.saveCurrency(new Currency("KRW", "South Korean Won"));
-        currencyManager.saveCurrency(new Currency("SGD", "Singapore Dollar"));
-        currencyManager.saveCurrency(new Currency("NOK", "Norwegian Krone"));
-        currencyManager.saveCurrency(new Currency("MXN", "Mexican Peso"));
-        currencyManager.saveCurrency(new Currency("INR", "Indian Rupee"));
-        currencyManager.saveCurrency(new Currency("BRL", "Brazilian Real"));
-        currencyManager.saveCurrency(new Currency("ZAR", "South African Rand"));
-        currencyManager.saveCurrency(new Currency("TRY", "Turkish Lira"));
+//        currencyManager.saveCurrency(new Currency("GBP", "British Pound"));
+//        currencyManager.saveCurrency(new Currency("JPY", "Japanese Yen"));
+//        currencyManager.saveCurrency(new Currency("AUD", "Australian Dollar"));
+//        currencyManager.saveCurrency(new Currency("CAD", "Canadian Dollar"));
+//        currencyManager.saveCurrency(new Currency("CHF", "Swiss Franc"));
+//        currencyManager.saveCurrency(new Currency("CNY", "Chinese Yuan"));
+//        currencyManager.saveCurrency(new Currency("HKD", "Hong Kong Dollar"));
+//        currencyManager.saveCurrency(new Currency("NZD", "New Zealand Dollar"));
+//        currencyManager.saveCurrency(new Currency("SEK", "Swedish Krona"));
+//        currencyManager.saveCurrency(new Currency("KRW", "South Korean Won"));
+//        currencyManager.saveCurrency(new Currency("SGD", "Singapore Dollar"));
+//        currencyManager.saveCurrency(new Currency("NOK", "Norwegian Krone"));
+//        currencyManager.saveCurrency(new Currency("MXN", "Mexican Peso"));
+//        currencyManager.saveCurrency(new Currency("INR", "Indian Rupee"));
+//        currencyManager.saveCurrency(new Currency("BRL", "Brazilian Real"));
+//        currencyManager.saveCurrency(new Currency("ZAR", "South African Rand"));
+//        currencyManager.saveCurrency(new Currency("TRY", "Turkish Lira"));
 
 
 //        currencyPairManager.saveCurrencyPair(new CurrencyPair(
@@ -143,8 +138,5 @@ public class StatisticController {
 //                LocalDateTime.parse("2024-07-16T23:42:55", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
 //                new BigDecimal("200.02"),
 //                currencyPairManager.searchCurrencyPairsByCurrencyName("USD", "RUB")));
-
-
-
     }
 }

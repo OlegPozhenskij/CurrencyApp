@@ -16,12 +16,11 @@ public class ExchangeRateManager {
     @Autowired
     private final EntityManager entityManager;
 
-    //CRUD
     public void saveRate(@NonNull ExchangeRate exchangeRate) {
         var transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.merge(exchangeRate);
+            entityManager.persist(exchangeRate);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {

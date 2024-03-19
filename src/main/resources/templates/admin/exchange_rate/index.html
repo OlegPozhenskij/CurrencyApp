@@ -110,11 +110,11 @@
                     <td style="width: 20%;" class="text-end" th:text="${rate.rateVal}">14&nbsp;308,56</td>
                     <td style="width: 10%;">
                       <!-- Кнопка для редактирования -->
-                      <a th:href="@{'edit.html?id=' + ${pair.id}}" class="nav-item text-primary">
+                      <a th:href="@{'edit.html?id=' + ${rate.id}}" class="nav-item text-primary">
                         <i class="bi bi-pencil-square"></i>
                       </a>
                       <!-- Кнопка для удаления -->
-                      <a href="#" th:onclick="'deleteExchangeRate(' + ${rate.id} + ')'" class="nav-item text-danger delete-currency">
+                      <a href="#" th:onclick="'deleteRecord(' + ${rate.id} + ')'" class="nav-item text-danger delete-currency">
                         <i class="bi bi-trash"></i>
                       </a>
                     </td>
@@ -162,6 +162,6 @@
         </div>
       </div>
     </footer>
-    <script src="../../adminPage/_js/DelExchangeRate.js"></script>
+    <script src="../../adminPage/_js/DelRec.js"></script>
   </body>
 </html>

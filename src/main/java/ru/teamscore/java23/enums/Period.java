@@ -1,6 +1,5 @@
 package ru.teamscore.java23.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.temporal.ChronoUnit;
