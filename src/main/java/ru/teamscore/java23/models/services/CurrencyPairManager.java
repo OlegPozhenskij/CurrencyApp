@@ -15,8 +15,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@RequiredArgsConstructor
+
+
 @Component
+@RequiredArgsConstructor
 public class CurrencyPairManager {
 
     @Autowired

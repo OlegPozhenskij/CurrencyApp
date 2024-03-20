@@ -9,8 +9,9 @@ import ru.teamscore.java23.models.ExchangeRate;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+
 @Component
+@RequiredArgsConstructor
 public class ExchangeRateManager {
 
     @Autowired

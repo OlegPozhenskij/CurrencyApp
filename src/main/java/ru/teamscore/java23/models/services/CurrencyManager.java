@@ -9,8 +9,8 @@ import ru.teamscore.java23.models.Currency;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class CurrencyManager {
 
     @Autowired

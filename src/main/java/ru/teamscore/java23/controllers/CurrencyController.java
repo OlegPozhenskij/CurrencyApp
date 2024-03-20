@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.teamscore.java23.controllers.dto.CurrencyDto;
 import ru.teamscore.java23.controllers.dto.CurrencyListDto;
+import ru.teamscore.java23.controllers.dto.CurrencyPairListDto;
 import ru.teamscore.java23.models.Currency;
 import ru.teamscore.java23.models.services.CurrencyManager;
 import ru.teamscore.java23.models.services.CurrencyPairManager;

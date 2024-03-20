@@ -6,11 +6,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ru.teamscore.java23.models.Currency;
+import ru.teamscore.java23.models.CurrencyPair;
+import ru.teamscore.java23.models.ExchangeRate;
 import ru.teamscore.java23.models.PriceStatistics;
 import ru.teamscore.java23.models.services.CurrencyManager;
 import ru.teamscore.java23.models.services.CurrencyPairManager;
 import ru.teamscore.java23.models.services.ExchangeRateManager;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -76,7 +80,7 @@ public class StatisticController {
     }
 
 
-    private void setData() {
+//    private void setData() {
 //        currencyManager.saveCurrency(new Currency("USD", "United States Dollar"));
 //        currencyManager.saveCurrency(new Currency("RUB", "Russian Ruble"));
 //        currencyManager.saveCurrency(new Currency("EUR", "Euro"));
@@ -97,12 +101,12 @@ public class StatisticController {
 //        currencyManager.saveCurrency(new Currency("BRL", "Brazilian Real"));
 //        currencyManager.saveCurrency(new Currency("ZAR", "South African Rand"));
 //        currencyManager.saveCurrency(new Currency("TRY", "Turkish Lira"));
-
-
+//
+//
 //        currencyPairManager.saveCurrencyPair(new CurrencyPair(
 //                currencyManager.getCurrencyByShortTitle("USD"),
 //                currencyManager.getCurrencyByShortTitle("RUB"),
-//                2));
+//                3));
 //
 //        exchangeRateManager.saveRate(new ExchangeRate(
 //                LocalDateTime.parse("2019-05-16T23:42:55", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
@@ -138,5 +142,5 @@ public class StatisticController {
 //                LocalDateTime.parse("2024-07-16T23:42:55", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
 //                new BigDecimal("200.02"),
 //                currencyPairManager.searchCurrencyPairsByCurrencyName("USD", "RUB")));
-    }
+//    }
 }
