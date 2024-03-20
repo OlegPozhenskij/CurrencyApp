@@ -1,12 +1,15 @@
 package ru.teamscore.java23.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.teamscore.java23.controllers.dto.CurrencyDto;
+import ru.teamscore.java23.controllers.dto.CurrencyListDto;
 import ru.teamscore.java23.models.Currency;
-import ru.teamscore.java23.services.CurrencyManager;
-import ru.teamscore.java23.services.CurrencyPairManager;
+import ru.teamscore.java23.models.services.CurrencyManager;
+import ru.teamscore.java23.models.services.CurrencyPairManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,39 +30,47 @@ public class CurrencyController {
 
     @GetMapping("/index.html")
     public String showCurrencyIndexPage(Model model) {
-        List<Currency> currencies = currencyManager.getAllCurrencies();
-        model.addAttribute("currencies", currencies);
+        List<CurrencyDto> currencies = currencyManager.getAllCurrencies().stream()
+                .map(CurrencyDto::new)
+                .collect(Collectors.toList());
+        model.addAttribute("currencyDto", new CurrencyListDto(currencies));
         return INDEX_VIEW;
     }
 
     @GetMapping("/edit.html")
     public String showCurrencyEditPage(@RequestParam(value = "id", required = false) Long currencyId, Model model) {
-        Currency currency = currencyId != null ? currencyManager.getCurrencyById(currencyId) : new Currency();
+        CurrencyDto currency = currencyId != null
+                ? new CurrencyDto(currencyManager.getCurrencyById(currencyId))
+                : new CurrencyDto();
         model.addAttribute("curr", currency);
         return EDIT_VIEW;
     }
 
-    @DeleteMapping("/delete")
-    public String deleteCurrencyById(@RequestParam("id") Long currencyId) {
-        currencyManager.deleteCurrency(currencyManager.getCurrencyById(currencyId));
-        return INDEX_VIEW;
-    }
-
     @PostMapping("/save")
-    public String saveOrUpdateCurrency(@ModelAttribute("curr") Currency currency) {
+    public String saveOrUpdateCurrency(@ModelAttribute("curr") CurrencyDto currency) {
         if (currency.getId() != null) {
-            currencyManager.updateCurrency(currency);
+            currencyManager.updateCurrency(new Currency(
+                    currency.getId(),
+                    currency.getShortTitle(),
+                    currency.getFullTitle()));
         } else {
-            currencyManager.saveCurrency(currency);
+            currencyManager.saveCurrency(new Currency(currency.getShortTitle(), currency.getFullTitle()));
         }
         return REDIRECT_INDEX;
     }
 
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public ResponseEntity<Object> deleteCurrencyById(@RequestParam("id") Long currencyId) {
+        currencyManager.deleteCurrency(currencyManager.getCurrencyById(currencyId));
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/list")
     @ResponseBody
-    public List<String> getCurrencyList() {
-        return currencyPairManager.getAllCurrencyPairs().stream()
+    public ResponseEntity<List<String>> getCurrencyList() {
+        return ResponseEntity.ok(currencyPairManager.getAllCurrencyPairs().stream()
                 .map(pair -> pair.getBaseCurrency().getShortTitle() + "/" + pair.getQuotedCurrency().getShortTitle())
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 }

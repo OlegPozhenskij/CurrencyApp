@@ -1,15 +1,19 @@
 package ru.teamscore.java23.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.teamscore.java23.controllers.dto.CurrencyPairDto;
+import ru.teamscore.java23.controllers.dto.CurrencyPairListDto;
 import ru.teamscore.java23.models.CurrencyPair;
-import ru.teamscore.java23.services.CurrencyManager;
-import ru.teamscore.java23.services.CurrencyPairManager;
-import ru.teamscore.java23.services.ExchangeRateManager;
+import ru.teamscore.java23.models.services.CurrencyManager;
+import ru.teamscore.java23.models.services.CurrencyPairManager;
+import ru.teamscore.java23.models.services.ExchangeRateManager;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin/currency_pair")
@@ -28,7 +32,10 @@ public class CurrencyPairController {
 
     @GetMapping("/index.html")
     public String showCurrencyPairIndexPage(Model model) {
-        List<CurrencyPair> pairs = currencyPairManager.getAllCurrencyPairs();
+        List<CurrencyPairDto> pairs = currencyPairManager.getAllCurrencyPairs()
+                .stream()
+                .map(CurrencyPairDto::new)
+                .collect(Collectors.toList());
         model.addAttribute("pairs", pairs);
         return INDEX_VIEW;
     }
@@ -36,18 +43,12 @@ public class CurrencyPairController {
     @GetMapping("/edit.html")
     public String showCurrencyPairEditPage(@RequestParam(value = "id", required = false) Long currencyPairId, Model model) {
         if (currencyPairId != null) {
-            CurrencyPair pair = currencyPairManager.getCurrencyPairById(currencyPairId);
+            CurrencyPairDto pair = new CurrencyPairDto(currencyPairManager.getCurrencyPairById(currencyPairId));
             model.addAttribute("pair", pair);
         } else {
             model.addAttribute("pair", null);
         }
         return EDIT_VIEW;
-    }
-
-    @DeleteMapping("/delete")
-    public String deleteCurrencyPairById(@RequestParam("id") Long currencyId) {
-        currencyPairManager.deleteCurrencyPairById(currencyId);
-        return INDEX_VIEW;
     }
 
     @PostMapping("/save")
@@ -69,6 +70,13 @@ public class CurrencyPairController {
             currencyPairManager.saveCurrencyPair(cp);
         }
         return "redirect:/admin/currency_pair/index.html";
+    }
+
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public ResponseEntity<Object> deleteCurrencyPairById(@RequestParam("id") Long currencyId) {
+        currencyPairManager.deleteCurrencyPairById(currencyId);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -3,7 +3,7 @@ package ru.teamscore.java23.models;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ru.teamscore.java23.enums.Direction;
+import ru.teamscore.java23.models.enums.Direction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package ru.teamscore.java23.exceptions;
+package ru.teamscore.java23.models.exceptions;
 
 public class CurrencyNotFoundException extends RuntimeException {
     public CurrencyNotFoundException(String message, String... curs) {

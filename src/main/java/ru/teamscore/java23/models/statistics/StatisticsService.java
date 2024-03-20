@@ -1,15 +1,12 @@
-package ru.teamscore.java23.statistics;
+package ru.teamscore.java23.models.statistics;
 
 import jakarta.persistence.EntityManager;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import ru.teamscore.java23.models.CurrencyPair;
 import ru.teamscore.java23.models.ExchangeRate;
 import ru.teamscore.java23.models.PriceStatistics;
-import ru.teamscore.java23.enums.DateSide;
-import ru.teamscore.java23.enums.Period;
+import ru.teamscore.java23.models.enums.DateSide;
+import ru.teamscore.java23.models.enums.Period;
 import org.hibernate.query.Query;
 
 import java.time.LocalDate;

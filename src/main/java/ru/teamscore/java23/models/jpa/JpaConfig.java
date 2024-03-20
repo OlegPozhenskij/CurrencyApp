@@ -1,4 +1,4 @@
-package ru.teamscore.java23.jpa;
+package ru.teamscore.java23.models.jpa;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;

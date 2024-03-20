@@ -9,9 +9,12 @@ import ru.teamscore.java23.models.Currency;
 import ru.teamscore.java23.models.CurrencyPair;
 import ru.teamscore.java23.models.ExchangeRate;
 import ru.teamscore.java23.models.PriceStatistics;
-import ru.teamscore.java23.enums.Direction;
-import ru.teamscore.java23.enums.Period;
-import ru.teamscore.java23.statistics.StatisticsService;
+import ru.teamscore.java23.models.enums.Direction;
+import ru.teamscore.java23.models.enums.Period;
+import ru.teamscore.java23.models.services.CurrencyManager;
+import ru.teamscore.java23.models.services.CurrencyPairManager;
+import ru.teamscore.java23.models.services.ExchangeRateManager;
+import ru.teamscore.java23.models.statistics.StatisticsService;
 
 import java.io.IOException;
 import java.math.BigDecimal;

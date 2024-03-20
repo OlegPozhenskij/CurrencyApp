@@ -1,4 +1,4 @@
-package ru.teamscore.java23.enums;
+package ru.teamscore.java23.models.enums;
 
 public enum DateSide {
     LEFT,

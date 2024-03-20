@@ -1,4 +1,4 @@
-1. Добавить DTO классы в Controller
+1. Добавить DTO классы в Controller [+]
 
 2. Добавить @Service
 @RequiredArgsConstructor

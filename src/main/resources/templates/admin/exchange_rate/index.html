@@ -90,7 +90,7 @@
               </tr>
             </thead>
             <tbody>
-            <tr th:each="pair : ${currencyPairs}">
+            <tr th:each="pair : ${currencyPairs.pairList}">
               <td th:text="${pair.id}">50</td>
               <td th:text="'CurrencyPair: ' + ${pair.baseCurrency.shortTitle} + '/' + ${pair.quotedCurrency.shortTitle}">USD/EUR</td>
               <td>
@@ -104,7 +104,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr th:each="rate : ${pair.exchangeRateHistory}">
+                  <tr th:each="rate : ${pair.exchangeRateList.rateList}">
                     <td style="width: 30%;" th:text="${rate.id}">Exchange Rate ID</td>
                     <td style="width: 30%;" th:text="${rate.localDateTime}">2023-02-19T09:02:54</td>
                     <td style="width: 20%;" class="text-end" th:text="${rate.rateVal}">14&nbsp;308,56</td>

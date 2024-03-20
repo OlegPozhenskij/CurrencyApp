@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ru.teamscore.java23.models.PriceStatistics;
-import ru.teamscore.java23.services.CurrencyManager;
-import ru.teamscore.java23.services.CurrencyPairManager;
-import ru.teamscore.java23.services.ExchangeRateManager;
+import ru.teamscore.java23.models.services.CurrencyManager;
+import ru.teamscore.java23.models.services.CurrencyPairManager;
+import ru.teamscore.java23.models.services.ExchangeRateManager;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;

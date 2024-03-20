@@ -41,4 +41,9 @@ public class Currency {
         this.shortTitle = shortTitle;
         this.fullTitle = fullTitle;
     }
+
+    public Currency(Long id, String shortTitle, String fullTitle) {
+        this(shortTitle, fullTitle);
+        this.id = id;
+    }
 }

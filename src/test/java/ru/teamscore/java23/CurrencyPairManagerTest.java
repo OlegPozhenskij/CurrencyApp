@@ -3,14 +3,14 @@ package ru.teamscore.java23;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.*;
-import ru.teamscore.java23.enums.Period;
+import ru.teamscore.java23.models.enums.Period;
 import ru.teamscore.java23.models.Currency;
 import ru.teamscore.java23.models.CurrencyPair;
 import ru.teamscore.java23.models.ExchangeRate;
 
 import org.hibernate.cfg.Configuration;
-import ru.teamscore.java23.services.CurrencyManager;
-import ru.teamscore.java23.services.CurrencyPairManager;
+import ru.teamscore.java23.models.services.CurrencyManager;
+import ru.teamscore.java23.models.services.CurrencyPairManager;
 
 import java.io.IOException;
 import java.util.Optional;

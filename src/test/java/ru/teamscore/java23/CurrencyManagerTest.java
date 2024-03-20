@@ -9,7 +9,7 @@ import ru.teamscore.java23.models.Currency;
 import org.hibernate.cfg.Configuration;
 import ru.teamscore.java23.models.CurrencyPair;
 import ru.teamscore.java23.models.ExchangeRate;
-import ru.teamscore.java23.services.CurrencyManager;
+import ru.teamscore.java23.models.services.CurrencyManager;
 
 import java.io.IOException;
 import java.util.List;

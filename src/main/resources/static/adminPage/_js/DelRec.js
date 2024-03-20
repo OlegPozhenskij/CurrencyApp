@@ -6,7 +6,7 @@ function deleteRecord(id) {
                 if (!response.ok) {
                     throw new Error('Ошибка удаления валюты');
                 }
-                window.location.reload();
+                location.reload();
             })
             .catch(error => {
                 console.error('Ошибка:', error);

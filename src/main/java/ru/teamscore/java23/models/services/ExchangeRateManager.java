@@ -1,4 +1,4 @@
-package ru.teamscore.java23.services;
+package ru.teamscore.java23.models.services;
 
 import jakarta.persistence.EntityManager;
 import lombok.NonNull;

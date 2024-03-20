@@ -1,7 +1,7 @@
 package ru.teamscore.java23.models;
 
 import org.junit.jupiter.api.Test;
-import ru.teamscore.java23.enums.Direction;
+import ru.teamscore.java23.models.enums.Direction;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
