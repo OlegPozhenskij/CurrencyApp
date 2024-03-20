@@ -9,10 +9,8 @@
 
 URL's:
 1. Пользователя: http://localhost:8080/
-2. Админа: http://localhost:8080/admin
+2. Админ панель: http://localhost:8080/admin
 
 График и таблица статистики изменения валютного курса для пользователя.
-![График курса валют с таблицей](img%2FchartAndTable.png)
+![График курса валют с таблицей](src%2Fmain%2Fresources%2Fimg%2FchartAndTable.png)
 
-Админ панель просмотра и редактирование записей.
-![adminPanel.png](img%2FadminPanel.png)
