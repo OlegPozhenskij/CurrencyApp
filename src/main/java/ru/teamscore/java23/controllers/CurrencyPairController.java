@@ -5,8 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.teamscore.java23.controllers.dto.CurrencyDto;
 import ru.teamscore.java23.controllers.dto.CurrencyPairDto;
 import ru.teamscore.java23.controllers.dto.CurrencyPairListDto;
+import ru.teamscore.java23.models.Currency;
 import ru.teamscore.java23.models.CurrencyPair;
 import ru.teamscore.java23.models.services.CurrencyManager;
 import ru.teamscore.java23.models.services.CurrencyPairManager;
@@ -30,7 +32,7 @@ public class CurrencyPairController {
     @Autowired
     private CurrencyManager currencyManager;
 
-    @GetMapping("/index.html")
+    @GetMapping("/index")
     public String showCurrencyPairIndexPage(Model model) {
         List<CurrencyPairDto> pairs = currencyPairManager.getAllCurrencyPairs()
                 .stream()
@@ -40,14 +42,13 @@ public class CurrencyPairController {
         return INDEX_VIEW;
     }
 
-    @GetMapping("/edit.html")
+    @GetMapping("/edit")
     public String showCurrencyPairEditPage(@RequestParam(value = "id", required = false) Long currencyPairId, Model model) {
-        if (currencyPairId != null) {
-            CurrencyPairDto pair = new CurrencyPairDto(currencyPairManager.getCurrencyPairById(currencyPairId));
-            model.addAttribute("pair", pair);
-        } else {
-            model.addAttribute("pair", null);
-        }
+        CurrencyPairDto pairDto = currencyPairId != null
+                ? new CurrencyPairDto(currencyPairManager.getCurrencyPairById(currencyPairId))
+                : new CurrencyPairDto(new CurrencyPair(new Currency(), new Currency(), 3));
+
+        model.addAttribute("pair", pairDto);
         return EDIT_VIEW;
     }
 
@@ -69,7 +70,7 @@ public class CurrencyPairController {
         } else {
             currencyPairManager.saveCurrencyPair(cp);
         }
-        return "redirect:/admin/currency_pair/index.html";
+        return "redirect:/admin/currency_pair/index";
     }
 
     @DeleteMapping("/delete")

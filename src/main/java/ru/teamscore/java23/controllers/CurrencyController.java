@@ -20,7 +20,7 @@ public class CurrencyController {
 
     private static final String INDEX_VIEW = "admin/currency/index";
     private static final String EDIT_VIEW = "admin/currency/edit";
-    private static final String REDIRECT_INDEX = "redirect:/admin/currency/index.html";
+    private static final String REDIRECT_INDEX = "redirect:/admin/currency/index";
 
     @Autowired
     private CurrencyPairManager currencyPairManager;
@@ -28,7 +28,7 @@ public class CurrencyController {
     @Autowired
     private CurrencyManager currencyManager;
 
-    @GetMapping("/index.html")
+    @GetMapping("/index")
     public String showCurrencyIndexPage(Model model) {
         List<CurrencyDto> currencies = currencyManager.getAllCurrencies().stream()
                 .map(CurrencyDto::new)
@@ -37,7 +37,7 @@ public class CurrencyController {
         return INDEX_VIEW;
     }
 
-    @GetMapping("/edit.html")
+    @GetMapping("/edit")
     public String showCurrencyEditPage(@RequestParam(value = "id", required = false) Long currencyId, Model model) {
         CurrencyDto currency = currencyId != null
                 ? new CurrencyDto(currencyManager.getCurrencyById(currencyId))

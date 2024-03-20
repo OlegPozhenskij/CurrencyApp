@@ -55,7 +55,7 @@
               <a
                 class="nav-link"
                 aria-current="page"
-                href="../currency/index.html"
+                href="../currency/index"
                 >Валюты</a
               >
             </li>
@@ -65,7 +65,7 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../exchange_rate/index.html"
+              <a class="nav-link" href="../exchange_rate/index"
                 >Обменный курс</a
               >
             </li>
@@ -77,7 +77,7 @@
     <main class="flex-shrink-0">
       <div class="container-lg">
         <div class="m-4">
-          <a class="btn btn-primary" href="edit.html">
+          <a class="btn btn-primary" href="edit">
             <i class="bi bi-plus-square-fill"></i> Новая валютная пара
           </a>
         </div>
@@ -130,7 +130,7 @@
                 class="card-footer d-flex justify-content-between align-items-center gap-1"
               >
                 <a
-                  th:href="@{'edit.html?id=' + ${pair.id}}"
+                  th:href="@{'edit?id=' + ${pair.id}}"
                   class="nav-item text-primary"
                 >
                   <i class="bi bi-pencil-square"></i>

@@ -33,7 +33,7 @@ public class ExchangeRateController {
     @Autowired
     private CurrencyManager currencyManager;
 
-    @GetMapping("/index.html")
+    @GetMapping("/index")
     public String showExchangeRateIndexPage(Model model) {
         var pairsDto = currencyPairManager.getAllCurrencyPairs()
                 .stream()
@@ -43,15 +43,13 @@ public class ExchangeRateController {
         return INDEX_VIEW;
     }
 
-    @GetMapping("/edit.html")
+    @GetMapping("/edit")
     public String showExchangeRateEditPage(@RequestParam(value = "id", required = false) Long exchangeRateId, Model model) {
-        if (exchangeRateId != null) {
-            var rateDto = new ExchangeRateDto(exchangeRateManager.getExchangeRateById(exchangeRateId));
-            model.addAttribute("rate", rateDto);
-        } else {
-            model.addAttribute("rate", null);
-        }
+        ExchangeRateDto rateDto = exchangeRateId != null
+                ? new ExchangeRateDto(exchangeRateManager.getExchangeRateById(exchangeRateId))
+                : new ExchangeRateDto();
 
+        model.addAttribute("rate", rateDto);
         model.addAttribute("pairs", currencyPairManager.getAllCurrencyPairs());
         return EDIT_VIEW;
     }
@@ -76,7 +74,7 @@ public class ExchangeRateController {
             exchangeRateManager.saveRate(exchangeRateObject);
         }
 
-        return "redirect:/admin/exchange_rate/index.html";
+        return "redirect:/admin/exchange_rate/index";
     }
 
     @DeleteMapping("/delete")

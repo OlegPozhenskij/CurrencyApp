@@ -1,4 +1,5 @@
 1. Добавить DTO классы в Controller [+]
+    1.1 Подправить название полей в DTO'шках связанных с шаблонами []
 
 2. Добавить @Service
 @RequiredArgsConstructor
