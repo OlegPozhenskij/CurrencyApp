@@ -48,31 +48,20 @@ public class ExchangeRateController {
         ExchangeRateDto rateDto = exchangeRateId != null
                 ? new ExchangeRateDto(exchangeRateManager.getExchangeRateById(exchangeRateId))
                 : new ExchangeRateDto();
-
         model.addAttribute("rate", rateDto);
         model.addAttribute("pairs", currencyPairManager.getAllCurrencyPairs());
         return EDIT_VIEW;
     }
 
     @PostMapping("/save")
-    public String saveOrUpdateExchangeRate(
-            @RequestParam(value = "id", required = false) Long id,
-            @RequestParam("dateTimeInput") LocalDateTime dateTime,
-            @RequestParam("exchangeRateInput") BigDecimal exchangeRate,
-            @RequestParam("currencyPairSelect") Long currencyPairCode) {
-
+    public String saveOrUpdateExchangeRate(@ModelAttribute("rate") ExchangeRateDto rateDto) {
         ExchangeRate exchangeRateObject = new ExchangeRate(
-                dateTime,
-                exchangeRate,
-                currencyPairManager.getCurrencyPairById(currencyPairCode)
+                rateDto.getId(),
+                rateDto.getLocalDateTime(),
+                rateDto.getRateVal(),
+                currencyPairManager.getCurrencyPairById(rateDto.getCurrencyPairCode())
         );
-
-        if (id != null) {
-            exchangeRateObject.setId(id);
-            exchangeRateManager.updateExchangeRate(exchangeRateObject);
-        } else {
-            exchangeRateManager.saveRate(exchangeRateObject);
-        }
+        exchangeRateManager.saveOrUpdateExchangeRate(exchangeRateObject);
 
         return "redirect:/admin/exchange_rate/index";
     }

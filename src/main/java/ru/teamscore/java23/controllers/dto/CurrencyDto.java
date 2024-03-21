@@ -8,7 +8,7 @@ import ru.teamscore.java23.models.Currency;
 @Data
 @NoArgsConstructor
 public class CurrencyDto {
-    private Long id;
+    private Long id = 0L;
     private String shortTitle;
     private String fullTitle;
 

@@ -88,8 +88,8 @@ class StatisticsServiceTest {
                 currencyPair
         );
 
-        rateManager.saveRate(rate1);
-        rateManager.saveRate(rate2);
+        rateManager.saveOrUpdateExchangeRate(rate1);
+        rateManager.saveOrUpdateExchangeRate(rate2);
 
         var startDate = LocalDateTime.parse("2024-04-01T02:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
         var endDate = LocalDateTime.parse("2024-04-01T21:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
@@ -141,11 +141,11 @@ class StatisticsServiceTest {
                 currencyPair
         );
 
-        rateManager.saveRate(rate1);
-        rateManager.saveRate(rate2);
-        rateManager.saveRate(rate3);
-        rateManager.saveRate(rate4);
-        rateManager.saveRate(rate5);
+        rateManager.saveOrUpdateExchangeRate(rate1);
+        rateManager.saveOrUpdateExchangeRate(rate2);
+        rateManager.saveOrUpdateExchangeRate(rate3);
+        rateManager.saveOrUpdateExchangeRate(rate4);
+        rateManager.saveOrUpdateExchangeRate(rate5);
 
         Period period = Period.HOUR;
 

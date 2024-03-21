@@ -62,7 +62,7 @@ class CurrencyManagerTest {
         currency.setShortTitle("ASD");
         currency.setFullTitle("ASolo NA");
 
-        currencyManager.saveCurrency(currency);
+        currencyManager.saveOrUpdateCurrency(currency);
 
         Currency savedCurrency = entityManager.find(Currency.class, currency.getId());
         assertNotNull(savedCurrency);

@@ -27,33 +27,21 @@ public class CurrencyPairManager {
     @Autowired
     private final CurrencyManager currencyManager;
 
-    public void saveCurrencyPair(@NonNull CurrencyPair currencyPair) {
+    public void saveOrUpdateCurrencyPair(@NonNull CurrencyPair currencyPair) {
         var transaction = entityManager.getTransaction();
         try {
             transaction.begin();
+            if ((currencyPair.getId() == 0)) {
+                if(!entityManager.contains(currencyPair.getBaseCurrency())
+                        || !entityManager.contains(currencyPair.getQuotedCurrency())) {
 
-            if(!entityManager.contains(currencyPair.getBaseCurrency())
-                    || !entityManager.contains(currencyPair.getQuotedCurrency())) {
-
-                entityManager.merge(currencyPair.getBaseCurrency());
-                entityManager.merge(currencyPair.getQuotedCurrency());
+                    entityManager.merge(currencyPair.getBaseCurrency());
+                    entityManager.merge(currencyPair.getQuotedCurrency());
+                }
+                entityManager.persist(currencyPair);
+            } else {
+                entityManager.merge(currencyPair);
             }
-
-            entityManager.persist(currencyPair);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            throw e;
-        }
-    }
-
-    public void updateCurrencyPair(CurrencyPair currencyPair) {
-        var transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.merge(currencyPair);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {

@@ -12,8 +12,7 @@ import java.util.stream.Collectors;
 @Data
 @NoArgsConstructor
 public class CurrencyPairDto {
-
-    private Long id;
+    private Long id = 0L;
     private ExchangeRateListDto exchangeRateList;
     private int precision;
     private CurrencyDto baseCurrency;

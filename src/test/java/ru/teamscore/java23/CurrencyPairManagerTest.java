@@ -77,7 +77,7 @@ class CurrencyPairManagerTest {
                 2
         );
 
-        currencyPairManager.saveCurrencyPair(currencyPair);
+        currencyPairManager.saveOrUpdateCurrencyPair(currencyPair);
 
         assertSame(currencyPair.getBaseCurrency(), currencyPairManager.getCurrencyPairByNames("HOS", "BIC").get().getBaseCurrency());
         assertSame(currencyPair.getQuotedCurrency(), currencyPairManager.getCurrencyPairByNames("HOS", "BIC").get().getQuotedCurrency());

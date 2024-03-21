@@ -75,13 +75,13 @@
     <main class="flex-shrink-0">
       <div class="container-lg">
         <form th:action="@{/admin/exchange_rate/save}" method="post">
-          <input type="hidden" th:if="${rate != null}" th:field="${rate.id}" />
+          <input type="hidden" name="id"  th:field="${rate.id}" />
           <div class="row align-items-end my-3">
             <div class="col">
               <label for="currencyPairSelect" class="form-label"
                 >Валютная пара</label
               >
-              <select class="form-select" id="currencyPairSelect" name="currencyPairSelect">
+              <select class="form-select" id="currencyPairSelect" name="currencyPairCode">
                 <option th:each="pair : ${pairs}" th:value="${pair.id}" th:text="${pair.baseCurrency.shortTitle} + '/' + ${pair.quotedCurrency.shortTitle}"></option>
               </select>
             </div>
@@ -92,7 +92,7 @@
                 type="datetime-local"
                 class="form-control"
                 id="dateTimeInput"
-                name="dateTimeInput"
+                name="localDateTime"
                 step="1"
               />
             </div>
@@ -105,7 +105,7 @@
                 type="number"
                 class="form-control"
                 id="exchangeRateInput"
-                name="exchangeRateInput"
+                name="rateVal"
                 placeholder="Введите значение с точкой"
                 step="any"
               />

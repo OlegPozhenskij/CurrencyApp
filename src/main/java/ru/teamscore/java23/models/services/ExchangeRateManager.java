@@ -17,11 +17,15 @@ public class ExchangeRateManager {
     @Autowired
     private final EntityManager entityManager;
 
-    public void saveRate(@NonNull ExchangeRate exchangeRate) {
+    public void saveOrUpdateExchangeRate(@NonNull ExchangeRate exchangeRate) {
         var transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.persist(exchangeRate);
+            if (exchangeRate.getId() == 0) {
+                entityManager.persist(exchangeRate);
+            } else {
+                entityManager.merge(exchangeRate);
+            }
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
@@ -33,20 +37,6 @@ public class ExchangeRateManager {
 
     public List getAllExchangeRates() {
         return entityManager.createQuery("SELECT e FROM ExchangeRate e", ExchangeRate.class).getResultList();
-    }
-
-    public void updateExchangeRate(ExchangeRate exchangeRate) {
-        var transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.merge(exchangeRate);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            throw e;
-        }
     }
 
     public void deleteExchangeRateById(long id) {
@@ -73,4 +63,5 @@ public class ExchangeRateManager {
     public ExchangeRate getExchangeRateById(long id) {
         return entityManager.find(ExchangeRate.class, id);
     }
+
 }

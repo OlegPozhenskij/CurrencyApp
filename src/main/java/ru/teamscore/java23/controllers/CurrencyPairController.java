@@ -23,6 +23,8 @@ public class CurrencyPairController {
     private static final String INDEX_VIEW = "admin/currency_pair/index";
     private static final String EDIT_VIEW = "admin/currency_pair/edit";
 
+    private static final int PRECISION = 3;
+
     @Autowired
     private CurrencyPairManager currencyPairManager;
 
@@ -46,30 +48,22 @@ public class CurrencyPairController {
     public String showCurrencyPairEditPage(@RequestParam(value = "id", required = false) Long currencyPairId, Model model) {
         CurrencyPairDto pairDto = currencyPairId != null
                 ? new CurrencyPairDto(currencyPairManager.getCurrencyPairById(currencyPairId))
-                : new CurrencyPairDto(new CurrencyPair(new Currency(), new Currency(), 3));
+                : new CurrencyPairDto(new CurrencyPair(new Currency(), new Currency(), PRECISION));
 
         model.addAttribute("pair", pairDto);
         return EDIT_VIEW;
     }
 
     @PostMapping("/save")
-    public String saveOrUpdateCurrency(
-            @RequestParam(value = "id", required = false) Long id,
-            @RequestParam("baseShortTitle") String baseShortTitle,
-            @RequestParam("quotedShortTitle") String quotedShortTitle) {
-
+    public String saveOrUpdateCurrencyPair(@ModelAttribute("pair") CurrencyPairDto pairDto) {
         var cp = new CurrencyPair(
-                currencyManager.getCurrencyByShortTitle(baseShortTitle),
-                currencyManager.getCurrencyByShortTitle(quotedShortTitle),
-                3
+                pairDto.getId(),
+                currencyManager.getCurrencyByShortTitle(pairDto.getBaseCurrency().getShortTitle()),
+                currencyManager.getCurrencyByShortTitle(pairDto.getQuotedCurrency().getShortTitle()),
+                PRECISION
         );
+        currencyPairManager.saveOrUpdateCurrencyPair(cp);
 
-        if (id != null) {
-            cp.setId(id);
-            currencyPairManager.updateCurrencyPair(cp);
-        } else {
-            currencyPairManager.saveCurrencyPair(cp);
-        }
         return "redirect:/admin/currency_pair/index";
     }
 

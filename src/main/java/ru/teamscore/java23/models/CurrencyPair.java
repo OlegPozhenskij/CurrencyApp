@@ -23,7 +23,7 @@ public class CurrencyPair {
     @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Long id = 0L;
 
     @Setter
     @OneToMany(mappedBy = "currencyPair")
@@ -46,6 +46,11 @@ public class CurrencyPair {
         this.baseCurrency = baseCurrency;
         this.quotedCurrency = currency;
         this.precision = precision;
+    }
+
+    public CurrencyPair(Long id, Currency baseCurrency, Currency currency, int precision) {
+        this(baseCurrency, currency, precision);
+        this.id = id;
     }
 
     public void addExchangeRate(@NonNull ExchangeRate rate) {

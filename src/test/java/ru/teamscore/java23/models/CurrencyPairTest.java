@@ -16,9 +16,6 @@ class CurrencyPairTest {
 
     @BeforeEach
     void setUp() {
-//        Currency currency = new Currency("asd", "asdasdads");
-//        currency.getShortTitle()
-
         currencyPair = new CurrencyPair(
                 new Currency("USD", "US Dollar"),
                 new Currency("USD", "US Dollar"),

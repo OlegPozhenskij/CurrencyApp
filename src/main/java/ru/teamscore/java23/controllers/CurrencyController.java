@@ -49,14 +49,11 @@ public class CurrencyController {
 
     @PostMapping("/save")
     public String saveOrUpdateCurrency(@ModelAttribute("curr") CurrencyDto currency) {
-        if (currency.getId() != null) {
-            currencyManager.updateCurrency(new Currency(
-                    currency.getId(),
-                    currency.getShortTitle(),
-                    currency.getFullTitle()));
-        } else {
-            currencyManager.saveCurrency(new Currency(currency.getShortTitle(), currency.getFullTitle()));
-        }
+        currencyManager.saveOrUpdateCurrency(new Currency(
+                currency.getId(),
+                currency.getShortTitle(),
+                currency.getFullTitle()));
+
         return REDIRECT_INDEX;
     }
 

@@ -78,7 +78,7 @@ class ExchangeRateManagerTest {
                 BigDecimal.valueOf(23.5),
                 currencyPairManager.searchCurrencyPairsByCurrencyName("USD","EUR"));
 
-        rateManager.saveRate(exchangeRate);
+        rateManager.saveOrUpdateExchangeRate(exchangeRate);
 
         assertEquals(3, rateManager.getAllExchangeRates().size());
     }

@@ -21,7 +21,7 @@ public class Currency {
     @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Long id = 0L;
 
     @Setter
     @Column(name = "short_title", nullable = false, unique = true)

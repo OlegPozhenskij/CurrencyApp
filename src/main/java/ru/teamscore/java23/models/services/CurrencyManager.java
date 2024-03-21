@@ -16,11 +16,15 @@ public class CurrencyManager {
     @Autowired
     private final EntityManager entityManager;
 
-    public void saveCurrency(Currency currency) {
+    public void saveOrUpdateCurrency(Currency currency) {
         var transaction = entityManager.getTransaction();
         try {
             transaction.begin();
-            entityManager.persist(currency);
+            if (currency.getId() == 0) {
+                entityManager.persist(currency);
+            } else {
+                entityManager.merge(currency);
+            }
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
@@ -30,19 +34,6 @@ public class CurrencyManager {
         }
     }
 
-    public void updateCurrency(Currency currency) {
-        var transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.merge(currency);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            throw e;
-        }
-    }
 
     public void deleteCurrency(@NonNull Currency currency) {
         var transaction = entityManager.getTransaction();
@@ -87,4 +78,5 @@ public class CurrencyManager {
                 .setParameter("nameSubstring", "%" + nameSubstring + "%")
                 .getResultList();
     }
+
 }

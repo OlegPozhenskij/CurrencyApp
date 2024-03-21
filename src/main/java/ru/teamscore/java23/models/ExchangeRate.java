@@ -18,7 +18,7 @@ public class ExchangeRate {
     @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
+    private Long id = 0L;
 
     @Column(name = "local_date_time")
     private LocalDateTime localDateTime;
@@ -34,5 +34,10 @@ public class ExchangeRate {
         this.localDateTime = localDateTime;
         this.rateVal = rateVal;
         this.currencyPair = currencyPair;
+    }
+
+    public ExchangeRate(Long id, LocalDateTime localDateTime, BigDecimal rateVal, CurrencyPair currencyPair) {
+        this(localDateTime, rateVal, currencyPair);
+        this.id = id;
     }
 }

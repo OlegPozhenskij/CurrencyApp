@@ -11,9 +11,10 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 public class ExchangeRateDto {
-    private Long id;
+    private Long id = 0L;
     private LocalDateTime localDateTime;
     private BigDecimal rateVal;
+    private Long currencyPairCode;
 
     public ExchangeRateDto(ExchangeRate rate) {
         this.id = rate.getId();
