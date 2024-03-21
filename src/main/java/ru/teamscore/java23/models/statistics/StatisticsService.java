@@ -2,6 +2,7 @@ package ru.teamscore.java23.models.statistics;
 
 import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import ru.teamscore.java23.models.CurrencyPair;
 import ru.teamscore.java23.models.ExchangeRate;
 import ru.teamscore.java23.models.PriceStatistics;
@@ -15,7 +16,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class StatisticsService {
 
     public static List<PriceStatistics> getStats(EntityManager entityManager, CurrencyPair currencyPair, LocalDateTime startDate, LocalDateTime endDate, Period period) {
