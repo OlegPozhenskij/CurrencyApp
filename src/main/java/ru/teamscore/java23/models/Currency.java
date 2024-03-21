@@ -1,6 +1,7 @@
 package ru.teamscore.java23.models;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,13 +13,13 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode
 @Table(name = "currency", schema = "currencies")
 @NamedQuery(name = "currenciesCount", query = "select count(*) from Currency")
 @NamedQuery(name = "currencyByShortTitle", query = "from Currency c where c.shortTitle = :shortTitle")
 public class Currency {
 
     @Id
-    @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id = 0L;

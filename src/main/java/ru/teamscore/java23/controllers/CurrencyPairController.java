@@ -36,17 +36,17 @@ public class CurrencyPairController {
 
     @GetMapping("/index")
     public String showCurrencyPairIndexPage(Model model) {
-        List<CurrencyPairDto> pairs = currencyPairManager.getAllCurrencyPairs()
+        var pairs = new CurrencyPairListDto(currencyPairManager.getAllCurrencyPairs()
                 .stream()
                 .map(CurrencyPairDto::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
         model.addAttribute("pairs", pairs);
         return INDEX_VIEW;
     }
 
     @GetMapping("/edit")
     public String showCurrencyPairEditPage(@RequestParam(value = "id", required = false) Long currencyPairId, Model model) {
-        CurrencyPairDto pairDto = currencyPairId != null
+        var pairDto = currencyPairId != null
                 ? new CurrencyPairDto(currencyPairManager.getCurrencyPairById(currencyPairId))
                 : new CurrencyPairDto(new CurrencyPair(new Currency(), new Currency(), PRECISION));
 

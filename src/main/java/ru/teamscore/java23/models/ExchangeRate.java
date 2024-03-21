@@ -1,6 +1,7 @@
 package ru.teamscore.java23.models;
 
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,11 +12,11 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode
 @Table(name = "exchange_rate", schema = "rates")
 public class ExchangeRate {
 
     @Id
-    @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id = 0L;

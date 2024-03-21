@@ -35,17 +35,17 @@ public class ExchangeRateController {
 
     @GetMapping("/index")
     public String showExchangeRateIndexPage(Model model) {
-        var pairsDto = currencyPairManager.getAllCurrencyPairs()
+        var pairsDto = new CurrencyPairListDto(currencyPairManager.getAllCurrencyPairs()
                 .stream()
                 .map(CurrencyPairDto::new)
-                .collect(Collectors.toList());
-        model.addAttribute("currencyPairs", new CurrencyPairListDto(pairsDto));
+                .collect(Collectors.toList()));
+        model.addAttribute("currencyPairs", pairsDto);
         return INDEX_VIEW;
     }
 
     @GetMapping("/edit")
     public String showExchangeRateEditPage(@RequestParam(value = "id", required = false) Long exchangeRateId, Model model) {
-        ExchangeRateDto rateDto = exchangeRateId != null
+        var rateDto = exchangeRateId != null
                 ? new ExchangeRateDto(exchangeRateManager.getExchangeRateById(exchangeRateId))
                 : new ExchangeRateDto();
         model.addAttribute("rate", rateDto);
@@ -55,7 +55,7 @@ public class ExchangeRateController {
 
     @PostMapping("/save")
     public String saveOrUpdateExchangeRate(@ModelAttribute("rate") ExchangeRateDto rateDto) {
-        ExchangeRate exchangeRateObject = new ExchangeRate(
+        var exchangeRateObject = new ExchangeRate(
                 rateDto.getId(),
                 rateDto.getLocalDateTime(),
                 rateDto.getRateVal(),

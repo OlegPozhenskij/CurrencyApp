@@ -23,7 +23,8 @@ public class CurrencyApplication {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/currencies");
+        //Основные ошибки с бд решать тут
+        dataSource.setUrl("jdbc:postgresql://localhost:5433/currencies_test");
         dataSource.setUsername("postgres");
         dataSource.setPassword("1234");
         return dataSource;

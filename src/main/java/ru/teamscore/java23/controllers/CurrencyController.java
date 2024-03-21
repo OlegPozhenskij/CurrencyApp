@@ -31,16 +31,16 @@ public class CurrencyController {
 
     @GetMapping("/index")
     public String showCurrencyIndexPage(Model model) {
-        List<CurrencyDto> currencies = currencyManager.getAllCurrencies().stream()
+        var currencies = new CurrencyListDto(currencyManager.getAllCurrencies().stream()
                 .map(CurrencyDto::new)
-                .collect(Collectors.toList());
-        model.addAttribute("currencyDto", new CurrencyListDto(currencies));
+                .collect(Collectors.toList()));
+        model.addAttribute("currencyDto", currencies);
         return INDEX_VIEW;
     }
 
     @GetMapping("/edit")
     public String showCurrencyEditPage(@RequestParam(value = "id", required = false) Long currencyId, Model model) {
-        CurrencyDto currency = currencyId != null
+        var currency = currencyId != null
                 ? new CurrencyDto(currencyManager.getCurrencyById(currencyId))
                 : new CurrencyDto();
         model.addAttribute("curr", currency);

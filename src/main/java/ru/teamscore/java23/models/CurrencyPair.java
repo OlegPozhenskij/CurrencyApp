@@ -1,10 +1,7 @@
 package ru.teamscore.java23.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -15,12 +12,12 @@ import java.util.stream.Collectors;
 @Getter
 @NoArgsConstructor
 @Entity
+@EqualsAndHashCode
 @Table(name = "currency_pair", schema = "currencies")
 @NamedQuery(name = "currencyPairByShortTitles", query = "from CurrencyPair c where c.baseCurrency = :baseCurrency and c.quotedCurrency = :quotedCurrency")
 public class CurrencyPair {
 
     @Id
-    @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id = 0L;

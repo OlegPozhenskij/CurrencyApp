@@ -66,22 +66,4 @@ public class StatisticController {
 
         return statistics;
     }
-
-
-//    var statistics = new StatisticListDto();
-//        if (num != null) {
-//        statistics.setStatsList(currencyPairManager.getCurrencyStatistics(currencyFirst, currencyLast, num, period).
-//                stream()
-//                .map(StatisticDto::new)
-//                .collect(Collectors.toList())
-//        );
-//    } else {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-//        LocalDateTime dateStart = LocalDateTime.parse(start, formatter);
-//        LocalDateTime dateEnd = LocalDateTime.parse(end, formatter);
-//        statistics.setStatsList(currencyPairManager.getCurrencyStatistics(currencyFirst, currencyLast, dateStart, dateEnd, period).
-//                stream()
-//                .map(StatisticDto::new)
-//                .collect(Collectors.toList()));
-//    }
 }
