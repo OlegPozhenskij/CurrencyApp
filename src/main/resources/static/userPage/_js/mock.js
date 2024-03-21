@@ -24,10 +24,12 @@ document.getElementById("submit-button").addEventListener("click", async functio
         }
 
         const data = await response.json();
-        mockItems = data;
+        mockItems = data.statsList;
+
+        console.log(mockItems);
 
         updateChart();
-        updateTable(); // Вызываем функцию обновления таблицы
+        updateTable();
 
         console.log("Данные успешно получены:", mockItems);
     } catch (error) {
