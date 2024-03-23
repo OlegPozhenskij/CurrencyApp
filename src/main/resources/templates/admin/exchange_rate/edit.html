@@ -22,18 +22,7 @@
     />
   </head>
   <body class="d-flex flex-column h-100">
-    <header
-      class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark"
-    >
-      <div class="container-lg">
-        <div
-          class="container-fluid d-flex justify-content-between align-items-center"
-        >
-          <h1 class="fs-2 text-white m-0">Курсы валют</h1>
-          <h1 class="fs-2 text-white m-0">TEAMSCORE</h1>
-        </div>
-      </div>
-    </header>
+  <div th:replace="~{./fragments/common :: header}"></div>
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
       <div class="container-lg">
@@ -74,8 +63,8 @@
 
     <main class="flex-shrink-0">
       <div class="container-lg">
-        <form th:action="@{/admin/exchange_rate/save}" method="post">
-          <input type="hidden" name="id"  th:field="${rate.id}" />
+        <form th:action="@{/admin/exchange_rate/save}" th:method="POST" th:object="${rate}" >
+          <input type="hidden" name="id"  th:field="*{id}" />
           <div class="row align-items-end my-3">
             <div class="col">
               <label for="currencyPairSelect" class="form-label"
@@ -92,7 +81,7 @@
                 type="datetime-local"
                 class="form-control"
                 id="dateTimeInput"
-                name="localDateTime"
+                th:field="*{localDateTime}"
                 step="1"
               />
             </div>
@@ -105,7 +94,7 @@
                 type="number"
                 class="form-control"
                 id="exchangeRateInput"
-                name="rateVal"
+                th:field="*{rateVal}"
                 placeholder="Введите значение с точкой"
                 step="any"
               />
@@ -121,21 +110,6 @@
       </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light">
-      <div class="container d-flex flex-sm-row justify-content-between">
-        <div>
-          &copy;
-          <a href="https://teamscore.ru" class="link-info">Teamscore</a>.
-          Поженский Олег
-        </div>
-        <div>
-          <a
-            href="https://github.com/OlegPozhenskij/CurrencyApp"
-            class="link-info"
-            >GitHub</a
-          >
-        </div>
-      </div>
-    </footer>
+  <div th:replace="~{./fragments/common :: footer}"></div>
   </body>
 </html>

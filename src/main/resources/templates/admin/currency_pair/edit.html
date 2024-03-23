@@ -22,18 +22,7 @@
     />
   </head>
   <body class="d-flex flex-column h-100">
-    <header
-      class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark"
-    >
-      <div class="container-lg">
-        <div
-          class="container-fluid d-flex justify-content-between align-items-center"
-        >
-          <h1 class="fs-2 text-white m-0">Курсы валют</h1>
-          <h1 class="fs-2 text-white m-0">TEAMSCORE</h1>
-        </div>
-      </div>
-    </header>
+  <div th:replace="~{./fragments/common :: header}"></div>
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
       <div class="container-lg">
@@ -76,8 +65,8 @@
 
     <main class="flex-shrink-0">
       <div class="container-lg">
-        <form th:action="@{/admin/currency_pair/save}" method="post">
-          <input type="hidden" name="id"  th:field="${pair.id}" />
+        <form th:action="@{/admin/currency_pair/save}" th:method="POST" th:object="${pair}">
+          <input type="hidden" name="id"  th:field="*{id}" />
           <div class="row my-3 mt-5">
             <div class="col">
               <label for="shortNameInput" class="form-label"
@@ -87,7 +76,7 @@
                 type="text"
                 class="form-control"
                 id="shortNameInputFirst"
-                th:value="${pair.baseCurrency.shortTitle}"
+                th:field="*{baseCurrency.shortTitle}"
                 name="baseCurrency.shortTitle"
                 placeholder="USD"
               />
@@ -100,7 +89,7 @@
                 type="text"
                 class="form-control"
                 id="shortNameInputSecond"
-                th:value="${pair.quotedCurrency.shortTitle}"
+                th:field="*{quotedCurrency.shortTitle}"
                 name="quotedCurrency.shortTitle"
                 placeholder="EUR"
               />
@@ -117,21 +106,6 @@
       </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light">
-      <div class="container d-flex flex-sm-row justify-content-between">
-        <div>
-          &copy;
-          <a href="https://teamscore.ru" class="link-info">Teamscore</a>.
-          Поженский Олег
-        </div>
-        <div>
-          <a
-            href="https://github.com/OlegPozhenskij/CurrencyApp"
-            class="link-info"
-            >GitHub</a
-          >
-        </div>
-      </div>
-    </footer>
+  <div th:replace="~{./fragments/common :: footer}"></div>
   </body>
 </html>

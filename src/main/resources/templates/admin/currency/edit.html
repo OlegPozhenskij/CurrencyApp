@@ -22,18 +22,7 @@
     />
   </head>
   <body class="d-flex flex-column h-100">
-    <header
-      class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark"
-    >
-      <div class="container-lg">
-        <div
-          class="container-fluid d-flex justify-content-between align-items-center"
-        >
-          <h1 class="fs-2 text-white m-0">Курсы валют</h1>
-          <h1 class="fs-2 text-white m-0">TEAMSCORE</h1>
-        </div>
-      </div>
-    </header>
+  <div th:replace="~{./fragments/common :: header}"></div>
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
       <div class="container-lg">
@@ -69,20 +58,20 @@
 
     <main class="flex-shrink-0">
       <div class="container-lg">
-        <form th:action="@{/admin/currency/save}" method="post">
-          <input type="hidden" th:if="${curr != null}" th:field="${curr.id}" />
+        <form th:action="@{/admin/currency/save}" th:method="POST" th:object="${curr}">
+          <input type="hidden" th:field="*{id}" />
 
           <div class="row my-3 mt-5">
             <div class="col">
               <label for="shortNameInput" class="form-label">Сокращенное название валюты</label>
               <input type="text" class="form-control" id="shortNameInput"
-                     th:value="${curr != null ? curr.shortTitle : ''}"
+                     th:field="*{shortTitle}"
                      name="shortTitle" placeholder="USD"/>
             </div>
             <div class="col">
               <label for="fullNameInput" class="form-label">Полное название валюты</label>
               <input type="text" class="form-control" id="fullNameInput"
-                     th:value="${curr != null ? curr.fullTitle : ''}"
+                     th:field="*{fullTitle}"
                      name="fullTitle" placeholder="United States Dollar"/>
             </div>
           </div>
@@ -95,21 +84,6 @@
       </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light">
-      <div class="container d-flex flex-sm-row justify-content-between">
-        <div>
-          &copy;
-          <a href="https://teamscore.ru" class="link-info">Teamscore</a>.
-          Поженский Олег
-        </div>
-        <div>
-          <a
-            href="https://github.com/OlegPozhenskij/CurrencyApp"
-            class="link-info"
-            >GitHub</a
-          >
-        </div>
-      </div>
-    </footer>
+  <div th:replace="~{./fragments/common :: footer}"></div>
   </body>
 </html>

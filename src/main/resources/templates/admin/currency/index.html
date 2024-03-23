@@ -22,18 +22,7 @@
     />
   </head>
   <body class="d-flex flex-column h-100">
-    <header
-      class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark"
-    >
-      <div class="container-lg">
-        <div
-          class="container-fluid d-flex justify-content-between align-items-center"
-        >
-          <h1 class="fs-2 text-white m-0">Курсы валют</h1>
-          <h1 class="fs-2 text-white m-0">TEAMSCORE</h1>
-        </div>
-      </div>
-    </header>
+  <div th:replace="~{./fragments/common :: header}"></div>
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
       <div class="container-lg">
@@ -75,27 +64,6 @@
           <a class="btn btn-primary" href="edit">
             <i class="bi bi-plus-square-fill"></i> Новая валюта
           </a>
-        </div>
-        <div class="row my-2">
-          <div class="col-sm-9">
-            <label for="exampleFormControlInput1" class="form-label"
-              >Поиск</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="searchItem"
-              placeholder="Введите часть сокращённого названия валюты"
-            />
-          </div>
-          <div class="col-sm-3">
-            <label for="sortOrderSelect" class="form-label">Сортировка</label>
-            <select id="sortOrderSelect" class="form-select">
-              <option selected value="title">По названию</option>
-              <option value="priceAsc">От дешёвых к дорогим</option>
-              <option value="priceDesc">От дорогих к дешёвым</option>
-            </select>
-          </div>
         </div>
         <div class="my-3 row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           <div class="col" th:each="currency : ${currencyDto.currencyList}">
@@ -140,21 +108,6 @@
       </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light">
-      <div class="container d-flex flex-sm-row justify-content-between">
-        <div>
-          &copy;
-          <a href="https://teamscore.ru" class="link-info">Teamscore</a>.
-          Поженский Олег
-        </div>
-        <div>
-          <a
-            href="https://github.com/OlegPozhenskij/CurrencyApp"
-            class="link-info"
-            >GitHub</a
-          >
-        </div>
-      </div>
-    </footer>
+  <div th:replace="~{./fragments/common :: footer}"></div>
   </body>
 </html>

@@ -22,18 +22,7 @@
     />
   </head>
   <body class="d-flex flex-column h-100">
-    <header
-      class="bd-header bg-dark py-3 d-flex align-items-stretch border-bottom border-dark"
-    >
-      <div class="container-lg">
-        <div
-          class="container-fluid d-flex justify-content-between align-items-center"
-        >
-          <h1 class="fs-2 text-white m-0">Курсы валют</h1>
-          <h1 class="fs-2 text-white m-0">TEAMSCORE</h1>
-        </div>
-      </div>
-    </header>
+  <div th:replace="~{./fragments/common :: header}"></div>
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-secondary">
       <div class="container-lg">
@@ -81,27 +70,6 @@
             <i class="bi bi-plus-square-fill"></i> Новая валютная пара
           </a>
         </div>
-        <div class="row my-2">
-          <div class="col-sm-9">
-            <label for="exampleFormControlInput1" class="form-label"
-              >Поиск</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="searchItem"
-              placeholder="Введите часть названия валютной пары"
-            />
-          </div>
-          <div class="col-sm-3">
-            <label for="sortOrderSelect" class="form-label">Сортировка</label>
-            <select id="sortOrderSelect" class="form-select">
-              <option selected value="title">По названию</option>
-              <option value="priceAsc">От дешёвых к дорогим</option>
-              <option value="priceDesc">От дорогих к дешёвым</option>
-            </select>
-          </div>
-        </div>
         <div class="my-3 row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
           <div class="col" th:each="pair : ${pairs.pairList}">
             <div class="card product-card">
@@ -146,39 +114,9 @@
             </div>
           </div>
         </div>
-        <nav aria-label="products-navigation">
-          <ul class="pagination justify-content-end">
-            <li class="page-item">
-              <a class="page-link" href="#?page=0">&laquo;</a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="?page=0">1</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="?page=1">2</a></li>
-            <li class="page-item"><a class="page-link" href="?page=2">3</a></li>
-            <li class="page-item">
-              <a class="page-link" href="?page=5">&raquo;</a>
-            </li>
-          </ul>
-        </nav>
       </div>
     </main>
 
-    <footer class="footer mt-auto py-3 bg-light">
-      <div class="container d-flex flex-sm-row justify-content-between">
-        <div>
-          &copy;
-          <a href="https://teamscore.ru" class="link-info">Teamscore</a>.
-          Поженский Олег
-        </div>
-        <div>
-          <a
-            href="https://github.com/OlegPozhenskij/CurrencyApp"
-            class="link-info"
-            >GitHub</a
-          >
-        </div>
-      </div>
-    </footer>
+  <div th:replace="~{./fragments/common :: footer}"></div>
   </body>
 </html>

@@ -55,6 +55,8 @@ public class ExchangeRateController {
 
     @PostMapping("/save")
     public String saveOrUpdateExchangeRate(@ModelAttribute("rate") ExchangeRateDto rateDto) {
+        System.out.println(currencyPairManager.getCurrencyPairById(rateDto.getCurrencyPairCode()));
+        System.out.println(rateDto.getCurrencyPairCode());
         var exchangeRateObject = new ExchangeRate(
                 rateDto.getId(),
                 rateDto.getLocalDateTime(),

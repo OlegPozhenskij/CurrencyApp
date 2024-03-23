@@ -41,9 +41,9 @@ public class StatisticController {
             //TODO преобразовать в DTO
             @RequestParam String currencyFirst,
             @RequestParam String currencyLast,
+            @RequestParam String period,
             @RequestParam(required = false) String start,
             @RequestParam(required = false) String end,
-            @RequestParam String period,
             @RequestParam(required = false) Integer num) {
 
         var statistics = new StatisticListDto();
