@@ -6,7 +6,7 @@ table.nested {
 th.nested,
 td.nested {
   text-align: left;
-  vertical-align: middle; /* Выравнивание по вертикали */
+  vertical-align: middle;
   padding: 8px;
   border: 1px solid #dddddd;
 }

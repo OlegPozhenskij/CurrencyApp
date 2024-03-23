@@ -42,7 +42,7 @@ public class CurrencyApplication {
     }
 
     @Bean
-    @RequestScope // Установка области видимости запроса
+    @RequestScope
     public EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
         return entityManagerFactory.createEntityManager();
     }

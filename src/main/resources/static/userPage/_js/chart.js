@@ -42,7 +42,6 @@ var options = {
 };
 
 function updateChart() {
-// Обновляем данные на графике
     chart.updateSeries([
         {
             name: "EUR/USD",

@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8080/api'; // Замените на ваш URL бэкенда
+const BASE_URL = 'http://localhost:8080/api';
 
 async function fetchData(url, options = {}) {
   try {
@@ -30,4 +30,3 @@ async function fetchStats(params) {
   return await fetchData(url);
 }
 
-// Другие функции для других запросов могут быть добавлены здесь

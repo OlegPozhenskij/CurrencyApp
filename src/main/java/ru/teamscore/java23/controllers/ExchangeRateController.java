@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 public class ExchangeRateController {
     private static final String INDEX_VIEW = "/admin/exchange_rate/index";
     private static final String EDIT_VIEW = "/admin/exchange_rate/edit";
+    private static final String REDIRECT_INDEX = "redirect:/admin/exchange_rate/index";
 
     @Autowired
     private CurrencyPairManager currencyPairManager;
@@ -65,13 +66,13 @@ public class ExchangeRateController {
         );
         exchangeRateManager.saveOrUpdateExchangeRate(exchangeRateObject);
 
-        return "redirect:/admin/exchange_rate/index";
+        return REDIRECT_INDEX;
     }
 
     @GetMapping("/delete")
     public String deleteExchangeRateById(@RequestParam("id") Long exchangeRateId) {
         exchangeRateManager.deleteExchangeRateById(exchangeRateId);
-        return "redirect:/admin/exchange_rate/index";
+        return REDIRECT_INDEX;
     }
 
 }

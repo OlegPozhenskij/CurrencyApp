@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 public class CurrencyPairController {
     private static final String INDEX_VIEW = "admin/currency_pair/index";
     private static final String EDIT_VIEW = "admin/currency_pair/edit";
+    private static final String REDIRECT_INDEX = "redirect:/admin/currency_pair/index";
 
     private static final int PRECISION = 3;
 
@@ -64,13 +65,13 @@ public class CurrencyPairController {
         );
         currencyPairManager.saveOrUpdateCurrencyPair(cp);
 
-        return "redirect:/admin/currency_pair/index";
+        return REDIRECT_INDEX;
     }
 
     @GetMapping("/delete")
     public String deleteCurrencyPairById(@RequestParam("id") Long currencyId) {
         currencyPairManager.deleteCurrencyPairById(currencyId);
-        return "redirect:/admin/currency_pair/index";
+        return REDIRECT_INDEX;
     }
 
 }

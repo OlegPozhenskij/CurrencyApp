@@ -1,59 +1,51 @@
-/* Общие стили для html и body */
 html,
 body {
   max-width: 100%;
   overflow-x: hidden;
-  font-size: 16px; /* Устанавливаем базовый размер шрифта */
+  font-size: 16px;
 }
 
-/* Контейнер для основного содержимого */
 .body {
   display: grid;
   min-height: 100vh;
 }
 
-/* Шапка */
 header {
   max-height: 80px;
-  text-align: center; /* Выравниваем текст по центру */
-  background-color: #343a40; /* Цвет фона */
-  color: #fff; /* Цвет текста */
-  padding: 1rem 0; /* Внутренние отступы */
+  text-align: center;
+  background-color: #343a40;
+  color: #fff;
+  padding: 1rem 0;
 }
 
-/* Основной контент */
 main {
   background-color: #ffffff;
 }
 
-/* Контейнер для выпадающего меню */
 .rates {
-  text-align: center; /* Выравниваем дочерние элементы по центру */
+  text-align: center;
 }
 
-/* Стили для выпадающего меню */
 .dropdown {
   display: inline-block;
-  margin-right: 1.5rem; /* Увеличиваем промежуток между элементами */
+  margin-right: 1.5rem;
 }
 
 .page-number-span {
-  border: 1px solid #007bff; /* Add border to the span */
-  padding: 4px 8px; /* Add padding for better appearance */
-  margin-right: 40px; /* Add left margin to create space between the span and buttons */
-  display: flex; /* Use flexbox */
-  align-items: center; /* Center vertically */
+  border: 1px solid #007bff;
+  padding: 4px 8px;
+  margin-right: 40px;
+  display: flex;
+  align-items: center;
 }
 
-/* Стили для контейнера с графиком */
 #chart {
-  margin: 0 auto; /* Центрируем по горизонтали */
+  margin: 0 auto;
   min-width: 75%;
   min-height: 500px;
-  padding: 0 1.5rem; /* Увеличиваем внутренние отступы */
+  padding: 0 1.5rem;
 }
 
-/* Стили для таблицы */
 table {
   border-collapse: collapse;
   width: 80%;
@@ -75,7 +67,6 @@ tbody tr.gray {
   background-color: rgb(206, 206, 206);
 }
 
-/* Стили для кнопок пагинации */
 .buts {
   margin-bottom: 20px;
 }
@@ -91,10 +82,9 @@ tbody tr.gray {
 .up-arrow,
 .down-arrow,
 .yellow-dash {
-  font-size: 30px; /* Set a fixed font size */
+  font-size: 30px;
 }
 
-/* Стили для выпадающего списка выбора валют */
 .row {
   display: flex;
 }
