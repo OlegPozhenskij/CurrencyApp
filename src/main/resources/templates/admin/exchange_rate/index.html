@@ -114,7 +114,7 @@
                         <i class="bi bi-pencil-square"></i>
                       </a>
                       <!-- Кнопка для удаления -->
-                      <a href="#" th:onclick="'deleteRecord(' + ${rate.id} + ')'" class="nav-item text-danger delete-currency">
+                      <a th:href="@{'delete?id=' + ${rate.id}}" class="nav-item text-danger delete-currency">
                         <i class="bi bi-trash"></i>
                       </a>
                     </td>
@@ -162,6 +162,5 @@
         </div>
       </div>
     </footer>
-    <script src="../../adminPage/_js/DelRec.js"></script>
   </body>
 </html>

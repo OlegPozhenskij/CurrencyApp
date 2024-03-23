@@ -120,6 +120,14 @@ button,
   margin-bottom: 20px;
 }
 
+.dates {
+    display: inline-block;
+}
+
+.counts {
+    display: inline-block;
+}
+
 /* Медиа-запрос для устройств с шириной экрана до 960px */
 @media (max-width: 960px) {
   html,

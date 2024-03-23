@@ -66,11 +66,10 @@ public class ExchangeRateController {
         return "redirect:/admin/exchange_rate/index";
     }
 
-    @DeleteMapping("/delete")
-    @ResponseBody
-    public ResponseEntity<Object> deleteExchangeRateById(@RequestParam("id") Long exchangeRateId) {
+    @GetMapping("/delete")
+    public String deleteExchangeRateById(@RequestParam("id") Long exchangeRateId) {
         exchangeRateManager.deleteExchangeRateById(exchangeRateId);
-        return ResponseEntity.ok().build();
+        return "redirect:/admin/exchange_rate/index";
     }
 
 }

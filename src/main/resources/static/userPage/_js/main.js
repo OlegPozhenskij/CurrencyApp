@@ -1,42 +1,25 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const modeSelect = document.querySelector(".select-mode");
-  const dateFields = document.querySelector(".date-fields");
+document.addEventListener("DOMContentLoaded", function() {
+    var selectMode = document.querySelector(".select-mode");
+    var dates = document.querySelector(".dates");
+    var counts = document.querySelector(".counts");
 
-  modeSelect.addEventListener("change", function () {
-    const selectedMode = modeSelect.value;
-    if (selectedMode === "range") {
-      dateFields.innerHTML = `
-            <input
-            type="datetime-local"
-            class="start-date"
-            placeholder="Дата и время начала"
-            step="1"
-          />
-          <input
-            type="datetime-local"
-            class="end-date"
-            placeholder="Дата и время конца"
-            step="1"
-          />
-          <select class="period-select">
-          <option value="MINUTE">Минута</option>
-          <option value="HOUR">Час</option>
-          <option value="DAY">День</option>
-          <option value="MONTH">Месяц</option>
-          <option value="YEAR">Год</option>
-      </select>
-            `;
-    } else if (selectedMode === "count") {
-      dateFields.innerHTML = `
-                <input type="number" class="count-input" placeholder="Количество статистик">
-                <select class="period-select">
-          <option value="MINUTE">Минута</option>
-          <option value="HOUR">Час</option>
-          <option value="DAY">День</option>
-          <option value="MONTH">Месяц</option>
-          <option value="YEAR">Год</option>
-      </select>
-            `;
-    }
-  });
+    // Слушаем изменения в select элементе
+    selectMode.addEventListener("change", function() {
+        // Получаем выбранное значение
+        var selectedOption = selectMode.value;
+
+        // Проверяем выбранное значение и скрываем/показываем соответствующий блок
+        if (selectedOption === "range") {
+            // Показываем блок .dates и скрываем блок .counts
+            dates.removeAttribute("hidden");
+            counts.setAttribute("hidden", "true");
+        } else if (selectedOption === "count") {
+            // Показываем блок .counts и скрываем блок .dates
+            dates.setAttribute("hidden", "true");
+            counts.removeAttribute("hidden");
+        }
+    });
+
+    // Изначально скрываем блок .counts
+    counts.setAttribute("hidden", "true");
 });

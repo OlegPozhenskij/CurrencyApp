@@ -1,4 +1,4 @@
-package ru.teamscore.java23.controllers;
+package ru.teamscore.java23.controllers.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/api/stats")
 public class StatisticController {
     @Autowired
     private CurrencyPairManager currencyPairManager;
@@ -35,9 +36,7 @@ public class StatisticController {
     @Autowired
     private CurrencyManager currencyManager;
 
-
-
-    @GetMapping("/stats")
+    @GetMapping
     public StatisticListDto showStatisticsList(
             //TODO преобразовать в DTO
             @RequestParam String currencyFirst,

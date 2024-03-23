@@ -13,7 +13,7 @@ function updateTable() {
                     <th>Direction</th>
                 </tr>
             `;
-    mockItems.forEach((item) => {
+    dataItems.forEach((item) => {
         let trend;
         if (item.direction == 'UP') {
             trend = '<span class="up-arrow">&#8682;</span>';
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const startIndex = (page - 1) * pageSize;
         const endIndex = startIndex + pageSize;
 
-        mockItems.slice(startIndex, endIndex).forEach((item, index) => {
+        dataItems.slice(startIndex, endIndex).forEach((item, index) => {
             let trend;
             if (item.direction == 'UP') {
                         trend = '<span class="up-arrow">&#8682;</span>';
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     nextPageButton.addEventListener("click", function () {
-        const maxPage = Math.ceil(mockItems.length / pageSize);
+        const maxPage = Math.ceil(dataItems.length / pageSize);
         if (currentPage < maxPage) {
             currentPage++;
             displayItems(currentPage);

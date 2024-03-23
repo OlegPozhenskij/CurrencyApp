@@ -137,7 +137,7 @@
                 </a>
                 <a
                   href="#"
-                  th:onclick="'deleteRecord(' + ${pair.id} + ')'"
+                  th:href="@{'delete?id=' + ${pair.id}}"
                   class="nav-item text-danger delete-currency"
                 >
                   <i class="bi bi-trash"></i>
@@ -180,7 +180,5 @@
         </div>
       </div>
     </footer>
-
-    <script src="../../adminPage/_js/DelRec.js"></script>
   </body>
 </html>

@@ -1,4 +1,3 @@
-console.log(mockItems);
 
 var options = {
   chart: {
@@ -8,7 +7,7 @@ var options = {
   series: [
     {
       name: "EUR/USD",
-      data: mockItems.map((item) => [
+      data: dataItems.map((item) => [
         item.timestamp,
         item.open,
         item.max,
@@ -47,7 +46,7 @@ function updateChart() {
     chart.updateSeries([
         {
             name: "EUR/USD",
-            data: mockItems.map((item) => [
+            data: dataItems.map((item) => [
                 item.timestamp,
                 item.open,
                 item.max,

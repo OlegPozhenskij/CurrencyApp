@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.teamscore.java23.controllers.dto.CurrencyDto;
 import ru.teamscore.java23.controllers.dto.CurrencyListDto;
 import ru.teamscore.java23.controllers.dto.CurrencyPairListDto;
+import ru.teamscore.java23.controllers.dto.StringListDto;
 import ru.teamscore.java23.models.Currency;
 import ru.teamscore.java23.models.services.CurrencyManager;
 import ru.teamscore.java23.models.services.CurrencyPairManager;
@@ -57,18 +58,9 @@ public class CurrencyController {
         return REDIRECT_INDEX;
     }
 
-    @DeleteMapping("/delete")
-    @ResponseBody
-    public ResponseEntity<Object> deleteCurrencyById(@RequestParam("id") Long currencyId) {
+    @GetMapping("/delete")
+    public String deleteCurrencyById(@RequestParam("id") Long currencyId) {
         currencyManager.deleteCurrency(currencyManager.getCurrencyById(currencyId));
-        return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/list")
-    @ResponseBody
-    public ResponseEntity<List<String>> getCurrencyList() {
-        return ResponseEntity.ok(currencyPairManager.getAllCurrencyPairs().stream()
-                .map(pair -> pair.getBaseCurrency().getShortTitle() + "/" + pair.getQuotedCurrency().getShortTitle())
-                .collect(Collectors.toList()));
+        return REDIRECT_INDEX;
     }
 }

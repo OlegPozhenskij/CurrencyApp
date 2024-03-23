@@ -45,18 +45,23 @@
           </div>
           <div class="col-md-7">
             <div class="date-fields">
-              <input
-                type="datetime-local"
-                class="start-date"
-                placeholder="Дата и время начала"
-                step="1"
-              />
-              <input
-                type="datetime-local"
-                class="end-date"
-                placeholder="Дата и время конца"
-                step="1"
-              />
+              <div class="dates">
+                <input
+                        type="datetime-local"
+                        class="start-date"
+                        placeholder="Дата и время начала"
+                        step="1"
+                />
+                <input
+                        type="datetime-local"
+                        class="end-date"
+                        placeholder="Дата и время конца"
+                        step="1"
+                />
+              </div>
+              <div class="counts">
+                <input type="number" class="count-input" placeholder="Количество статистик">
+              </div>
               <select class="period-select">
                 <option value="MINUTE">Минута</option>
                 <option value="HOUR">Час</option>
@@ -73,7 +78,6 @@
 
         <div id="chart"></div>
 
-        <!-- Обертка для таблицы с ползунком -->
         <div class="table-responsive">
           <table class="table mt-4">
             <tbody class="tableBody"></tbody>
@@ -109,7 +113,7 @@
       </div>
     </footer>
 
-    <script src="userPage/_js/mock.js"></script>
+    <script src="userPage/_js/getData.js"></script>
     <script src="userPage/_js/option.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="userPage/_js/chart.js" defer></script>

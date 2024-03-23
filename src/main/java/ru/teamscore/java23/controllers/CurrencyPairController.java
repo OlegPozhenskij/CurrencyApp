@@ -67,11 +67,10 @@ public class CurrencyPairController {
         return "redirect:/admin/currency_pair/index";
     }
 
-    @DeleteMapping("/delete")
-    @ResponseBody
-    public ResponseEntity<Object> deleteCurrencyPairById(@RequestParam("id") Long currencyId) {
+    @GetMapping("/delete")
+    public String deleteCurrencyPairById(@RequestParam("id") Long currencyId) {
         currencyPairManager.deleteCurrencyPairById(currencyId);
-        return ResponseEntity.ok().build();
+        return "redirect:/admin/currency_pair/index";
     }
 
 }

@@ -2,8 +2,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     const selectCurrency = document.querySelector(".select-currency");
 
     try {
-        const response = await fetch("/admin/currency/list");
-        const currencies = await response.json();
+        const response = await fetch("/api/currencyList");
+        const obj = await response.json();
+        const currencies = obj.strList;
 
         selectCurrency.innerHTML = "";
 
