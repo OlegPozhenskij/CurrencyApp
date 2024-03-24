@@ -4,12 +4,12 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.*;
-import ru.teamscore.java23.entities.Currency;
-import ru.teamscore.java23.entities.CurrencyPair;
-import ru.teamscore.java23.entities.ExchangeRate;
-import ru.teamscore.java23.services.CurrencyManager;
-import ru.teamscore.java23.services.CurrencyPairManager;
-import ru.teamscore.java23.services.ExchangeRateManager;
+import ru.teamscore.java23.models.Currency;
+import ru.teamscore.java23.models.CurrencyPair;
+import ru.teamscore.java23.models.ExchangeRate;
+import ru.teamscore.java23.models.services.CurrencyManager;
+import ru.teamscore.java23.models.services.CurrencyPairManager;
+import ru.teamscore.java23.models.services.ExchangeRateManager;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -78,7 +78,7 @@ class ExchangeRateManagerTest {
                 BigDecimal.valueOf(23.5),
                 currencyPairManager.searchCurrencyPairsByCurrencyName("USD","EUR"));
 
-        rateManager.saveRate(exchangeRate);
+        rateManager.saveOrUpdateExchangeRate(exchangeRate);
 
         assertEquals(3, rateManager.getAllExchangeRates().size());
     }

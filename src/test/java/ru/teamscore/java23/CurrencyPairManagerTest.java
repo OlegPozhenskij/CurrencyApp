@@ -3,13 +3,14 @@ package ru.teamscore.java23;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.*;
-import ru.teamscore.java23.entities.Currency;
-import ru.teamscore.java23.entities.CurrencyPair;
-import ru.teamscore.java23.entities.ExchangeRate;
+import ru.teamscore.java23.models.enums.Period;
+import ru.teamscore.java23.models.Currency;
+import ru.teamscore.java23.models.CurrencyPair;
+import ru.teamscore.java23.models.ExchangeRate;
 
 import org.hibernate.cfg.Configuration;
-import ru.teamscore.java23.services.CurrencyManager;
-import ru.teamscore.java23.services.CurrencyPairManager;
+import ru.teamscore.java23.models.services.CurrencyManager;
+import ru.teamscore.java23.models.services.CurrencyPairManager;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -65,6 +66,7 @@ class CurrencyPairManagerTest {
         assertNotNull(currencyPair);
         assertEquals("USD", currencyPair.getBaseCurrency().getShortTitle());
         assertEquals("EUR", currencyPair.getQuotedCurrency().getShortTitle());
+        System.out.println(Period.valueOf("HOUR"));
     }
 
     @Test
@@ -75,7 +77,7 @@ class CurrencyPairManagerTest {
                 2
         );
 
-        currencyPairManager.saveCurrencyPair(currencyPair);
+        currencyPairManager.saveOrUpdateCurrencyPair(currencyPair);
 
         assertSame(currencyPair.getBaseCurrency(), currencyPairManager.getCurrencyPairByNames("HOS", "BIC").get().getBaseCurrency());
         assertSame(currencyPair.getQuotedCurrency(), currencyPairManager.getCurrencyPairByNames("HOS", "BIC").get().getQuotedCurrency());

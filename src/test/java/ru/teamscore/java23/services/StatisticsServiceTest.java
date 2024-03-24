@@ -5,13 +5,16 @@ import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.*;
 import ru.teamscore.java23.SqlScripts;
-import ru.teamscore.java23.entities.Currency;
-import ru.teamscore.java23.entities.CurrencyPair;
-import ru.teamscore.java23.entities.ExchangeRate;
-import ru.teamscore.java23.entities.PriceStatistics;
-import ru.teamscore.java23.enums.Direction;
-import ru.teamscore.java23.enums.Period;
-import ru.teamscore.java23.statistics.StatisticsService;
+import ru.teamscore.java23.models.Currency;
+import ru.teamscore.java23.models.CurrencyPair;
+import ru.teamscore.java23.models.ExchangeRate;
+import ru.teamscore.java23.models.PriceStatistics;
+import ru.teamscore.java23.models.enums.Direction;
+import ru.teamscore.java23.models.enums.Period;
+import ru.teamscore.java23.models.services.CurrencyManager;
+import ru.teamscore.java23.models.services.CurrencyPairManager;
+import ru.teamscore.java23.models.services.ExchangeRateManager;
+import ru.teamscore.java23.models.statistics.StatisticsService;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -85,8 +88,8 @@ class StatisticsServiceTest {
                 currencyPair
         );
 
-        rateManager.saveRate(rate1);
-        rateManager.saveRate(rate2);
+        rateManager.saveOrUpdateExchangeRate(rate1);
+        rateManager.saveOrUpdateExchangeRate(rate2);
 
         var startDate = LocalDateTime.parse("2024-04-01T02:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
         var endDate = LocalDateTime.parse("2024-04-01T21:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"));
@@ -138,11 +141,11 @@ class StatisticsServiceTest {
                 currencyPair
         );
 
-        rateManager.saveRate(rate1);
-        rateManager.saveRate(rate2);
-        rateManager.saveRate(rate3);
-        rateManager.saveRate(rate4);
-        rateManager.saveRate(rate5);
+        rateManager.saveOrUpdateExchangeRate(rate1);
+        rateManager.saveOrUpdateExchangeRate(rate2);
+        rateManager.saveOrUpdateExchangeRate(rate3);
+        rateManager.saveOrUpdateExchangeRate(rate4);
+        rateManager.saveOrUpdateExchangeRate(rate5);
 
         Period period = Period.HOUR;
 

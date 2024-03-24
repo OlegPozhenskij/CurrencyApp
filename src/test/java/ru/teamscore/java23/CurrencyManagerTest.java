@@ -3,13 +3,13 @@ package ru.teamscore.java23;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.*;
-import ru.teamscore.java23.entities.Currency;
+import ru.teamscore.java23.models.Currency;
 
 
 import org.hibernate.cfg.Configuration;
-import ru.teamscore.java23.entities.CurrencyPair;
-import ru.teamscore.java23.entities.ExchangeRate;
-import ru.teamscore.java23.services.CurrencyManager;
+import ru.teamscore.java23.models.CurrencyPair;
+import ru.teamscore.java23.models.ExchangeRate;
+import ru.teamscore.java23.models.services.CurrencyManager;
 
 import java.io.IOException;
 import java.util.List;
@@ -62,7 +62,7 @@ class CurrencyManagerTest {
         currency.setShortTitle("ASD");
         currency.setFullTitle("ASolo NA");
 
-        currencyManager.saveCurrency(currency);
+        currencyManager.saveOrUpdateCurrency(currency);
 
         Currency savedCurrency = entityManager.find(Currency.class, currency.getId());
         assertNotNull(savedCurrency);
@@ -71,7 +71,7 @@ class CurrencyManagerTest {
 
     @Test
     public void testDeleteCurrency() {
-        currencyManager.deleteCurrencyPair(entityManager.find(Currency.class, 1));
+        currencyManager.deleteCurrency(entityManager.find(Currency.class, 1));
 
         assertNull(entityManager.find(Currency.class, 1));
         assertNotNull(entityManager.find(Currency.class, 2));
