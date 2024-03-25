@@ -7,9 +7,9 @@ import org.junit.jupiter.api.*;
 import ru.teamscore.java23.models.Currency;
 import ru.teamscore.java23.models.CurrencyPair;
 import ru.teamscore.java23.models.ExchangeRate;
-import ru.teamscore.java23.models.services.CurrencyManager;
-import ru.teamscore.java23.models.services.CurrencyPairManager;
-import ru.teamscore.java23.models.services.ExchangeRateManager;
+import ru.teamscore.java23.services.CurrencyService;
+import ru.teamscore.java23.services.CurrencyPairService;
+import ru.teamscore.java23.services.ExchangeRateService;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -17,12 +17,12 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ExchangeRateManagerTest {
+class ExchangeRateServiceTest {
     private static EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
-    private CurrencyPairManager currencyPairManager;
-    private CurrencyManager currencyManager;
-    private ExchangeRateManager rateManager;
+    private CurrencyPairService currencyPairService;
+    private CurrencyService currencyService;
+    private ExchangeRateService rateManager;
 
     @BeforeAll
     public static void setup() throws IOException {
@@ -42,9 +42,9 @@ class ExchangeRateManagerTest {
         SqlScripts.runFromFile(entityManagerFactory, "insertTestCurrencyPair.sql");
         SqlScripts.runFromFile(entityManagerFactory, "insertExchangeRate.sql");
         entityManager = entityManagerFactory.createEntityManager();
-        currencyManager = new CurrencyManager(entityManager);
-        currencyPairManager = new CurrencyPairManager(entityManager, currencyManager);
-        rateManager = new ExchangeRateManager(entityManager);
+        currencyService = new CurrencyService(entityManager);
+        currencyPairService = new CurrencyPairService(entityManager, currencyService);
+        rateManager = new ExchangeRateService(entityManager);
     }
 
     @AfterEach
@@ -76,7 +76,7 @@ class ExchangeRateManagerTest {
         var exchangeRate = new ExchangeRate(
                 LocalDateTime.now(),
                 BigDecimal.valueOf(23.5),
-                currencyPairManager.searchCurrencyPairsByCurrencyName("USD","EUR"));
+                currencyPairService.searchCurrencyPairsByCurrencyName("USD","EUR"));
 
         rateManager.saveOrUpdateExchangeRate(exchangeRate);
 

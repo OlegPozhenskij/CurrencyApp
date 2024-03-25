@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 @Entity
 @EqualsAndHashCode
 @Table(name = "currency_pair", schema = "currencies")
-@NamedQuery(name = "currencyPairByShortTitles", query = "from CurrencyPair c where c.baseCurrency = :baseCurrency and c.quotedCurrency = :quotedCurrency")
 public class CurrencyPair {
 
     @Id
@@ -27,15 +26,15 @@ public class CurrencyPair {
     private List<ExchangeRate> exchangeRateHistory;
 
     @Setter
-    @Column(name = "precision")
+    @Column(name = "precision", nullable = false)
     private int precision;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "base_currency_id", referencedColumnName = "id")
+    @JoinColumn(name = "base_currency_id", nullable = false, referencedColumnName = "id")
     private Currency baseCurrency;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "quoted_currency_id", referencedColumnName = "id")
+    @JoinColumn(name = "quoted_currency_id", nullable = false, referencedColumnName = "id")
     private Currency quotedCurrency;
 
     public CurrencyPair(Currency baseCurrency, Currency currency, int precision) {

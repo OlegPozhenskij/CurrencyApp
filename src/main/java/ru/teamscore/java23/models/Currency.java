@@ -15,8 +15,6 @@ import java.util.Set;
 @Entity
 @EqualsAndHashCode
 @Table(name = "currency", schema = "currencies")
-@NamedQuery(name = "currenciesCount", query = "select count(*) from Currency")
-@NamedQuery(name = "currencyByShortTitle", query = "from Currency c where c.shortTitle = :shortTitle")
 public class Currency {
 
     @Id

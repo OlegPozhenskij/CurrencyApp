@@ -9,17 +9,17 @@ import ru.teamscore.java23.models.Currency;
 import org.hibernate.cfg.Configuration;
 import ru.teamscore.java23.models.CurrencyPair;
 import ru.teamscore.java23.models.ExchangeRate;
-import ru.teamscore.java23.models.services.CurrencyManager;
+import ru.teamscore.java23.services.CurrencyService;
 
 import java.io.IOException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CurrencyManagerTest {
+class CurrencyServiceTest {
     private static EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
-    private CurrencyManager currencyManager;
+    private CurrencyService currencyService;
 
 
     @BeforeAll
@@ -38,7 +38,7 @@ class CurrencyManagerTest {
     public void openSession() throws IOException {
         SqlScripts.runFromFile(entityManagerFactory, "insertTestCurrencies.sql");
         entityManager = entityManagerFactory.createEntityManager();
-        currencyManager = new CurrencyManager(entityManager);
+        currencyService = new CurrencyService(entityManager);
     }
 
     @AfterEach
@@ -62,7 +62,7 @@ class CurrencyManagerTest {
         currency.setShortTitle("ASD");
         currency.setFullTitle("ASolo NA");
 
-        currencyManager.saveOrUpdateCurrency(currency);
+        currencyService.saveOrUpdateCurrency(currency);
 
         Currency savedCurrency = entityManager.find(Currency.class, currency.getId());
         assertNotNull(savedCurrency);
@@ -71,7 +71,7 @@ class CurrencyManagerTest {
 
     @Test
     public void testDeleteCurrency() {
-        currencyManager.deleteCurrency(entityManager.find(Currency.class, 1));
+        currencyService.deleteCurrency(entityManager.find(Currency.class, 1));
 
         assertNull(entityManager.find(Currency.class, 1));
         assertNotNull(entityManager.find(Currency.class, 2));
@@ -79,34 +79,34 @@ class CurrencyManagerTest {
 
     @Test
     void testGetCurrencyByShortTitle() {
-        Currency currency = currencyManager.getCurrencyByShortTitle("USD");
+        Currency currency = currencyService.getCurrencyByShortTitle("USD");
         assertNotNull(currency);
         assertEquals("USD", currency.getShortTitle());
     }
 
     @Test
     void testGetAllCurrencies() {
-        List<Currency> currencies = currencyManager.getAllCurrencies();
+        List<Currency> currencies = currencyService.getAllCurrencies();
         assertNotNull(currencies);
         assertFalse(currencies.isEmpty());
     }
 
     @Test
     void testGetCurrencyById() {
-        Currency currency = currencyManager.getCurrencyById(2);
+        Currency currency = currencyService.getCurrencyById(2);
         assertNotNull(currency);
         assertEquals(2, currency.getId());
     }
 
     @Test
     void testCountCurrencies() {
-        long count = currencyManager.countCurrencies();
+        long count = currencyService.countCurrencies();
         assertEquals(4, count);
     }
 
     @Test
     void testGetCurrenciesByNameSubstring() {
-        List<Currency> currencies = currencyManager.getCurrenciesByNameSubstring("Dollar");
+        List<Currency> currencies = currencyService.getCurrenciesByNameSubstring("Dollar");
         assertFalse(currencies.isEmpty());
         assertEquals("USD", currencies.get(0).getShortTitle());
     }

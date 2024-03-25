@@ -21,7 +21,7 @@ public class ExchangeRate {
     @Column(name = "id")
     private Long id = 0L;
 
-    @Column(name = "local_date_time")
+    @Column(name = "local_date_time", nullable = false)
     private LocalDateTime localDateTime;
 
     @Column(name = "rate_val", nullable = false)

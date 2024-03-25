@@ -11,9 +11,6 @@ import ru.teamscore.java23.models.ExchangeRate;
 import ru.teamscore.java23.models.PriceStatistics;
 import ru.teamscore.java23.models.enums.Direction;
 import ru.teamscore.java23.models.enums.Period;
-import ru.teamscore.java23.models.services.CurrencyManager;
-import ru.teamscore.java23.models.services.CurrencyPairManager;
-import ru.teamscore.java23.models.services.ExchangeRateManager;
 import ru.teamscore.java23.models.statistics.StatisticsService;
 
 import java.io.IOException;
@@ -28,9 +25,9 @@ class StatisticsServiceTest {
 
     private static EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
-    private CurrencyPairManager currencyPairManager;
-    private CurrencyManager currencyManager;
-    private ExchangeRateManager rateManager;
+    private CurrencyPairService currencyPairService;
+    private CurrencyService currencyService;
+    private ExchangeRateService rateManager;
 
     @BeforeAll
     public static void setup() throws IOException {
@@ -50,9 +47,9 @@ class StatisticsServiceTest {
         SqlScripts.runFromFile(entityManagerFactory, "insertTestCurrencyPair.sql");
         SqlScripts.runFromFile(entityManagerFactory, "insertExchangeRate.sql");
         entityManager = entityManagerFactory.createEntityManager();
-        currencyManager = new CurrencyManager(entityManager);
-        currencyPairManager = new CurrencyPairManager(entityManager, currencyManager);
-        rateManager = new ExchangeRateManager(entityManager);
+        currencyService = new CurrencyService(entityManager);
+        currencyPairService = new CurrencyPairService(entityManager, currencyService);
+        rateManager = new ExchangeRateService(entityManager);
     }
 
     @AfterEach
@@ -74,7 +71,7 @@ class StatisticsServiceTest {
 
     @Test
     void testGetStatsWithDateRange() {
-        var currencyPair =  currencyPairManager.getAllCurrencyPairs().get(1);
+        var currencyPair =  currencyPairService.getAllCurrencyPairs().get(1);
 
         ExchangeRate rate1 = new ExchangeRate(
                 LocalDateTime.parse("2024-04-01T06:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
@@ -109,7 +106,7 @@ class StatisticsServiceTest {
     @Test
     void testGetStatsWithNum() {
 
-        CurrencyPair currencyPair = currencyPairManager.getAllCurrencyPairs().get(1);
+        CurrencyPair currencyPair = currencyPairService.getAllCurrencyPairs().get(1);
         
         ExchangeRate rate1 = new ExchangeRate(
                 LocalDateTime.parse("2024-01-01T04:04:00", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")),
