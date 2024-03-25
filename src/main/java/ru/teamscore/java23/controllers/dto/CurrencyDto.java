@@ -17,4 +17,12 @@ public class CurrencyDto {
         this.shortTitle = currency.getShortTitle();
         this.fullTitle = currency.getFullTitle();
     }
+
+    public Currency toCurrency() {
+        return new Currency(
+                id,
+                shortTitle,
+                fullTitle
+        );
+    }
 }

@@ -9,19 +9,19 @@ import ru.teamscore.java23.models.CurrencyPair;
 import ru.teamscore.java23.models.ExchangeRate;
 
 import org.hibernate.cfg.Configuration;
-import ru.teamscore.java23.models.services.CurrencyManager;
-import ru.teamscore.java23.models.services.CurrencyPairManager;
+import ru.teamscore.java23.services.CurrencyService;
+import ru.teamscore.java23.services.CurrencyPairService;
 
 import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CurrencyPairManagerTest {
+class CurrencyPairServiceTest {
     private static EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
-    private CurrencyPairManager currencyPairManager;
-    private CurrencyManager currencyManager;
+    private CurrencyPairService currencyPairService;
+    private CurrencyService currencyService;
 
     @BeforeAll
     public static void setup() throws IOException {
@@ -40,8 +40,8 @@ class CurrencyPairManagerTest {
         SqlScripts.runFromFile(entityManagerFactory, "insertTestCurrencies.sql");
         SqlScripts.runFromFile(entityManagerFactory, "insertTestCurrencyPair.sql");
         entityManager = entityManagerFactory.createEntityManager();
-        currencyManager = new CurrencyManager(entityManager);
-        currencyPairManager = new CurrencyPairManager(entityManager, currencyManager);
+        currencyService = new CurrencyService(entityManager);
+        currencyPairService = new CurrencyPairService(entityManager, currencyService);
     }
 
     @AfterEach
@@ -62,7 +62,7 @@ class CurrencyPairManagerTest {
 
     @Test
     void searchCurrencyPairsByCurrencyName() {
-        var currencyPair = currencyPairManager.searchCurrencyPairsByCurrencyName("USD","EUR");
+        var currencyPair = currencyPairService.searchCurrencyPairsByCurrencyName("USD","EUR");
         assertNotNull(currencyPair);
         assertEquals("USD", currencyPair.getBaseCurrency().getShortTitle());
         assertEquals("EUR", currencyPair.getQuotedCurrency().getShortTitle());
@@ -77,22 +77,22 @@ class CurrencyPairManagerTest {
                 2
         );
 
-        currencyPairManager.saveOrUpdateCurrencyPair(currencyPair);
+        currencyPairService.saveOrUpdateCurrencyPair(currencyPair);
 
-        assertSame(currencyPair.getBaseCurrency(), currencyPairManager.getCurrencyPairByNames("HOS", "BIC").get().getBaseCurrency());
-        assertSame(currencyPair.getQuotedCurrency(), currencyPairManager.getCurrencyPairByNames("HOS", "BIC").get().getQuotedCurrency());
+        assertSame(currencyPair.getBaseCurrency(), currencyPairService.getCurrencyPairByNames("HOS", "BIC").get().getBaseCurrency());
+        assertSame(currencyPair.getQuotedCurrency(), currencyPairService.getCurrencyPairByNames("HOS", "BIC").get().getQuotedCurrency());
     }
 
     @Test
     void deleteCurrencyPairById() {
-        currencyPairManager.deleteCurrencyPairById(2);
+        currencyPairService.deleteCurrencyPairById(2);
 
-        assertEquals(1 ,currencyPairManager.getAllCurrencyPairs().size());
+        assertEquals(1 , currencyPairService.getAllCurrencyPairs().size());
     }
 
     @Test
     void getCurrencyPairByNames() {
-        Optional<CurrencyPair> result = currencyPairManager.getCurrencyPairByNames("USD", "EUR");
+        Optional<CurrencyPair> result = currencyPairService.getCurrencyPairByNames("USD", "EUR");
 
         assertNotNull(result);
         assertEquals("USD", result.get().getBaseCurrency().getShortTitle());

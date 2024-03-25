@@ -2,9 +2,11 @@ package ru.teamscore.java23.controllers.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.teamscore.java23.models.Currency;
 import ru.teamscore.java23.models.CurrencyPair;
 import ru.teamscore.java23.models.ExchangeRate;
+import ru.teamscore.java23.services.CurrencyService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,8 +17,10 @@ public class CurrencyPairDto {
     private Long id = 0L;
     private ExchangeRateListDto exchangeRateList;
     private int precision;
-    private CurrencyDto baseCurrency;
-    private CurrencyDto quotedCurrency;
+    private Currency baseCurrency;
+    private Currency quotedCurrency;
+    @Setter
+    private CurrencyService currencyService;
 
     public CurrencyPairDto(CurrencyPair pair) {
         this.id = pair.getId();
@@ -25,8 +29,16 @@ public class CurrencyPairDto {
                 .map(ExchangeRateDto::new)
                 .collect(Collectors.toList()));
         this.precision = pair.getPrecision();
-        this.baseCurrency = new CurrencyDto(pair.getBaseCurrency());
-        this.quotedCurrency = new CurrencyDto(pair.getQuotedCurrency());
+        this.baseCurrency = pair.getBaseCurrency();
+        this.quotedCurrency = pair.getQuotedCurrency();
     }
 
+    public CurrencyPair toCurrencyPair() {
+        return new CurrencyPair(
+                id,
+                currencyService.getCurrencyByShortTitle(baseCurrency.getShortTitle()),
+                currencyService.getCurrencyByShortTitle(quotedCurrency.getShortTitle()),
+                precision
+        );
+    }
 }

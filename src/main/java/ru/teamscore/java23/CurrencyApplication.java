@@ -14,34 +14,7 @@ import org.springframework.web.context.annotation.RequestScope;
 
 @SpringBootApplication
 public class CurrencyApplication {
-
-    @Value("${spring.datasource.url}")
-    private String dataSourceUrl;
-
-    @Value("${spring.datasource.username}")
-    private String dataSourceUsername;
-
-    @Value("${spring.datasource.password}")
-    private String dataSourcePassword;
-
     public static void main(String[] args) {
         SpringApplication.run(CurrencyApplication.class, args);
-    }
-
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(new DriverManagerDataSource(dataSourceUrl,
-                dataSourceUsername,
-                dataSourcePassword));
-        em.setPackagesToScan("ru.teamscore.java23.models");
-        em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        return em;
-    }
-
-    @Bean
-    @RequestScope
-    public EntityManager entityManager(EntityManagerFactory entityManagerFactory) {
-        return entityManagerFactory.createEntityManager();
     }
 }
